@@ -1,0 +1,3502 @@
+$schema: 'https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json'
+name: SAS
+patterns:
+  - include: '#global'
+  - include: '#data_step'
+  - include: '#sql'
+  - include: '#fedsql'
+  - include: '#proc'
+
+# repository
+repository:
+  # *global
+  global:
+    patterns:
+      - include: '#comment'
+      - include: '#constant'
+      - include: '#macro'
+      - include: '#string'
+      - include: '#operator'
+      - include: '#system_option'
+      - include: '#ods_statement'
+      - include: '#global_statement_keyword'
+      - include: '#function'
+
+  # comment
+  comment: 
+    patterns:
+      - name: comment.line.sas
+        begin: (?<=(^|;|\w+:)\s*)\*
+        end: ;
+      - name: comment.line.sas
+        begin: (?<=(^|;|\w+:)\s*%)\*
+        end: ;
+      - name: comment.line.sas
+        begin: (?i)(?<=(^|;|\w+:)\s*)comment(?![_\+=\[{:\.])(?=\b)
+        end: ;
+      - name: comment.block.sas
+        begin: \/\*
+        end: \*\/
+
+  # constant
+  constant:
+    patterns:
+      - name: constant.numeric.sas
+        match: (?i)\b[0-9]*\.?[0-9]+([ed][-+]?[0-9]+)?\b
+      - name: constant.numeric.quote.single.sas
+        match: (?i)'[^']*'(dt|d|t)
+      - name: constant.numeric.quote.double.sas
+        match: (?i)"[^"]*"(dt|d|t)
+
+  # Macro
+  # ref: Macro Statements
+  # ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/mcrolref/p0b6jxu7c65h63n1inak5lx7fys2.htm
+  # ref: Macro Functions
+  # ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/mcrolref/p0a17zv6igdg7jn1e7r6sm0l0gtk.htm
+  # ref: AutoCall Macros
+  # ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/mcrolref/n1pawushwfuic6n1afk2q6jmcar0.htm
+  # ref: Automatic Macro Variables
+  # ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/mcrolref/n0t7cm070dig9hn1kmz3892ebtmw.htm
+  macro:
+    patterns:
+      # macro statment reversed keywords
+      - name: keyword.control.macro.reversed.statment
+        match: (?i)%(ABORT|COPY|DISPLAY|DO|TO|UNTIL|WHILE|END|GLOBAL|GOTO|IF|THEN|ELSE|INPUT|LET|LOCAL|MACRO|MEND|PUT|RETURN|SYMDEL|SYSCALL|SYSEXEC|SYSLPUT|SYSMACDELETE|SYSMSTORECLEAR|SYSRPUT|WINDOW)(?=\b)
+      # macro function reversed keyword
+      - name: keyword.control.macro.reversed.function
+        match: (?i)%(BQUOTE|EVAL|INDEX|LENGTH|NRBQUOTE|NRQUOTE|NRSTR|QSCAN|QSUBSTR|QSYSFUNC|QUOTE|QUPCASE|SCAN|STR|SUBSTR|SUPERQ|SYMEXIST|SYMGLOBL|SYMLOCAL|SYSEVALF|SYSFUNC|SYSGET|SYSMACEXEC|SYSMACEXIST|SYSMEXECDEPTH|SYSMEXECNAME|SYSPROD|UNQUOTE|UPCASE)(?=\b)
+      # autocall macro reversed keyword
+      - name: keyword.control.macro.reversed.autocall
+        match: (?i)%(CMPRES|QCMPRES|COMPSTOR|DATATYP|KVERIFY|LEFT|LOWCASE|QLOWCASE|QLEFT|QTRIM|SYSRC|TRIM|VERIFY)(?=\b)
+      # macro variable reversed keyword
+      - name: keyword.control.macro.reversed.variable
+        match: (?i)\&(SYSADDRBITS|SYSBUFFR|SYSCC|SYSCHARWIDTH|SYSCMD|SYSDATASTEPPHASE|SYSDATE|SYSDATE9|SYSDAY|SYSDEVIC|SYSDMG|SYSDSN|SYSENCODING|SYSENDIAN|SYSENV|SYSERR|SYSERRORTEXT|SYSFILRC|SYSHOSTINFOLONG|SYSHOSTNAME|SYSINCLUDEFILEDEVICE|SYSINCLUDEFILEDIR|SYSINCLUDEFILEFILEREF|SYSINCLUDEFILENAME|SYSINDEX|SYSINFO|SYSJOBID|SYSLAST|SYSLCKRC|SYSLIBRC|SYSLOGAPPLNAME|SYSMACRONAME|SYSMAXLONG|SYSMENV|SYSMSG|SYSNCPU|SYSNOBS|SYSODSESCAPECHAR|SYSODSGRAPHICS|SYSODSPATH|SYSPARM|SYSPBUFF|SYSPRINTTOLIST|SYSPRINTTOLOG|SYSPROCESSID|SYSPROCESSMODE|SYSPROCESSNAME|SYSPROCNAME|SYSRC|SYSSCP|SYSSCPL|SYSSITE|SYSSIZEOFLONG|SYSSIZEOFPTR|SYSSIZEOFUNICODE|SYSSTARTID|SYSSTARTNAME|SYSTCPIPHOSTNAME|SYSTIME|SYSTIMEZONE|SYSTIMEZONEIDENT|SYSTIMEZONEOFFSET|SYSUSERID|SYSVER|SYSVLONG|SYSVLONG4|SYSWARNINGTEXT)(?=\b)
+      # macro function
+      - name: variable.macro.function
+        match: (?i)%[_A-Z][\w]*(?=\b)
+      # macro variable
+      - name: variable.macro.variable
+        match: (?i)&[_A-Z][\w]*(?=\b)
+      # macro function alert
+      - name: invalid.macro.reversed.statment
+        match: (?i)(?<=%MACRO\b\s+)(ABORT|COPY|DISPLAY|DO|TO|UNTIL|WHILE|END|GLOBAL|GOTO|IF|THEN|ELSE|INPUT|LET|LOCAL|MACRO|MEND|PUT|RETURN|SYMDEL|SYSCALL|SYSEXEC|SYSLPUT|SYSMACDELETE|SYSMSTORECLEAR|SYSRPUT|WINDOW)(?=\b)
+      - name: invalid.macro.reversed.function
+        match: (?i)(?<=%MACRO\b\s+)(BQUOTE|EVAL|INDEX|LENGTH|NRBQUOTE|NRQUOTE|NRSTR|QSCAN|QSUBSTR|QSYSFUNC|QUOTE|QUPCASE|SCAN|STR|SUBSTR|SUPERQ|SYMEXIST|SYMGLOBL|SYMLOCAL|SYSEVALF|SYSFUNC|SYSGET|SYSMACEXEC|SYSMACEXIST|SYSMEXECDEPTH|SYSMEXECNAME|SYSPROD|UNQUOTE|UPCASE)(?=\b)
+      - name: invalid.macro.reversed.autocall
+        match: (?i)(?<=%MACRO\b\s+)(CMPRES|QCMPRES|COMPSTOR|DATATYP|KVERIFY|LEFT|LOWCASE|QLOWCASE|QLEFT|QTRIM|SYSRC|TRIM|VERIFY)(?=\b)
+      # macro variable alert
+      - name: invalid.macro.reversed.variable
+        match: (?i)(?<=%LET\b\s+)(SYSADDRBITS|SYSBUFFR|SYSCC|SYSCHARWIDTH|SYSCMD|SYSDATASTEPPHASE|SYSDATE|SYSDATE9|SYSDAY|SYSDEVIC|SYSDMG|SYSDSN|SYSENCODING|SYSENDIAN|SYSENV|SYSERR|SYSERRORTEXT|SYSFILRC|SYSHOSTINFOLONG|SYSHOSTNAME|SYSINCLUDEFILEDEVICE|SYSINCLUDEFILEDIR|SYSINCLUDEFILEFILEREF|SYSINCLUDEFILENAME|SYSINDEX|SYSINFO|SYSJOBID|SYSLAST|SYSLCKRC|SYSLIBRC|SYSLOGAPPLNAME|SYSMACRONAME|SYSMAXLONG|SYSMENV|SYSMSG|SYSNCPU|SYSNOBS|SYSODSESCAPECHAR|SYSODSGRAPHICS|SYSODSPATH|SYSPARM|SYSPBUFF|SYSPRINTTOLIST|SYSPRINTTOLOG|SYSPROCESSID|SYSPROCESSMODE|SYSPROCESSNAME|SYSPROCNAME|SYSRC|SYSSCP|SYSSCPL|SYSSITE|SYSSIZEOFLONG|SYSSIZEOFPTR|SYSSIZEOFUNICODE|SYSSTARTID|SYSSTARTNAME|SYSTCPIPHOSTNAME|SYSTIME|SYSTIMEZONE|SYSTIMEZONEIDENT|SYSTIMEZONEOFFSET|SYSUSERID|SYSVER|SYSVLONG|SYSVLONG4|SYSWARNINGTEXT)(?=\b)
+      # %macro
+      - begin: (?i)(?<=%MACRO)\b
+        end: (?i)\b(?=%MEND)
+        patterns:
+        - include: '#global'
+        - include: '#data_step'
+        - include: '#sql'
+        - include: '#fedsql'
+        - include: '#proc'
+        - include: '#data_step_statment_keyword'
+        - include: '#data_set_option'
+        - include: '#format_informat'
+        - include: '#sql_statement'
+        - include: '#query_expression'
+
+  # string
+  string:
+    patterns:
+      - name: string.quoted.double.sas
+        begin: (")
+        end: \1
+        patterns:
+          - include: '#macro'
+      - name: string.quoted.single.sas
+        begin: (')
+        end: \1
+
+  # operator
+  # ref: SAS Operators
+  # ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/lepg/p1n8bsqqd03xppn17pgvjpjlbhhs.htm
+  operator:
+    patterns:
+      - name: keyword.operator.arithmetic.sas
+        match: '[\+\-\*\/]'
+      - name: keyword.operator.other.sas
+        match: (><|<>|\|\||!!)
+      - name: keyword.operator.other.sas
+        match: (?i)(?<=\s)(MIN|MAX)(?=\b)
+      - name: keyword.operator.logical.sas
+        match: (=|^=|~=|>|<|>=|<=|&|\||!|~)
+      - name: keyword.operator.logical.sas
+        match: (?i)(?<=\s)(EQ|NE|GT|LT|GE|LE|IN|AND|OR|NOT)(?=\b)
+
+  # System options
+  # ref: Dictionary of System Options
+  # ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/lesysoptsref/p1tmgku1vq7pwqn1iqioeflxgec1.htm
+  # ref: System Options for Macros
+  # ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/mcrolref/p1sxby0gwy7kwpn18iuz3vijlsoj.htm
+  # ref: System Options for ODS
+  # ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/odsug/p0imtd7cofb8m7n1cvk7uczmimly.htm
+  system_option:
+    begin: (?i)(?<=(^|;|\w+:)\s*)(OPTIONS)\b(?!\s*=)
+    end: ;
+    beginCaptures:
+      0:
+        name: keyword.other.sas
+    patterns:
+      - include: '#global'
+      # System option with arguments
+      - name: keyword.other.sas
+        match: (?i)\b(ANIMATION|ANIMDURATION|ANIMLOOP|APPEND|APPLETLOC|AUTHINFO|AUTOSAVELOC|AZURETENANTID|BINDING|BOTTOMMARGIN|BUFNO|BUFSIZE|CATCACHE|CBUFNO|CGOPTIMIZE|CMPLIB|CMPMODEL|CMPOPT|COLOPHON|COMPRESS|COPIES|CPUCOUNT|CSTGLOBALLIB|CSTSAMPLELIB|DATAPAGESIZE|DATASTMTCHK|DATESTYLE|DEBUGOPT|DECIMALCONV|DEFLATION|DKRICOND|DKROCOND|DLDMGACTION|DMSLOGSIZE|DMSOUTSIZE|DMSPGMLINESIZE|DSACCEL|EMAILACKWAIT|EMAILAUTHPROTOCOL|EMAILHOST|EMAILID|EMAILPW|EMAILUTCOFFSET|ENGINE|ERRORCHECK|ERRORS|EVENTDS|EXTENDOBSCOUNTER|FILESYNC|FIRSTOBS|FMTSEARCH|FONTRENDERING|FONTSLOC|FORMCHAR|FORMDLIM|FORMS|HELPBROWSER|HELPPORT|HTTPSERVERPORTMAX|HTTPSERVERPORTMIN|IBUFNO|IBUFSIZE|IMLPACKAGEPRIVATE|IMLPACKAGEPUBLIC|IMLPACKAGESYSTEM|INITSTMT|INSERT|INTERVALDS|INVALIDDATA|JPEGQUALITY|LABELCHKPTLIB|_LAST_|LEFTMARGIN|LINESIZE|LOGPARM|LRECL|MISSING|MSGLEVEL|NEWS|OBS|ORIENTATION|PAGENO|PAGESIZE|PAPERDEST|PAPERSIZE|PAPERSOURCE|PAPERTYPE|PARM|PARMCARDS|PDFPAGELAYOUT|PDFPAGEVIEW|PDFPASSWORD|PDFPRINT|PDFSECURITY|PRIMARYPROVIDERDOMAIN|PRINTERPATH|REUSE|RIGHTMARGIN|S|S2|S2V|SASHELP|SASUSER|SEQ|SERVICESBASEURL|SKIP|SORTSIZE|STEPCHKPTLIB|STRIPESIZE|SUMSIZE|SVGFADEIN|SVGFADEMODE|SVGFADEOUT|SVGHEIGHT|SVGPRESERVEASPECTRATIO|SVGTITLE|SVGVIEWBOX|SVGWIDTH|SVGX|SVGY|SYSPRINTFONT|TERMSTMT|TEXTURELOC|TIMEZONE|TOPMARGIN|TRAINLOC|UBUFNO|UBUFSIZE|URLENCODING|USER|UTILLOC|UUIDCOUNT|UUIDGENDHOST|V6CREATEUPDATE|VALIDFMTNAME|VALIDMEMNAME|VALIDVARNAME|VARINITCHK|VARLENCHK|VBUFSIZE|WORK|YEARCUTOFF)\s*(?==)
+      # System option without arguments
+      - name: keyword.other.sas
+        match: (?i)\b(NO)*(ACCESSIBLECHECK|ACCESSIBLEGRAPH|ACCESSIBLEPDF|ACCESSIBLETABLE|ALIGNSASIOFILES|ANIMOVERLAY|AUTHPROVIDERDOMAIN|AUTOCORRECT|AZUREAUTHCACHELOC|BYERR|BYLINE|BYSORTED|CAPS|CARDIMAGE|CENTER|CHARCODE|CHKPTCLEAN|CLEANUP|COLLATE|COLORPRINTING|CPUID|DATE|DETAILS|DLCREATEDIR|DMR|DMS|DMSEXP|DMSSYNCHK|DSNFERR|DTRESET|DUPLEX|ECHOAUTO|EMAILFROM|EMAILPORT|ERRORABEND|ERRORBYABEND|EXPLORER|FMTERR|FONTEMBEDDING|HELPENCMD|HELPHOST|HOSTINFOLONG|INITCMD|LABEL|LABELCHKPT|LABELRESTART|MERGENOBY|MULTENVAPPL|NOTES|NUMBER|OVP|PAGEBREAKINITIAL|PDFACCESS|PDFASSEMBLY|PDFCOMMENT|PDFCONTENT|PDFCOPY|PDFFILLIN|PRESENV|PRINTINIT|PRINTMSGLIST|QUOTELENMAX|REPLACE|RLANG|RSASUSER|SET|SETINIT|SOLUTIONS|SORTEQUALS|SORTVALIDATE|SOURCE|SOURCE2|SPOOL|STARTLIB|STEPCHKPT|STEPRESTART|SVGAUTOPLAY|SVGCONTROLBUTTONS|SVGMAGNIFYBUTTON|SYNTAXCHECK|TERMINAL|THREADS|UPRINTCOMPRESSION|VNFERR|WORKINIT|WORKTERM)\b
+      # Macro system option with arguments
+      # MAUTOCOMPLOC doc bug
+      - name: keyword.other.sas
+        match: (?i)\b(MAUTOCOMPLOC|MCOVERAGELOC|MINDELIMITER|MSYMTABMAX|MVARSIZE|SASAUTOS|SASMSTORE|SYSPARM)\s*(?==)
+      # Macro system option without arguments
+      - name: keyword.other.sas
+        match: (?i)\b(NO)*(CMDMAC|IMPLMAC|MACRO|MAUTOLOCDISPLAY|MAUTOLOCINDES|MAUTOSOURCE|MCOMPILE|MCOMPILENOTE|MCOVERAGE|MERROR|MEXECNOTE|MEXECSIZE|MFILE|MINOPERATOR|MLOGIC|MLOGICNEST|MPRINT|MPRINTNEST|MRECALL|MREPLACE|MSTORED|SERROR|SYMBOLGEN)\b
+      # ODS system option with arguments
+      - name: keyword.other.sas
+        match: (?i)\b(ODSDEST|ODSGRAPHICS|ODSSTYLE)\s*(?==)
+
+  # ODS statements
+  # ref: Dictionary of ODS Language Statements
+  # ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/odsug/p12kuaym0e53mpn1o818euwkk7pk.htm
+  ods_statement:
+    begin: (?i)(?<=(^|;|\w+:)\s*)(ODS)\b(?!\s*=)
+    end: ;
+    beginCaptures:
+      0:
+        name: keyword.other.sas
+    patterns:
+        - begin: (?i)(?<=(^|;|\w+:)\s*ODS\b\s+)(_ALL_\s+CLOSE|CHTML|CSVALL|DECIMAL_ALIGN|DOCUMENT|EPUB|EPUB2|EPUB3|ESCAPECHAR(?=\s+=)|EXCEL|(\w+\s+)*EXCLUDE|GRAPHICS|HTML|HTML3|HTML5|LAYOUT\s+ABSOLUTE|LAYOUT\s+END|LAYOUT\s+GRIDDED|LISTING|MARKUP|NO_DECIMAL_ALIGN|OUTPUT|PACKAGE|PATH|PCL|PDF|POWERPOINT|PREFERENCES|PHTML|PRINTER|(NO)*PROCLABEL|PROCTITLE|PS|REGION|RESULTS|RTF|(\w+\s+)*SELECT|(\w+\s+)*SHOW|TAGSETS.RTF|TEXT(?=\s+=)|TRACE|(NO)*USEGOPT|VERIFY|WORD)(?=\b)
+          end: (\b(?=;)|\B(?=;))
+          beginCaptures:
+            0:
+              name: keyword.other.sas
+          patterns:
+            - include: '#global'
+            # option with arguments
+            - name: keyword.other.sas
+              match: (?i)\b(ABSTRACT|ADVANCE|ADVANCE_AFTER|ANCHOR|ANTIALIASMAX|ARCHIVE|ATTRIBUTES|ATTRPRIORITY|AUTHOR|BASE|BITMAP_MODE|BODY|BOOKMARKLIST|BOX_SIZING|BYLINE|CATALOG|CATEGORY|CHARSET|CODE|CODEBASE|COLOR|COLUMN|COLUMN_GUTTER|COLUMN_SPAN|COLUMN_WIDTHS|COLUMNS|COMMENTS|COMPRESS|CSSSTYLE|DATAPANEL|DATASKINMAX|DESCRIPTION|DEVICE|DIR|DISCRETEMAX|DOC|DPI|DRILLTARGET|ENCODING|EVENT|EXPIRATION|FILE|FRAME|GPATH|GROUPMAX|HEADTEXT|HEIGHT|ID|IMAGENAME|KEYWORDS|LABELMAX|LABELPLACEMENT|LAYOUT|LEGENDAREAMAX|LINEPATTERNOBSMAX|LOESSOBSMAX|METATEXT|MIMETYPE|NAME|NAMEVALUE|NBINSMAX|NEWCHAPTER|NEWFILE|NXYBINSMAX|OBSMAX|OPERATOR|ORDER_TYPE|OUTPUTFMT|PAGEPANELS|PANELCELLMAX|PARAMETERS|PATH|PDFTOC|PREPAGE|PRINTER|RECORD_SEPARATOR|ROW|ROW_GUTTER|ROW_HEIGHTS|ROW_SPAN|ROWS|SGE|STACKDEPTHMAX|STARTPAGE|STATUS|STYLE|STYLESHEET|SUBJECT|TABLEROWS|TAGSET|TIPMAX|TITLE|TOTALCELLMAX|TRANTAB|WHERE|WIDTH|WORK|X|Y)\s*(?==)
+            # option without arguments
+            - name: keyword.other.sas
+              match: (?i)\b(ACCESSIBLE|ACCESSIBLE_GRAPH|ACCESSIBLE_IDENTIFIER|ADD|ALL|ANTIALIAS|APPEND|BODYTITLE|BODYTITLE_AUX|BOOKMARKGEN|BORDER|BYGROUP|CLEAR|CLOSE|COLUMN_MAJOR|CONTENTS|DATA|DOM|ERROR|EXCLUDE|EXCLUDED|EXPLICIT|GFOOTNOTE|GTITLE|HEADERS|HOST|IMAGE_DPI|IMAGEMAP|KEEPN|LABEL|LISTING|MATCH_ALL|NOACCESSIBLE|NOACCESSIBLE_GRAPH|NOACCESSIBLE_IDENTIFIER|NOANTIALIAS|NOBOOKMARKGEN|NOBORDER|NOGFOOTNOTE|NOGTITLE|NOIMAGEMAP|NOKEEPN|NONE|NOPDFNOTE|NOSCALE|NOSCALEMARKERS|NOSUBPIXEL|NOTOC|NOTOC_DATA|NOTRKEEP|NOWARN|OFF|ON|OPEN|OPTIONS|PACKAGE|PAGE|PCL|PDF|PDFMARK|PDFNOTE|PERSIST|POP|PREPEND|PROC|PROPERTIES|PS|PUBLISH|PUSH|READ|REMOVE|RESET|ROW_MAJOR|ROWHEADERS|RUN|SASDATE|SCALE|SCALEMARKERS|SELECT|SHOW|SUBPIXEL|TABLE|TABLES|TAGSETSRTF|TEXT|TOC_DATA|UNIFORM|UPDATE|WARN|WRITE)\b
+
+  # Global statements
+  # ref: Dictionary of SAS Global Statements
+  # ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/lestmtsglobal/n0e7kamd4b486zn10o4lcseg4qvd.htm
+  # withdraw Comment, leave in comment
+  # NO Null
+  # withdraw OPTIONS, leave in system options
+  global_statement_keyword:
+    patterns:
+      - name: keyword.run.sas
+        match: (?i)(?<=(^|;|\w+:)\s*)(RUN)\b(?!\s*=)
+      - name: keyword.other.global.sas
+        match: (?i)(?<=(^|;|\w+:)\s*)(CATNAME|CHECKPOINT\s+EXECUTE_ALWAYS|DM|ENDSAS|FILENAME|FOOTNOTE\d*|%INCLUDE|LIBNAME|%LIST|LOCK|MISSING|PAGE|RESETLINE|%RUN|SASFILE|SKIP|SYSECHO|TITLE\d*|X)\b(?!\s*=)
+
+  # Functions
+  # ref: Dictionary of Functions and CALL Routines
+  # ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/lefunctionsref/p1q8bq2v0o11n6n1gpij335fqpph.htm
+  # ref: DATA Step Call Routines for Macros
+  # ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/mcrolref/p04018ahubua8jn1edv7rmmfif4z.htm
+  # ref: DATA Step Functions for Macros
+  # ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/mcrolref/n0j8y6c0wh0pbon1s90k3f41400d.htm
+  function:
+    patterns:
+      # functions
+      - name: support.function
+        match: (?i)(?<!^\s*)(?<!;\s*)(?<!\w+:\s*)(?<=\b)(ABS|ADDR|ADDRLONG|AIRY|ALLCOMB|ALLPERM|ANYALNUM|ANYALPHA|ANYCNTRL|ANYDIGIT|ANYFIRST|ANYGRAPH|ANYLOWER|ANYNAME|ANYPRINT|ANYPUNCT|ANYSPACE|ANYUPPER|ANYXDIGIT|ARCOS|ARCOSH|ARSIN|ARSINH|ARTANH|ATAN|ATAN2|ATTRC|ATTRN|BAND|BETA|BETAINV|BLACKCLPRC|BLACKPTPRC|BLKSHCLPRC|BLKSHPTPRC|BLSHIFT|BNOT|BOR|BRSHIFT|BXOR|BYTE|CAT|CATQ|CATS|CATT|CATX|CDF|CEIL|CEILZ|CEXIST|CHAR|CHOOSEC|CHOOSEN|CINV|CLOSE|CMISS|CNONCT|COALESCE|COALESCEC|COLLATE|COMB|COMPARE|COMPBL|COMPFUZZ|COMPGED|COMPLEV|COMPOUND|COMPRESS|COMPSRV_OVAL|COMPSRV_UNQUOTE2|CONSTANT|CONVX|CONVXP|COS|COSH|COT|COUNT|COUNTC|COUNTW|CSC|CSS|CUMIPMT|CUMPRINC|CUROBS|CV|DACCDB|DACCDBSL|DACCSL|DACCSYD|DACCTAB|DAIRY|DATDIF|DATE|DATEJUL|DATEPART|DATETIME|DAY|DCLOSE|DCREATE|DEPDB|DEPDBSL|DEPSL|DEPSYD|DEPTAB|DEQUOTE|DEVIANCE|DHMS|DIF|DIGAMMA|DIM|DINFO|DIVIDE|DLGCDIR|DNUM|DOPEN|DOPTNAME|DOPTNUM|DOSUBL|DREAD|DROPNOTE|DSNAME|DSNCATLGD|DUR|DURP|EFFRATE|ENVLEN|ERF|ERFC|EUCLID|EXIST|EXP|FACT|FAPPEND|FCLOSE|FCOL|FCOPY|FDELETE|FETCH|FETCHOBS|FEXIST|FGET|FILEEXIST|FILENAME|FILEREF|FINANCE|FIND|FINDC|FINDW|FINFO|FINV|FIPNAME|FIPNAMEL|FIPSTATE|FIRST|FLOOR|FLOORZ|FMTINFO|FNONCT|FNOTE|FOPEN|FOPTNAME|FOPTNUM|FPOINT|FPOS|FPUT|FREAD|FREWIND|FRLEN|FSEP|FUZZ|FWRITE|GAMINV|GAMMA|GARKHCLPRC|GARKHPTPRC|GCD|GEODIST|GEOMEAN|GEOMEANZ|GETVARC|GETVARN|GIT_BRANCH_CHKOUT|GIT_BRANCH_DELETE|GIT_BRANCH_MERGE|GIT_BRANCH_NEW|GIT_CLONE|GIT_COMMIT_FREE|GIT_COMMIT|GIT_COMMIT_GET|GIT_COMMIT_LOG|GIT_DELETE_REPO|GIT_DIFF_FILE_IDX|GIT_DIFF_FREE|GIT_DIFF|GIT_DIFF_GET|GIT_DIFF_TO_FILE|GIT_FETCH|GIT_INDEX_ADD|GIT_INDEX_REMOVE|GIT_INIT_REPO|GIT_PULL|GIT_PUSH|GIT_REBASE|GIT_REBASE_OP|GIT_RESET_FILE|GIT_RESET|GIT_SET_URL|GIT_STASH_APPLY|GIT_STASH_DROP|GIT_STASH|GIT_STASH_POP|GIT_STATUS_FREE|GIT_STATUS|GIT_STATUS_GET|GIT_VERSION|GITFN_CLONE|GITFN_CO_BRANCH|GITFN_COMMIT_GET|GITFN_COMMITFREE|GITFN_COMMIT_LOG|GITFN_COMMIT|GITFN_DEL_BRANCH|GITFN_DEL_REPO|GITFN_DIFF_FREE|GITFN_DIFF_GET|GITFN_DIFF_IDX_F|GITFN_DIFF|GITFN_IDX_ADD|GITFN_IDX_REMOVE|GITFN_MRG_BRANCH|GITFN_NEW_BRANCH|GITFN_PULL|GITFN_PUSH|GITFN_RESET_FILE|GITFN_RESET|GITFN_STATUS|GITFN_STATUS_GET|GITFN_STATUSFREE|GITFN_VERSION|GRAYCODE|HARMEAN|HARMEANZ|HASHING|HASHING_FILE|HASHING_HMAC|HASHING_HMAC_FILE|HASHING_HMAC_INIT|HASHING_INIT|HASHING_PART|HASHING_TERM|HBOUND|HMS|HOLIDAY|HOLIDAYCK|HOLIDAYCOUNT|HOLIDAYNAME|HOLIDAYNX|HOLIDAYNY|HOLIDAYTEST|HOUR|HTMLDECODE|HTMLENCODE|IBESSEL|IFC|IFN|INDEX|INDEXC|INDEXW|INPUT|INPUTC|INPUTN|INT|INTCINDEX|INTCK|INTCYCLE|INTFIT|INTFMT|INTGET|INTINDEX|INTNX|INTRR|INTSEAS|INTSHIFT|INTTEST|INTZ|IORCMSG|IPMT|IQR|IRR|JBESSEL|JSONPP|JULDATE|JULDATE7|KURTOSIS|LAG|LARGEST|LBOUND|LCM|LCOMB|LEFT|LENGTH|LENGTHC|LENGTHM|LENGTHN|LEXCOMB|LEXCOMBI|LEXPERK|LEXPERM|LFACT|LGAMMA|LIBNAME|LIBREF|LOG|LOG10|LOG1PX|LOG2|LOGBETA|LOGCDF|LOGISTIC|LOGPDF|LOGSDF|LOWCASE|LPERM|LPNORM|MAD|MARGRCLPRC|MARGRPTPRC|MAX|MD5|MDY|MEAN|MEDIAN|MIN|MINUTE|MISSING|MOD|MODEXIST|MODULE|MODULEC|MODULEN|MODZ|MONTH|MOPEN|MORT|MSPLINT|MVALID|N|NETPV|NLITERAL|NMISS|NOMRATE|NORMAL|NOTALNUM|NOTALPHA|NOTCNTRL|NOTDIGIT|NOTE|NOTFIRST|NOTGRAPH|NOTLOWER|NOTNAME|NOTPRINT|NOTPUNCT|NOTSPACE|NOTUPPER|NOTXDIGIT|NPV|NVALID|NWKDOM|OPEN|ORDINAL|PATHNAME|PCTL|PDF|PEEK|PEEKC|PEEKCLONG|PEEKLONG|PERM|PMT|POINT|POISSON|PPMT|PROBBETA|PROBBNML|PROBBNRM|PROBCHI|PROBF|PROBGAM|PROBHYPR|PROBIT|PROBMC|PROBMED|PROBNEGB|PROBNORM|PROBT|PROPCASE|PRXCHANGE|PRXMATCH|PRXPAREN|PRXPARSE|PRXPOSN|PTRLONGADD|PUT|PUTC|PUTN|PVP|QTR|QUANTILE|QUOTE|RANBIN|RANCAU|RAND|RANEXP|RANGAM|RANGE|RANK|RANNOR|RANPOI|RANTBL|RANTRI|RANUNI|RENAME|REPEAT|RESOLVE|REVERSE|REWIND|RIGHT|RMS|ROUND|ROUNDE|ROUNDZ|SAVING|SAVINGS|SCAN|SDF|SEC|SECOND|SHA256|SHA256HEX|SHA256HMACHEX|SIGN|SIN|SINH|SKEWNESS|SLEEP|SMALLEST|SOAPWEB|SOAPWEBMETA|SOAPWIPSERVICE|SOAPWIPSRS|SOAPWS|SOAPWSMETA|SORT|SOUNDEX|SPEDIS|SQRT|SQUANTILE|STD|STDERR|STFIPS|STNAME|STNAMEL|STRIP|SUBPAD|SUBSTR|SUBSTRN|SUM|SUMABS|SYMEXIST|SYMGET|SYMGLOBL|SYMLOCAL|SYSEXIST|SYSGET|SYSMSG|SYSPARM|SYSPROCESSID|SYSPROCESSNAME|SYSPROD|SYSRC|SYSTEM|TAN|TANH|TIME|TIMEPART|TIMEVALUE|TINV|TNONCT|TODAY|TRANSLATE|TRANSTRN|TRANWRD|TRIGAMMA|TRIM|TRIMN|TRUNC|TSO|TYPEOF|TZONEID|TZONENAME|TZONEOFF|TZONES2U|TZONEU2S|UNIFORM|UPCASE|URLDECODE|URLENCODE|USS|UUIDGEN|VAR|VARFMT|VARINFMT|VARLABEL|VARLEN|VARNAME|VARNUM|VARRAY|VARRAYX|VARTYPE|VERIFY|VFORMAT|VFORMATD|VFORMATDX|VFORMATN|VFORMATNX|VFORMATW|VFORMATWX|VFORMATX|VINARRAY|VINARRAYX|VINFORMAT|VINFORMATD|VINFORMATDX|VINFORMATN|VINFORMATNX|VINFORMATW|VINFORMATWX|VINFORMATX|VLABEL|VLABELX|VLENGTH|VLENGTHX|VNAME|VNAMEX|VTYPE|VTYPEX|VVALUE|VVALUEX|WEEK|WEEKDAY|WHICHC|WHICHN|WTO|YEAR|YIELDP|YRDIF|YYQ|ZIPCITY|ZIPCITYDISTANCE|ZIPFIPS|ZIPNAME|ZIPNAMEL|ZIPSTATE)(?=\s*\()
+      # macro functions (not included above)
+      - name: support.function
+        match: (?i)(?<!^\s*)(?<!;\s*)(?<!\w+:\s*)(?<=\b)(SYMGETN)(?=\s*\()
+      # routines
+      - name: support.function.routine
+        match: (?i)(?<=CALL\s+)(ALLCOMB|ALLCOMBI|ALLPERM|CATS|CATT|CATX|COMPCOST|EXECUTE|GRAYCODE|IS8601_CONVERT|LABEL|LEXCOMB|LEXCOMBI|LEXPERK|LEXPERM|LOGISTIC|MISSING|MODULE|POKE|POKELONG|PRXCHANGE|PRXDEBUG|PRXFREE|PRXNEXT|PRXPOSN|PRXSUBSTR|RANBIN|RANCAU|RANCOMB|RANEXP|RANGAM|RANNOR|RANPERK|RANPERM|RANPOI|RANTBL|RANTRI|RANUNI|SCAN|SET|SLEEP|SOFTMAX|SORT|SORTC|SORTN|STDIZE|STREAM|STREAMINIT|STREAMREWIND|SYMPUT|SYMPUTX|SYSTEM|TANH|TSO|VNAME|VNEXT|WTO)(?=\s*\()
+      # macro routines (not included above)
+      - name: support.function.routine
+        match: (?i)(?<=CALL\s+)(SYMDEL|SYMPUTN)(?=\s*\()
+
+  # Data step
+  # ref: DATA Statement
+  # ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/lestmtsref/n1kh25to5o0wmvn1o4n4hsl3yyww.htm
+  data_step:
+    begin: (?i)(?<=(^|;|\w+:)\s*)(DATA)\b(?!\s*=)
+    end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+    beginCaptures:
+      0:
+        name: keyword.data.sas
+    patterns:
+      - include: '#global'
+      - include: '#data_step_statment_keyword'
+      - include: '#data_set_option'
+      - include: '#format_informat'
+
+  ## Data step statment keyword
+  ## ref: Dictionary of SAS DATA Step Statements
+  ## ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/lestmtsref/p0gct6ariiecuhn15jkq8pzfzgef.htm
+  data_step_statment_keyword:
+    patterns:
+      # special dataset
+      - name: keyword.other.sas
+        match: (?i)(?<=(^|;|\w+:)\s*DATA\s+)(_(NULL|DATA|LAST)_)
+      # if-then
+      - begin: (?i)(?<=(^|;|\w+:|ELSE)\s*)(IF)(?=\b)
+        end: (?i)(?:;|\b(THEN)\b)
+        beginCaptures:
+          0:
+            name: keyword.other.sas
+        endCaptures:
+          1:
+            name: keyword.other.sas
+        patterns:
+          - include: '#global'
+      # then/else
+      - name: keyword.run.sas
+        match: (?i)(?<=((?<=IF\b[^;]*)\bTHEN|\bELSE)\b\s*)(RUN)\b(?!\s*=)
+      - name: keyword.other.global.sas
+        match: (?i)(?<=((?<=IF[^;]*)\bTHEN|\bELSE)\b\s*)(CATNAME|CHECKPOINT\s+EXECUTE_ALWAYS|DM|ENDSAS|FILENAME|FOOTNOTE\d*|%INCLUDE|LIBNAME|%LIST|LOCK|MISSING|PAGE|RESETLINE|%RUN|SASFILE|SKIP|SYSECHO|TITLE\d*|X)\b(?!\s*=)
+      - name: keyword.other.data.sas
+        match: (?i)(?<=((?<=IF[^;]*)\bTHEN|\bELSE)\b\s*)(CARDS|DATALINES|CARDS4|DATALINES4)\b(?!\s*=)
+      - name: keyword.other.data.sas
+        match: (?i)(?<=((?<=IF[^;]*)\bTHEN|\bELSE)\b\s*)(ABORT|ARRAY|ATTRIB|BY|CALL|CONTINUE|DATA|DELETE|DESCRIBE|DISPLAY|DO\s+UNTIL|DO\s+WHILE|DO|DROP|END|ERROR|EXECUTE|FILE|FORMAT|GO\s+TO|GOTO|ELSE|INFILE|INFORMAT|INPUT|KEEP|LABEL|LEAVE|LENGTH|LINK|LIST|LOCKDOWN|LOSTCARD|MERGE|MODIFY|OUTPUT|PUT|PUTLOG|REDIRECT|REMOVE|RENAME|REPLACE|RETAIN|RETURN|SELECT|SET|STOP|UPDATE|WHERE|WINDOW)\b(?!\s*=)
+      # cards/datalines
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(CARDS|DATALINES)\s*;
+        end: (?i)^(?=.*(;|RUN;))
+        beginCaptures:
+          2:
+            name: keyword.other.sas
+        patterns:
+          - name: string.unquoted.sas
+            match: ^.*$
+      # cards4/datalines4
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(CARDS4|DATALINES4)\s*;
+        end: ^(?=;;;;)
+        beginCaptures:
+          2:
+            name: keyword.other.sas
+        patterns:
+          - name: string.unquoted.sas
+            match: ^.*$
+      # other
+      - name: keyword.other.sas
+        match: (?i)(?<=(^|;|\w+:)\s*)(ABORT|ARRAY|ATTRIB|BY|CALL|CONTINUE|DELETE|DESCRIBE|DISPLAY|DO\s+UNTIL|DO\s+WHILE|DO|DROP|END|ERROR|EXECUTE|FILE|FORMAT|GO\s+TO|GOTO|ELSE|INFILE|INFORMAT|INPUT|KEEP|LABEL|LEAVE|LENGTH|LINK|LIST|LOCKDOWN|LOSTCARD|MERGE|MODIFY|OUTPUT|PUT|PUTLOG|REDIRECT|REMOVE|RENAME|REPLACE|RETAIN|RETURN|SELECT|SET|STOP|UPDATE|WHERE|WINDOW)\b(?!\s*=)
+
+  ## Data Set Otions
+  ## ref: Dictionary of Data Set Options
+  ## ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/ledsoptsref/p1pczmnhbq4axpn1l15s9mk6mobp.htm
+  ## for data step
+  data_set_option:
+    begin: (?i)(?<=(DATA|SET)\s+[A-Z_][\d\w_.]*\s*)\(
+    end: \)(?=\s*;)
+    patterns:
+      - include: '#data_set_option_rules'
+
+  ## for sql procedure
+  sql_data_set_option:
+    begin: (?i)(?<=(FROM\s+|,\s*|LIKE\s+)[A-Z_][\d\w_.]*\s*)\(
+    end: \)
+    patterns:
+      - include: '#data_set_option_rules'
+
+  ## for procedure
+  proc_data_set_option:
+    begin: (?i)(?<==\s*[A-Z_][\d\w_.]*\s*)\(
+    end: \)
+    patterns:
+      - include: '#data_set_option_rules'
+
+  ### data set option rules
+  data_set_option_rules:
+    patterns:
+      - include: '#global'
+      - name: keyword.other.data-option.sas
+        match: (?i)\b(ALTER|BUFNO|BUFSIZE|CNTLLEV|COMPRESS|DLDMGACTION|DROP|ENCRYPT|ENCRYPTKEY|EXTENDOBSCOUNTER|FILECLOSE|FIRSTOBS|GENMAX|GENNUM|IDXNAME|IDXWHERE|INDEX|IN|KEEP|LABEL|MAXTABLEMEM|OBSBUF|OBS|OUTREP|POINTOBS|PW|PWREQ|READ|RENAME|REPEMPTY|REPLACE|REUSE|ROLE|SORTEDBY|SPILL|TOBSNO|TYPE|USEDIRECTIO|WHERE|WHEREUP|WRITE)\b(?=\s*=)
+
+  ## Formats and Informats
+  ## ref: Dictionary of Formats
+  ## ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/leforinforref/p0z62k899n6a7wn1r5in6q5253v1.htm
+  ## ref: Dictionary of Informats
+  ## ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/leforinforref/p13eggx7qc7l6in1oprinvadzubl.htm
+  format_informat:
+    patterns:
+    # formats and informats
+    ## $w.
+    - name: support.type.format-informat.$w
+      match: (?i)\B\$(ASCII|BASE64X|BINARY|CHAR|EBCDIC|HEX|OCTAL|QUOTE|UPCASE|UUID|VARYING|)\d*\.
+    ## $w.d
+    - name: support.type.format-informat.$wd
+      match: (?i)\B\$(N8601B|N8601E)\d*\.\d*
+    ## w.
+    - name: support.type.format-informat.w
+      match: (?i)\b(B8601DA|B8601DN|B8601DX|B8601LX|B8601TX|DATE|DDMMYY|E8601DA|E8601DN|E8601DX|E8601LX|E8601TX|HEX|JULIAN|MMDDYY|MONYY|PDJULG|PDJULI|WEEKU|WEEKV|WEEKW|YYMMDD|YYQ)\d*\.
+    ## w.d
+    ## withdraw w.d to avoid replacing numeric
+    - name: support.type.format-informat.wd
+      match: (?i)\b(B8601DT|B8601TM|COMMA|COMMAX|E8601DT|E8601TM|E8601TZ|FLOAT|IB|IBR|IEEE|MDYAMPM|NUMX|PD|PERCENT|PIB|PIBR|PK|RB|S370FF|S370FIB|S370FIBU|S370FPD|S370FPDU|S370FPIB|S370FRB|S370FZD|S370FZDL|S370FZDS|S370FZDT|S370FZDU|VAXRB|VMSZN|ZD)\d*\.\d*
+    
+    # formats
+    ## $w.
+    - name: support.type.format.$w
+      match: (?i)\B\$(CSTR|MSGCASE|REVERJ|REVERS)\d*\.
+    ## $w.d
+    - name: support.type.format.$wd
+      match: (?i)\B\$(N8601BA|N8601EA|N8601EH|N8601EX|N8601H|N8601X)\d*\.\d*
+    ## w.
+    - name: support.type.format.w
+      match: (?i)\b(BEST|BINARY|B8601DZ|B8601LZ|B8601TZ|DAY|DOWNAME|DTDATE|DTMONYY|DTWKDATX|DTYEAR|DTYYQC|E|E8601DZ|E8601LZ|FRACT|JULDAY|MMYY|MONNAME|MONTH|NENGO|NLBEST|NLDATE|NLDATEL|NLDATEM|NLDATEMD|NLDATEMDL|NLDATEMDM|NLDATEMDS|NLDATEMN|NLDATES|NLDATEW|NLDATEWN|NLDATEYM|NLDATEYML|NLDATEYMM|NLDATEYMS|NLDATEYQ|NLDATEYQL|NLDATEYQM|NLDATEYQS|NLDATEYR|NLDATEYW|NLDATM|NLDATMAP|NLDATMDT|NLDATML|NLDATMM|NLDATMMD|NLDATMMDL|NLDATMMDM|NLDATMMDS|NLDATMMN|NLDATMS|NLDATMTM|NLDATMTZ|NLDATMW|NLDATMWN|NLDATMWZ|NLDATMYM|NLDATMYML|NLDATMYMM|NLDATMYMS|NLDATMYQ|NLDATMYQL|NLDATMYQM|NLDATMYQS|NLDATMYR|NLDATMYW|NLDATMZ|NLTIMAP|NLTIME|OCTAL|QTR|QTRR|ROMAN|SSN|WEEKDATE|WEEKDATX|WEEKDAY|WORDDATE|WORDDATX|WORDF|WORDS|YEAR|YYMM|YYMON|YYQR|YYQZ|YYWEEKU|YYWEEKV|YYWEEKW)\d*\.
+    ## w.d
+    - name: support.type.format.wd
+      match: (?i)\b(DATEAMPM|DATETIME|DOLLAR|DOLLARX|EURO|EUROX|F|HHMM|HOUR|MMSS|NEGPAREN|NLMNIAED|NLMNIAUD|NLMNIBGN|NLMNIBRL|NLMNICAD|NLMNICHF|NLMNICNY|NLMNICZK|NLMNIDKK|NLMNIEEK|NLMNIEGP|NLMNIEUR|NLMNIGBP|NLMNIHKD|NLMNIHRK|NLMNIHUF|NLMNIIDR|NLMNIILS|NLMNIINR|NLMNIJPY|NLMNIKRW|NLMNILTL|NLMNILVL|NLMNIMOP|NLMNIMXN|NLMNIMYR|NLMNINOK|NLMNINZD|NLMNIPLN|NLMNIRUB|NLMNISEK|NLMNISGD|NLMNITHB|NLMNITRY|NLMNITWD|NLMNIUSD|NLMNIZAR|NLMNLAED|NLMNLAUD|NLMNLBGN|NLMNLBRL|NLMNLCAD|NLMNLCHF|NLMNLCNY|NLMNLCZK|NLMNLDKK|NLMNLEEK|NLMNLEGP|NLMNLEUR|NLMNLGBP|NLMNLHKD|NLMNLHRK|NLMNLHUF|NLMNLIDR|NLMNLILS|NLMNLINR|NLMNLJPY|NLMNLKRW|NLMNLLTL|NLMNLLVL|NLMNLMOP|NLMNLMXN|NLMNLMYR|NLMNLNOK|NLMNLNZD|NLMNLPLN|NLMNLRUB|NLMNLSEK|NLMNLSGD|NLMNLTHB|NLMNLTRY|NLMNLTWD|NLMNLUSD|NLMNLZAR|NLMNY|NLMNYI|NLNUM|NLNUMI|NLPCT|NLPCTI|NLPCTN|NLPCTP|NLPVALUE|NLSTRMON|NLSTRQTR|NLSTRWK|ODDSR|PERCENTN|PVALUE|TIME|TIMEAMPM|TOD|Z)\d*\.\d*
+    ## w.p
+    - name: support.type.format.wp
+      match: (?i)\b(BESTD|D)\d*\.\d*
+    ## xw.
+    - name: support.type.format.xw
+      match: (?i)\b(DDMMYY|MMDDYY|MMYY|YYMMDD|YYMM|YYQ|YYQR)[CDNPS]\d*\.
+    
+    # informats
+    ## $w.
+    - name: support.type.informat.$w
+      match: (?i)\B\$(CB|CHARZB|PHEX)\d*\.
+    ## d
+    - name: support.type.informat.d
+      match: (?i)\b(PUNCH).\d*
+    ## w.
+    - name: support.type.informat.w
+      match: (?i)\b(ANYDTDTE|ANYDTDTM|ANYDTTME|DATETIME|HHMMSS|MSEC|PDTIME|RMFDUR|RMFSTAMP|SHRSTAMP|SMFSTAMP|STIMER|TIME|TODSTAMP|TRAILSGN|TU|YYMMN)\d*\.
+    ## w.d
+    - name: support.type.informat.wd
+      match: (?i)\b(B8601CI|B8601DJ|B8601DZ|B8601TZ|BINARY|BITS|BZ|CB|E8601DZ|E8601LZ|OCTAL|ROW|S370FZDB|YMDDTTM|ZDB|ZDV)\d*\.\d*
+
+    # custom formats and informats
+    - name: support.type.format-informat.custom
+      match: (?i)(?<=^|\s)\$?[A-z]\w*\d*?\.\d*(?![\w])
+
+  # Proc sql
+  # ref: SQL Procedure Reference
+  # ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/sqlproc/part-2.htm
+  sql:
+    begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+SQL)\b
+    end: (?i)\b(?=(?<=(^|;|\w+:)\s*)((QUIT\b)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+    beginCaptures:
+      0:
+        name: keyword.proc.sas
+    endCaptures:
+      3:
+        name: keyword.quit.sas
+    patterns:
+      - include: '#global'
+      - include: '#format_informat'
+      # options
+      - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+SQL)\b
+        end: ;
+        patterns:
+          - include: '#comment'
+          - include: '#constant'
+          - include: '#macro'
+          - include: '#string'
+          # options with arguments
+          - name: keyword.other.proc.option.sql.sas
+            match: (?i)\b(DQUOTE|INOBS|LOOPS|OUTOBS|REDUCEPUT|REDUCEPUTOBS|REDUCEPUTVALUES|UNDO_POLICY|SORTSEQ|UBUFSIZE)\s*(?==)
+          # options without arguments
+          - name: keyword.other.proc.option.sql.sas
+            match: (?i)\b(CONSTDATETIME|NOCONSTDATETIME|ERRORSTOP|NOERRORSTOP|EXEC|NOEXEC|EXITCODE|IPASSTHRU|NOIPASSTHRU|NOPROMPT|NOREMERGE|NOSTIMER|NOTHREADS|PROMPT|REMERGE|STIMER|STOPONTRUNC|THREADS|DICTDIAG|NODICTDIAG|DOUBLE|NODOUBLE|FEEDBACK|NOFEEDBACK|FLOW|NOFLOW|NONUMBER|NOPRINT|NOSORTMSG|NOWARNRECURS|NUMBER|PRINT|SORTMSG|WARNRECURS)\b
+      - include: '#sql_statement'
+
+  ## SQL statments
+  sql_statement:
+    patterns:
+      - name: keyword.other.proc.sql.sas
+        match: (?i)\b(ALTER\s+TABLE|CREATE(\s+UNIQUE)*\s+INDEX|CREATE\s+TABLE|CREATE\s+VIEW|DELETE\s+FROM|DESCRIBE\s+TABLE|DESCRIBE\s+VIEW|DESCRIBE\s+TABLE\s+CONSTRAINTS|DROP\s+INDEX|DROP\s+TABLE|DROP\s+VIEW|INSERT\s+INTO|RESET|SELECT(\s+DISTINCT|\s+UNIQUE)*|UPDATE|VALIDATE|CONNECT\s+TO|CONNECT\s+USING|EXECUTE|DISCONNECT\s+FROM)\b(?!\s+=)
+      # ALTER TABLE keyword
+      - begin: (?i)(?<=\bALTER\s+TABLE)\b(?!\s+=)
+        end: ;
+        patterns:
+          - name: keyword.other.proc.sql.alter-table.sas
+            match: (?i)\b(ADD\s+CONSTRAINT|ADD|DROP\s+FOREIGN\s+KEY|DROP\s+PRIMARY\s+KEY|DROP\s+CONSTRAINT|DROP|MODIFY)\b
+          - include: '#global'
+          - include: '#format_informat'
+      # CREATE INDEX keyword
+      - begin: (?i)(?<=\bCREATE(\s+UNIQUE)*\s+INDEX)\b(?!\s+=)
+        end: ;
+        patterns:
+          - name: keyword.other.proc.sql.create-index.sas
+            match: (?i)\b(ON)\b
+          - include: '#global'
+          - include: '#format_informat'
+      # CREATE TABLE keyword
+      - begin: (?i)(?<=\bCREATE\s+TABLE)\b(?!\s+=)
+        end: ;
+        patterns:
+          - name: keyword.other.proc.sql.create-table.sas
+            match: (?i)\b(LIKE|AS|ORDER\s+BY)\b
+          - include: '#query_expression'
+          - include: '#global'
+          - include: '#format_informat'
+      # CREATE VIEW keyword
+      - begin: (?i)(?<=\bCREATE\s+VIEW)\b(?!\s+=)
+        end: ;
+        patterns:
+          - name: keyword.other.proc.sql.create-view.sas
+            match: (?i)\b(AS|ORDER\s+BY|USING)\b
+          - include: '#query_expression'
+          - include: '#global'
+          - include: '#format_informat'
+      # DELETE FROM keyword
+      - begin: (?i)(?<=\bDELETE\s+FROM)\b(?!\s+=)
+        end: ;
+        patterns:
+          - name: keyword.other.proc.sql.delete-form.sas
+            match: (?i)\b(AS|WHERE)\b
+          - include: '#query_expression'
+          - include: '#global'
+          - include: '#format_informat'
+      # DROP INDEX keyword
+      - begin: (?i)(?<=\bDROP\s+INDEX)\b(?!\s+=)
+        end: ;
+        patterns:
+          - name: keyword.other.proc.sql.drop-index.sas
+            match: (?i)\b(FROM)\b
+          - include: '#global'
+          - include: '#format_informat'
+      # INSERT INTO keyword
+      - begin: (?i)(?<=\bINSERT\s+INTO)\b(?!\s+=)
+        end: ;
+        patterns:
+          - name: keyword.other.proc.sql.insert-into.sas
+            match: (?i)\b(SET|VALUES)\b
+          - include: '#query_expression'
+          - include: '#global'
+          - include: '#format_informat'
+      # SELECT keyword
+      - begin: (?i)(?<=\bSELECT(\s+DISTINCT|\s+UNIQUE)*)\b(?!\s+=)
+        end: ;
+        patterns:
+          - name: keyword.other.proc.sql.select.sas
+            match: (?i)\b(INTO|FROM|WHERE|GROUP\s+BY|HAVING|ORDER\s+BY|ASC|DESC|FROM\s+CONNECTION\s+TO)\b
+          - include: '#query_expression'
+          - include: '#global'
+          - include: '#format_informat'
+      # UPDATE keyword
+      - begin: (?i)(?<=\bUPDATE)\b(?!\s+=)
+        end: ;
+        patterns:
+          - name: keyword.other.proc.sql.update.sas
+            match: (?i)\b(AS|SET|WHERE)\b
+          - include: '#query_expression'
+          - include: '#global'
+          - include: '#format_informat'
+      # VALIDATE keyword
+      - begin: (?i)(?<=\bVALIDATE)\b(?!\s+=)
+        end: ;
+        patterns:
+          - include: '#query_expression'
+          - include: '#global'
+          - include: '#format_informat'
+      # CONNECT TO keyword
+      - begin: (?i)(?<=\bCONNECT\s+TO)\b(?!\s+=)
+        end: ;
+        patterns:
+          - name: keyword.other.proc.sql.connect-to.sas
+            match: (?i)\b(AS)\b
+          - include: '#global'
+          - include: '#format_informat'
+      # CONNECT USING keyword
+      - begin: (?i)(?<=\bCONNECT\s+USING)\b(?!\s+=)
+        end: ;
+        patterns:
+          - name: keyword.other.proc.sql.connect-using.sas
+            match: (?i)\b(AS)\b
+          - include: '#global'
+          - include: '#format_informat'
+      # EXECUTE keyword
+      - begin: (?i)(?<=\bEXECUTE)\b(?!\s+=)
+        end: ;
+        patterns:
+          - name: keyword.other.proc.sql.execute.sas
+            match: (?i)\b(BY)\b
+          - include: '#global'
+          - include: '#format_informat'
+
+  ## Query expression
+  ## SQL Procedure Components
+  ## ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/sqlproc/n1cq72kb6ab41in1pzngij4dhek1.htm
+  query_expression:
+    patterns:
+      - name: keyword.other.proc.sql.table.sas
+        match: (?i)\b(SELECT|INTO|FROM|WHERE|GROUP\s+BY|HAVING|ORDER\s+BY|ASC|DESC|FROM\s+CONNECTION\s+TO)\b
+      - name: keyword.other.proc.sql.modifier.sas
+        match: (?i)\b(INFORMAT|FORMAT|LABEL|LENGTH|TRANSCODE)(?=\s*=)
+      - name: keyword.other.proc.sql.operator.sas
+        match: (?i)\b((NOT\s+)*BETWEEN|(NOT\s+)*CONTAINS|(NOT\s+)*EXISTS|(NOT\s+)*EXISTS|(NOT\s+)*IN|IS(\s+NOT)*|(NOT\s+)*LIKE|NOT|AND|OR|CALCULATED|CASE|WHEN|THEN|ELSE|END|ON|(NATURAL\s+)*(INNER\s+)*JOIN|(NATURAL\s+)*(LEFT|RIGHT|FULL)(\s+OUTER)*\s+JOIN|(CROSS|UNION)\s+JOIN|AS|INTERSECT|(OUTER\s+)*UNION|EXCEPT|CORR(ESPONDING)*|ALL|DISTINCT)\b
+      - name: support.function.sql
+        match: (?i)(?<=\b)(BTRIM|COALESCE|LOWER|UPPER|SUBSTRING|AVG|MEAN|COUNT|FREQ|N|CSS|CV|MAX|MEDIAN|MIN|NMISS|PRT|RANGE|STD|STDERR|SUM|SUMWGT|T|USS|VAR)(?=\s*\()
+      - include: '#sql_data_set_option'
+
+  # Proc fedsql
+  # ref: FEDSQL Procedure
+  # ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/proc/p0ahxz9t4dkcucn1uiqa42nbazbh.htm
+  fedsql:
+    begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+FEDSQL)\b
+    end: (?i)\b(?=(?<=(^|;|\w+:)\s*)((QUIT\b)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+    beginCaptures:
+      0:
+        name: keyword.proc.sas
+    endCaptures:
+      3:
+        name: keyword.quit.sas
+    patterns:
+      - include: '#global'
+      - include: '#format_informat'
+      - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+FEDSQL)\b
+        end: ;
+        patterns:
+          - include: '#comment'
+          - include: '#constant'
+          - include: '#macro'
+          - include: '#string'
+          - name: keyword.other.proc.option.fedsql.sas
+            match: (?i)\b(CNTL|CONN|LIBS|MEMSIZE|SESSREF|SESSUUID|XCODE)\s*(?==)
+          - name: keyword.other.proc.option.fedsql.sas
+            match: (?i)\b(_METHOD|_POSTOPTPLAN|ANSIMODE|AUTOCOMMIT|NOAUTOCOMMIT|ERRORSTOP|NOERRORSTOP|EXEC|NOEXEC|LABEL|NOLABEL|NOLIBS|NOPRINT|NUMBER|STIMER)\b
+      - include: '#sql_statement'
+
+  # ref: Base SAS® 9.4 Procedures Guide: Statistical Procedures, Sixth Edition
+  # ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/procstat/titlepage.htm
+  # ref: Procedures
+  # ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/proc/n1g0aqhqgty60yn1o3snwb7z2ppa.htm
+  # withdraw PROC FEDSQL, leave in proc fedsql
+  proc:
+    patterns:
+      # The CORR Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+CORR)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+CORR)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.corr.sas
+                match: (?i)\b(BEST|DATA|BIASADJ|RHO0|TYPE|OUTH|OUTK|OUTP|OUT|OUTPLC|OUTPLS|OUTS|MAXPOINTS|NVAR|NWITH|ELLIPSE|CONVERGE|MAXITER|NGROUPS|ORDINAL|SINGULAR|VARDEF)\s*(?==)
+              - name: keyword.other.proc.option.corr.sas
+                match: (?i)\b(ALPHA|COV|CSSCP|EXCLNPWGT|EXCLNPWGTS|FISHER|HOEFFDING|KENDALL|NOCORR|NOMISS|NOPRINT|NOPROB|NOSIMPLE|PEARSON|PLOTS|ALL|MATRIX|NONE|SCATTER|HIST|HISTOGRAM|NOINSET|POLYCHORIC|POLYSERIAL|RANK|SPEARMAN|SSCP)\b
+          - name: keyword.other.proc.corr.sas
+            match: (?i)\b(BY|FREQ|ID|PARTIAL|VAR|WEIGHT|WITH)\b(?!s+=)
+      # The FREQ Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+FREQ)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+FREQ)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.freq.sas
+                match: (?i)\b(DATA|ORDER)\s*(?==)
+              - name: keyword.other.proc.option.freq.sas
+                match: (?i)\b(COMPRESS|FORMCHAR|NLEVELS|NOPRINT|PAGE)\b
+          - name: keyword.other.proc.freq.sas
+            match: (?i)\b(BY|EXACT|OUTPUT|TABLES|TEST|WEIGHT)\b(?!s+=)
+          - begin: (?i)(?<=\bEXACT)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.freq.exact.sas
+                match: (?i)\b(COLUMN|METHOD|ALPHA|MAXTIME|N|PFORMAT|SEED)\s*(?==)
+              - name: keyword.other.proc.freq.exact.sas
+                match: (?i)\b(AGREE|BARNARD|BINOMIAL|BIN|CHISQ|COMOR|EQOR|ZELEN|FISHER|JT|KAPPA|KENTB|TAUB|LRCHI|MCNEM|MEASURES|MHCHI|OR|ODDSRATIO|PCHI|PCORR|RELRISK|NOSCORE|SCORE|SCORE2|RISKDIFF|SCORR|SMDCR|SMDRC|STUTC|TAUC|SYMMETRY|BOWKER|TREND|WTKAPPA|WTKAP|MC|MIDP|POINT)\b
+          - begin: (?i)(?<=\bOUTPUT)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.freq.output.sas
+                match: (?i)\b(OUT)\s*(?==)
+              - name: keyword.other.proc.freq.output.sas
+                match: (?i)\b(AGREE|AJCHI|ALL|BDCHI|BINOMIAL|BIN|CHISQ|CMH|CMH1|CMH2|CMHCOR|CMHGA|CMHRMS|COCHQ|CONTGY|CRAMV|EQKAP|EQOR|ZELEN|EQWKP|FISHER|GAMMA|GS|GAILSIMON|JT|KAPPA|KENTB|TAUB|LAMCR|LAMDAS|LAMRC|LGOR|LGRRC1|LGRRC2|LRCHI|MCNEM|MEASURES|MHCHI|MHOR|COMOR|MHRRC1|MHRRC2|N|NMISS|OR|ODDSRATIO|RROR|PCHI|PCORR|PHI|PLCORR|RDIF1|RDIF2|RELRISK|RISKDIFF|RISKDIFF1|RISKDIFF2|RRC1|RELRISK1|RRC2|RELRISK2|RSK1|RISK1|RSK11|RISK11|RSK12|RISK12|RSK2|RISK2|RSK21|RISK21|RSK22|RISK22|SCORR|SMDCR|SMDRC|STUTC|TAUC|TREND|TSYMM|BOWKER|U|UCR|URC|WTKAPPA|WTKAP)\b
+          - begin: (?i)(?<=\bTABLES)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.freq.tables.sas
+                match: (?i)\b(DFSYM|MNULLRATIO|NULLKAPPA|NULLWTKAPPA|TABLES|WT|ALPHA|LEVEL|MARGIN|P|VAR|DF|TESTF|TESTP|WARN|COLUMN|CONTENTS|FORMAT|MAXLEVELS|OUT|CONVERGE|MAXITER|FOOTNOTE|CLNOTE|CLDISPLAY|GROUPBY|LOGBASE|LEGEND|NPANELPOS|ORDER|ORIENT|PARTIAL|RANGE|SCALE|SHOWSCALE|TWOWAY|TYPE|NULL|METHOD|SCORES)\s*(?==)
+              - name: keyword.other.proc.freq.tables.sas
+                match: (?i)\b(AGREE|AC1|KAPPADETAILS|DETAILS|PABAK|PRINTKWTS|WTKAPPADETAILS|ALL|BINOMIAL|BIN|AGRESTICOULL|AC|BLAKER|EXACT|CLOPPERPEARSON|JEFFREYS|LIKELIHOODRATIO|LR|LOGIT|MIDP|WALD|CORRECT|WILSON|SCORE|EQUIV|EQUIVALENCE|NONINF|NONINFERIORITY|OUTLEVEL|SUP|SUPERIORITY|CELLCHI2|CHISQ|LRCHI|CL|CMH|BDT|GAILSIMON|GS|I2|MANTELFLEISS|MF|QOR|CMH1|CMH2|COMMONRISKDIFF|K|KLINGENBERG|MH|MR|MINRISK|NEWCOMBE|NEWCOMBEMR|NONE|PRINTWTS|TEST|CROSSLIST|PEARSONRES|STDRES|CUMCOL|DEVIATION|EXPECTED|FISHER|JT|LIST|MEASURES|MISSING|MISSPRINT|NOCOL|NOCUM|NOFREQ|NOPERCENT|NOPRINT|NOROW|NOSPARSE|NOWARN|OR|ODDSRATIO|WALDMODIFIED|OUTCUM|OUTEXPECT|OUTPCT|PCT_COL|PCT_ROW|PCT_TABL|PLCORR|POLYCHORIC|ADJUST|PLOTS|AGREEPLOT|CUMFREQPLOT|DEVIATIONPLOT|FREQPLOT|KAPPAPLOT|MOSAICPLOT|COLORSTAT|SQUARE|ODDSRATIOPLOT|RELRISKPLOT|RISKDIFFPLOT|WTKAPPAPLOT|ONLY|NOSTAT|STATS|RELRISK|LIKELIHOOD|RATIO|EQUAL|FM|PRINTALL|RISKDIFF|AGRESTICAFFO|HA|MN|COMMON|NORISKS|SCOROUT|SENSPEC|SPARSE|TOTPCT|TREND)\b
+          - begin: (?i)(?<=\bTEST)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.freq.test.sas
+                match: (?i)\b(AGREE|GAMMA|KAPPA|KENTB|TAUB|MEASURES|PCORR|PLCORR|SCORR|SMDCR|SMDRC|STUTC|TAUC|WTKAPPA|WTKAP)\b
+          - begin: (?i)(?<=\bWEIGHT)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.freq.weight.sas
+                match: (?i)\b(ZEROS)\b
+      # The UNIVARIATE Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+UNIVARIATE)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+UNIVARIATE)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.univariate.sas
+                match: (?i)\b(ALPHA|ANNOTATE|ANNO|TYPE|DATA|GOUT|MU0|LOCATION|NEXTROBS|NEXTRVAL|OUTTABLE|PCTLDEF|DEF|ODSFOOTNOTE|ODSFOOTNOTE2|ODSTITLE|ODSTITLE2|PLOTSIZE|ROUND|SUMMARYCONTENTS|TRIMMED|TRIM|VARDEF|WINSORIZED|WINSOR)\s*(?==)
+              - name: keyword.other.proc.option.univariate.sas
+                match: (?i)\b(ALL|CIBASIC|CIPCTLDF|CIQUANTDF|CIPCTLNORMAL|CIQUANTNORMAL|EXCLNPWGT|EXCLNPWGTS|FORCEQN|FORCESN|FREQ|IDOUT|LOCCOUNT|MODES|MODE|NOBYPLOT|NOPRINT|NORMAL|NORMALTEST|NOTABCONTENTS|NOVARCONTENTS|PLOTS|PLOT|FOOTNOTE|FOOTNOTE1|FOOTNOTE2|TITLE|TITLE1|NONE|DEFAULT|LABELFMT|SSPLOT|ROBUSTSCALE)\b
+          - name: keyword.other.proc.univariate.sas
+            match: (?i)\b(BY|CDFPLOT|CLASS|FREQ|HISTOGRAM|ID|INSET|OUTPUT|PPPLOT|PROBPLOT|QQPLOT|VAR|WEIGHT)\b(?!s+=)
+          - begin: (?i)(?<=\bCDFPLOT)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.univariate.cdfplot.sas
+                match: (?i)\b(ALPHA|B|C|SHAPE|LAMBDA|MU|SIGMA|THETA|THRESHOLD|VSCALE|ZETA|SCALE)\s*(?==)
+              - name: keyword.other.proc.univariate.cdfplot.sas
+                match: (?i)\b(BETA|EXPONENTIAL|EXP|GAMMA|GUMBEL|IGAUSS|LOGNORMAL|NOCDFLEGEND|NOLEGEND|NOECDF|NORMAL|PARETO|POWER|RAYLEIGH|PERCENT|PROPORTION|WEIBULL)\b
+          - begin: (?i)(?<=\bCLASS)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.univariate.class.sas
+                match: (?i)\b(ORDER|KEYLEVEL)\s*(?==)
+              - name: keyword.other.proc.univariate.class.sas
+                match: (?i)\b(MISSING|DATA|FORMATTED|FREQ|INTERNAL|NOKEYMOVE)\b
+          - begin: (?i)(?<=\bHISTOGRAM)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.univariate.histogram.sas
+                match: (?i)\b(ALPHA|BARFILL|BARLABEL|BARWIDTH|B|C|SHAPE|CBARLINE|CFILL|CGRID|CONTENTS|DELTA|EDFNSAMPLES|EDFSEED|HOFFSET|INTERBAR|K|LAMBDA|LGRID|LOWER|MAXNBIN|MAXSIGMAS|MIDPOINTS|MU|NENDPOINTS|NMIDPOINTS|OPTBOUNDRANGE|OPTMAXITER|OPTMAXSTARTS|OPTSEED|OPTTOLERANCE|OUTHISTOGRAM|OUTHIST|OUTKERNEL|PERCENTS|PFILL|SIGMA|THETA|THRESHOLD|UPPER|VOFFSET|VSCALE|WBARLINE|WGRID|ZETA|SCALE)\s*(?==)
+              - name: keyword.other.proc.univariate.histogram.sas
+                match: (?i)\b(COUNT|PERCENT|PROPORTION|BETA|CLIPCURVES|CLIPREF|ENDPOINTS|KEY|UNIFORM|EXPONENTIAL|EXP|FILL|FRONTREF|GAMMA|GRID|GUMBEL|HANGING|HANG|IGAUSS|KERNEL|LOGNORMAL|MIDPERCENTS|NOBARS|NOCURVELEGEND|NOLEGEND|NOPLOT|NOCHART|NOPRINT|NORMAL|NOTABCONTENTS|OPTPRINT|PARETO|POWER|RAYLEIGH|RTINCLUDE|SB|SU|WEIBULL)\b
+          - begin: (?i)(?<=\bINSET)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.univariate.inset.sas
+                match: (?i)\b(CFILL|CFILLH|CFRAME|CHEADER|CSHADOW|CTEXT|FONT|FORMAT|GUTTER|HEADER|HEIGHT|NCOLS|POSITION|POS|REFPOINT)\s*(?==)
+              - name: keyword.other.proc.univariate.inset.sas
+                match: (?i)\b(_LABEL_|_VALUE_|BLANK|DATA|NOFRAME|BL|BR|TL|TR)\b
+          - begin: (?i)(?<=\bOUTPUT)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.univariate.output.sas
+                match: (?i)\b(OUT|CIPCTLDF|CIQUANTDF|ALPHA|LOWERPRE|LOWERNAME|TYPE|UPPERPRE|UPPERNAME|CIPCTLNORMAL|CIQUANTNORMAL|PCTLGROUP|PCTLNAME|PCTLNDEC|PCTLPRE|PCTLPTS)\s*(?==)
+              - name: keyword.other.proc.univariate.output.sas
+                match: (?i)\b(BYSTAT|BYVAR)\b
+          - begin: (?i)(?<=\bPPPLOT)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.univariate.ppplot.sas
+                match: (?i)\b(ALPHA|C|LAMBDA|MU|SIGMA|THETA|THRESHOLD|ZETA)\s*(?==)
+              - name: keyword.other.proc.univariate.ppplot.sas
+                match: (?i)\b(BETA|EXPONENTIAL|EXP|GAMMA|GUMBEL|IGAUSS|LOGNORMAL|LNORM|NOLINE|NORMAL|NORM|PARETO|POWER|RAYLEIGH|SQUARE|WEIBULL|WEIB)\b
+          - begin: (?i)(?<=\bPROBPLOT)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.univariate.probplot.sas
+                match: (?i)\b(ALPHA|B|C|CGRID|LGRID|SIGMA|MU|NADJ|PCTLORDER|RANKADJ|SLOPE|THETA|THRESHOLD|WGRID|ZETA)\s*(?==)
+              - name: keyword.other.proc.univariate.probplot.sas
+                match: (?i)\b(BETA|EXPONENTIAL|EXP|GAMMA|GRID|GUMBEL|LOGNORMAL|LNORM|NOLINELEGEND|NOLEGEND|NORMAL|PARETO|PCTLMINOR|POWER|RAYLEIGH|ROTATE|SQUARE|WEIBULL|WEIB|WEIBULL2|W2)\b
+          - begin: (?i)(?<=\bQQPLOT)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.univariate.qqplot.sas
+                match: (?i)\b(ALPHA|B|C|CGRID|LGRID|SIGMA|MU|NADJ|LABEL|PCTLORDER|WGRID|RANKADJ|SLOPE|THETA|THRESHOLD|ZETA)\s*(?==)
+              - name: keyword.other.proc.univariate.qqplot.sas
+                match: (?i)\b(BETA|EXPONENTIAL|EXP|GAMMA|GRID|GUMBEL|LOGNORMAL|LNORM|NOLINELEGEND|NOLEGEND|NORMAL|PARETO|PCTLAXIS|PCTLMINOR|PCTLSCALE|POWER|RAYLEIGH|ROTATE|SQUARE|WEIBULL|WEIB|WEIBULL2|W2)\b
+      # APPEND Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+APPEND)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+APPEND)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.append.sas
+                match: (?i)\b(BASE|APPENDVER|DATA|ENCRYPTKEY)\s*(?==)
+              - name: keyword.other.proc.option.append.sas
+                match: (?i)\b(FORCE|GETSORT|NOWARN)\b
+          - name: keyword.other.proc.append.sas
+            match: (?i)\b(ATTRIB|FORMAT|LABEL|WHERE)\b(?!s+=)
+      # AUTHLIB Procedure
+      # PURGE statement special keyword
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+AUTHLIB)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+AUTHLIB)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.authlib.sas
+                match: (?i)\b(LIBRARY|PWREQ)\s*(?==)
+              - name: keyword.other.proc.option.authlib.sas
+                match: (?i)\b(NOWARN)\b
+          - name: keyword.other.proc.authlib.sas
+            match: (?i)\b(CREATE|MODIFY|PURGE\s+CREDENTIALS|CREDS|REMOVE|REPAIR|REPORT|TABLES)\b(?!s+=)
+          - begin: (?i)(?<=\bCREATE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.authlib.create.sas
+                match: (?i)\b(SECUREDLIBRARY|PW|ALTER|READ|WRITE|SECUREDFOLDER|ENCRYPT|ENCRYPTKEY|LIBRARY|REQUIRE_ENCRYPTION)\s*(?==)
+          - begin: (?i)(?<=\bMODIFY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.authlib.modify.sas
+                match: (?i)\b(PW|ALTER|READ|WRITE|ENCRYPT|ENCRYPTKEY|LIBRARY|PURGE|REQUIRE_ENCRYPTION|TABLESONLY)\s*(?==)
+          - begin: (?i)(?<=\bPURGE\s+CREDENTIALS|CREDS)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.authlib.purge-credentials-creds.sas
+                match: (?i)\b(PW|ALTER|READ|WRITE|BEFORE|LIBRARY)\s*(?==)
+          - begin: (?i)(?<=\bREMOVE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.authlib.remove.sas
+                match: (?i)\b(PW|ALTER|READ|WRITE|ENCRYPT|ENCRYPTKEY|LIBRARY|TABLESONLY)\s*(?==)
+          - begin: (?i)(?<=\bREPAIR)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.authlib.repair.sas
+                match: (?i)\b(PW|ALTER|READ|WRITE|TABLESONLY|ENCRYPT|ENCRYPTKEY|LIBRARY|SECUREDLIBRARY|SECUREDFOLDER)\s*(?==)
+              - name: keyword.other.proc.authlib.repair.sas
+                match: (?i)\b(ADD|UPDATE|DELETE|LOCATION|METADATA)\b
+          - begin: (?i)(?<=\bREPORT)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.authlib.report.sas
+                match: (?i)\b(LIBRARY|ENCRYPTKEY)\s*(?==)
+          - begin: (?i)(?<=\bTABLES)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.authlib.tables.sas
+                match: (?i)\b(ENCRYPT|ENCRYPTKEY|MEMTYPE|PW|ALTER|READ|WRITE)\s*(?==)
+              - name: keyword.other.proc.authlib.tables.sas
+                match: (?i)\b(SAS|_ALL_|_NONE_)\b
+      # CALENDAR Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+CALENDAR)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+CALENDAR)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.calendar.sas
+                match: (?i)\b(CALEDATA|DATA|DAYLENGTH|HEADER|HOLIDATA|INTERVAL|MEANTYPE|WORKDATA)\s*(?==)
+              - name: keyword.other.proc.option.calendar.sas
+                match: (?i)\b(DATETIME|FILL|FORMCHAR|LEGEND|LOCALE|MISSING|WEEKDAYS)\b
+          - name: keyword.other.proc.calendar.sas
+            match: (?i)\b(BY|CALID|DUR|FIN|HOLIDUR|HOLIFIN|HOLISTART|HOLIVAR|MEAN|OUTDUR|OUTFIN|OUTSTART|START|SUM|VAR|FORMAT|LABEL|WHERE)\b(?!s+=)
+          - begin: (?i)(?<=\bBY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.calendar.by.sas
+                match: (?i)\b(DESCENDING|NOTSORTED)\b
+          - begin: (?i)(?<=\bCALID)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.calendar.calid.sas
+                match: (?i)\b(OUTPUT)\s*(?==)
+          - begin: (?i)(?<=\bMEAN)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.calendar.mean.sas
+                match: (?i)\b(FORMAT)\s*(?==)
+          - begin: (?i)(?<=\bSUM)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.calendar.sum.sas
+                match: (?i)\b(FORMAT)\s*(?==)
+      # CATALOG Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+CATALOG)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)((QUIT\b)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        endCaptures:
+          3:
+            name: keyword.quit.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+CATALOG)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.catalog.sas
+                match: (?i)\b(CATALOG|ENTRYTYPE)\s*(?==)
+              - name: keyword.other.proc.option.catalog.sas
+                match: (?i)\b(FORCE|KILL)\b
+          - name: keyword.other.proc.catalog.sas
+            match: (?i)\b(CHANGE|CONTENTS|COPY|DELETE|EXCHANGE|EXCLUDE|MODIFY|SAVE|SELECT)\b(?!s+=)
+          - begin: (?i)(?<=\bCHANGE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.catalog.change.sas
+                match: (?i)\b(ENTRYTYPE)\s*(?==)
+          - begin: (?i)(?<=\bCONTENTS)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.catalog.contents.sas
+                match: (?i)\b(CATALOG|FILE|OUT)\s*(?==)
+          - begin: (?i)(?<=\bCOPY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.catalog.copy.sas
+                match: (?i)\b(OUT|ENTRYTYPE|IN|LOCKCAT)\s*(?==)
+              - name: keyword.other.proc.catalog.copy.sas
+                match: (?i)\b(MOVE|NEW|NOEDIT|NOSOURCE)\b
+          - begin: (?i)(?<=\bDELETE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.catalog.delete.sas
+                match: (?i)\b(ENTRYTYPE)\s*(?==)
+          - begin: (?i)(?<=\bEXCHANGE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.catalog.exchange.sas
+                match: (?i)\b(ENTRYTYPE)\s*(?==)
+          - begin: (?i)(?<=\bEXCLUDE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.catalog.exclude.sas
+                match: (?i)\b(ENTRYTYPE)\s*(?==)
+          - begin: (?i)(?<=\bMODIFY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.catalog.modify.sas
+                match: (?i)\b(DESCRIPTION|ENTRYTYPE)\s*(?==)
+          - begin: (?i)(?<=\bSAVE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.catalog.save.sas
+                match: (?i)\b(ENTRYTYPE)\s*(?==)
+          - begin: (?i)(?<=\bSELECT)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.catalog.select.sas
+                match: (?i)\b(ENTRYTYPE)\s*(?==)
+      # CHART Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+CHART)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+CHART)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.chart.sas
+                match: (?i)\b(DATA|LPI)\s*(?==)
+              - name: keyword.other.proc.option.chart.sas
+                match: (?i)\b(FORMCHAR)\b
+          - name: keyword.other.proc.chart.sas
+            match: (?i)\b(BLOCK|BY|HBAR|PIE|STAR|VBAR|ATTRIB|FORMAT|LABEL|WHERE)\b(?!s+=)
+          - begin: (?i)(?<=\bBLOCK)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.chart.block.sas
+                match: (?i)\b(AXIS|FREQ|GROUP|LEVELS|MIDPOINTS|SUBGROUP|SUMVAR|SYMBOL|TYPE)\s*(?==)
+              - name: keyword.other.proc.chart.block.sas
+                match: (?i)\b(G100|MISSING|NOHEADER|NOSYMBOL)\b
+          - begin: (?i)(?<=\bBY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.chart.by.sas
+                match: (?i)\b(DESCENDING|NOTSORTED)\b
+          - begin: (?i)(?<=\bHBAR)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.chart.hbar.sas
+                match: (?i)\b(AXIS|GROUP|GSPACE|LEVELS|REF|SPACE|SUBGROUP|SUMVAR|SYMBOL|TYPE|WIDTH)\s*(?==)
+              - name: keyword.other.proc.chart.hbar.sas
+                match: (?i)\b(ASCENDING|CFREQ|CPERCENT|DISCRETE|FREQ|G100|MEAN|MISSING|NOSTATS|NOSYMBOL|NOZEROS|PERCENT|SUM)\b
+          - begin: (?i)(?<=\bPIE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.chart.pie.sas
+                match: (?i)\b(FREQ|LEVELS|MIDPOINTS|SUMVAR|TYPE)\s*(?==)
+              - name: keyword.other.proc.chart.pie.sas
+                match: (?i)\b(MISSING|NOHEADER)\b
+          - begin: (?i)(?<=\bSTAR)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.chart.star.sas
+                match: (?i)\b(AXIS|FREQ|LEVELS|MIDPOINTS|SUMVAR|TYPE)\s*(?==)
+              - name: keyword.other.proc.chart.star.sas
+                match: (?i)\b(MISSING|NOHEADER)\b
+          - begin: (?i)(?<=\bVBAR)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.chart.vbar.sas
+                match: (?i)\b(AXIS|FREQ|GROUP|GSPACE|LEVELS|MIDPOINTS|REF|SPACE|SUBGROUP|SUMVAR|SYMBOL|TYPE|WIDTH)\s*(?==)
+              - name: keyword.other.proc.chart.vbar.sas
+                match: (?i)\b(ASCENDING|DISCRETE|G100|MISSING|NOSYMBOL|NOZEROS)\b
+      # CIMPORT Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+CIMPORT)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+CIMPORT)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.cimport.sas
+                match: (?i)\b(COMPRESS|EET|ENCODINGINFO|ET|EXTENDSN|EXTENDFORMAT|EXTENDVAR|ISFILEUTF8|INFILE|MEMTYPE)\s*(?==)
+              - name: keyword.other.proc.option.cimport.sas
+                match: (?i)\b(FORCE|NEW|NOEDIT|NOSRC|SORT|TAPE|UPCASE)\b
+          - name: keyword.other.proc.cimport.sas
+            match: (?i)\b(EXCLUDE|SELECT)\b(?!s+=)
+          - begin: (?i)(?<=\bEXCLUDE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.cimport.exclude.sas
+                match: (?i)\b(ENTRYTYPE|MEMTYPE)\s*(?==)
+              - name: keyword.other.proc.cimport.exclude.sas
+                match: (?i)\b(SAS)\b
+          - begin: (?i)(?<=\bSELECT)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.cimport.select.sas
+                match: (?i)\b(ENTRYTYPE|MEMTYPE)\s*(?==)
+              - name: keyword.other.proc.cimport.select.sas
+                match: (?i)\b(SAS)\b
+      # COMPARE Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+COMPARE)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+COMPARE)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.compare.sas
+                match: (?i)\b(BASE|COMPARE|CRITERION|FUZZ|MAXPRINT|METHOD|OUT|OUTSTATS)\s*(?==)
+              - name: keyword.other.proc.option.compare.sas
+                match: (?i)\b(ALLOBS|ALLSTATS|ALLVARS|BRIEFSUMMARY|ERROR|LISTALL|LISTBASE|LISTBASEOBS|LISTBASEVAR|LISTCOMP|LISTCOMPOBS|LISTCOMPVAR|LISTEQUALVAR|LISTOBS|LISTVAR|NODATE|NOMISSBASE|NOMISSCOMP|NOMISSING|NOPRINT|NOSUMMARY|NOTE|NOVALUES|OUTALL|OUTBASE|OUTCOMP|OUTDIF|OUTNOEQUAL|OUTPERCENT|PRINTALL|STATS|TRANSPOSE|WARNING)\b
+          - name: keyword.other.proc.compare.sas
+            match: (?i)\b(BY|ID|VAR|WITH|LABEL|ATTRIB|FORMAT|WHERE)\b(?!s+=)
+          - begin: (?i)(?<=\bBY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.compare.by.sas
+                match: (?i)\b(DESCENDING|NOTSORTED)\b
+          - begin: (?i)(?<=\bID)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.compare.id.sas
+                match: (?i)\b(DESCENDING|NOTSORTED)\b
+      # CONTENTS Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+CONTENTS)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+CONTENTS)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.contents.sas
+                match: (?i)\b(DATA|ENCRYPTKEY|MEMTYPE|ORDER|OUT|OUT2)\s*(?==)
+              - name: keyword.other.proc.option.contents.sas
+                match: (?i)\b(CENTILES|DETAILS|NODETAILS|DIRECTORY|FMTLEN|NODS|NOPRINT|SHORT|VARNUM)\b
+      # COPY Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+COPY)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+COPY)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.copy.sas
+                match: (?i)\b(OUT|CONSTRAINT|ENCRYPTKEY|IN|INDEX|MEMTYPE|ALTER|OVERRIDE)\s*(?==)
+              - name: keyword.other.proc.option.copy.sas
+                match: (?i)\b(ACCEL|NOACCEL|CLONE|NOCLONE|DATECOPY|FORCE|MOVE)\b
+      # CPORT Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+CPORT)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+CPORT)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.cport.sas
+                match: (?i)\b(AFTER|CONSTRAINT|EET|ET|FILE|GENERATION|INDEX|INTYPE|MEMTYPE|OUTLIB|OUTTYPE|TRANSLATE)\s*(?==)
+              - name: keyword.other.proc.option.cport.sas
+                match: (?i)\b(ASIS|DATECOPY|NOCOMPRESS|NOEDIT|NOSRC|TAPE)\b
+          - name: keyword.other.proc.cport.sas
+            match: (?i)\b(EXCLUDE|SELECT|TRANTAB)\b(?!s+=)
+          - begin: (?i)(?<=\bEXCLUDE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.cport.exclude.sas
+                match: (?i)\b(ENTRYTYPE|MEMTYPE)\s*(?==)
+              - name: keyword.other.proc.cport.exclude.sas
+                match: (?i)\b(SAS)\b
+          - begin: (?i)(?<=\bSELECT)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.cport.select.sas
+                match: (?i)\b(ENTRYTYPE|MEMTYPE)\s*(?==)
+              - name: keyword.other.proc.cport.select.sas
+                match: (?i)\b(SAS)\b
+      # DATASETS Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+DATASETS)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)((QUIT\b)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        endCaptures:
+          3:
+            name: keyword.quit.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+DATASETS)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.datasets.sas
+                match: (?i)\b(ALTER|ENCRYPTKEY|GENNUM|LIBRARY|MEMTYPE|PW|READ)\s*(?==)
+              - name: keyword.other.proc.option.datasets.sas
+                match: (?i)\b(DETAILS|NODETAILS|FORCE|KILL|NOLIST|NOPRINT|NOWARN)\b
+          - name: keyword.other.proc.datasets.sas
+            match: (?i)\b(AGE|APPEND|ATTRIB|AUDIT|CHANGE|CONTENTS|COPY|DELETE|EXCHANGE|EXCLUDE|FORMAT|IC\s+CREATE|IC\s+DELETE|IC\s+REACTIVATE|INDEX\s+CENTILES|INDEX\s+CREATE|INDEX\s+DELETE|INFORMAT|INITIATE|LABEL|LOG|MODIFY|REBUILD|RENAME|REPAIR|RESUME|SAVE|SELECT|SUSPEND|TERMINATE|USER_VAR|XATTR\s+ADD\s+DS|XATTR\s+DELETE|XATTR\s+OPTIONS|XATTR\s+REMOVE\s+DS|XATTR\s+SET\s+DS|XATTR\s+UPDATE\s+DS)\b(?!s+=)
+          - begin: (?i)(?<=\bAGE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.age.sas
+                match: (?i)\b(ALTER|MEMTYPE)\s*(?==)
+              - name: keyword.other.proc.datasets.age.sas
+                match: (?i)\b(SAS)\b
+          - begin: (?i)(?<=\bAPPEND)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.append.sas
+                match: (?i)\b(BASE|APPENDVER|DATA|ENCRYPTKEY)\s*(?==)
+              - name: keyword.other.proc.datasets.append.sas
+                match: (?i)\b(FORCE|GETSORT|NOWARN)\b
+          - begin: (?i)(?<=\bAUDIT)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.audit.sas
+                match: (?i)\b(ENCRYPTKEY|GENNUM)\s*(?==)
+              - name: keyword.other.proc.datasets.audit.sas
+                match: (?i)\b(SAS)\b
+          - begin: (?i)(?<=\bCHANGE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.change.sas
+                match: (?i)\b(ENCRYPTKEY|ALTER|GENNUM|MEMTYPE)\s*(?==)
+          - begin: (?i)(?<=\bCONTENTS)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.contents.sas
+                match: (?i)\b(DATA|ENCRYPTKEY|MEMTYPE|ORDER|OUT|OUT2)\s*(?==)
+              - name: keyword.other.proc.datasets.contents.sas
+                match: (?i)\b(CENTILES|DETAILS|NODETAILS|DIRECTORY|FMTLEN|NODS|NOPRINT|SHORT|VARNUM)\b
+          - begin: (?i)(?<=\bCOPY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.copy.sas
+                match: (?i)\b(OUT|CONSTRAINT|ENCRYPTKEY|IN|INDEX|MEMTYPE|ALTER|OVERRIDE)\s*(?==)
+              - name: keyword.other.proc.datasets.copy.sas
+                match: (?i)\b(ACCEL|NOACCEL|CLONE|NOCLONE|DATECOPY|FORCE|MOVE)\b
+          - begin: (?i)(?<=\bDELETE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.delete.sas
+                match: (?i)\b(ALTER|ENCRYPTKEY|GENNUM|MEMTYPE)\s*(?==)
+              - name: keyword.other.proc.datasets.delete.sas
+                match: (?i)\b(SAS)\b
+          - begin: (?i)(?<=\bEXCHANGE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.exchange.sas
+                match: (?i)\b(ALTER|MEMTYPE)\s*(?==)
+          - begin: (?i)(?<=\bEXCLUDE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.exclude.sas
+                match: (?i)\b(MEMTYPE)\s*(?==)
+              - name: keyword.other.proc.datasets.exclude.sas
+                match: (?i)\b(SAS)\b
+          - begin: (?i)(?<=\bIC\s+CREATE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.ic-create.sas
+                match: (?i)\b(MESSAGE)\s*(?==)
+          - begin: (?i)(?<=\bIC\s+DELETE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.ic-delete.sas
+                match: (?i)\b(_ALL_)\b
+          - begin: (?i)(?<=\bINDEX\s+CENTILES)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.index-centiles.sas
+                match: (?i)\b(UPDATECENTILES)\s*(?==)
+              - name: keyword.other.proc.datasets.index-centiles.sas
+                match: (?i)\b(REFRESH)\b
+          - begin: (?i)(?<=\bINDEX\s+CREATE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.index-create.sas
+                match: (?i)\b(UPDATECENTILES)\s*(?==)
+              - name: keyword.other.proc.datasets.index-create.sas
+                match: (?i)\b(NOMISS|UNIQUE)\b
+          - begin: (?i)(?<=\bINDEX\s+DELETE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.index-delete.sas
+                match: (?i)\b(_ALL_)\b
+          - begin: (?i)(?<=\bINITIATE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.initiate.sas
+                match: (?i)\b(AUDIT_ALL)\s*(?==)
+          - begin: (?i)(?<=\bLOG)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.log.sas
+                match: (?i)\b(ADMIN_IMAGE|BEFORE_IMAGE|DATA_IMAGE|ERROR_IMAGE)\s*(?==)
+          - begin: (?i)(?<=\bMODIFY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.modify.sas
+                match: (?i)\b(ALTER|CORRECTENCODING|ENCRYPTKEY|DTC|GENMAX|GENNUM|LABEL|MEMTYPE|PW|READ|SORTEDBY|TYPE|WRITE)\s*(?==)
+              - name: keyword.other.proc.datasets.modify.sas
+                match: (?i)\b(SAS)\b
+          - begin: (?i)(?<=\bREBUILD)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.rebuild.sas
+                match: (?i)\b(ENCRYPTKEY|ALTER|GENNUM|MEMTYPE)\s*(?==)
+              - name: keyword.other.proc.datasets.rebuild.sas
+                match: (?i)\b(SAS|NOINDEX)\b
+          - begin: (?i)(?<=\bREPAIR)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.repair.sas
+                match: (?i)\b(ALTER|ENCRYPTKEY|GENNUM|MEMTYPE)\s*(?==)
+              - name: keyword.other.proc.datasets.repair.sas
+                match: (?i)\b(SAS)\b
+          - begin: (?i)(?<=\bSAVE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.save.sas
+                match: (?i)\b(MEMTYPE)\s*(?==)
+              - name: keyword.other.proc.datasets.save.sas
+                match: (?i)\b(SAS)\b
+          - begin: (?i)(?<=\bSELECT)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.select.sas
+                match: (?i)\b(ALTER|ENCRYPTKEY|MEMTYPE)\s*(?==)
+              - name: keyword.other.proc.datasets.select.sas
+                match: (?i)\b(SAS)\b
+          - begin: (?i)(?<=\bUSER_VAR)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.user_var.sas
+                match: (?i)\b(LABEL)\s*(?==)
+          - begin: (?i)(?<=\bXATTR\s+ADD\s+DS)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.xattr-add-ds.sas
+                match: (?i)\b(XATTR|ADD|DS|VAR)\b
+          - begin: (?i)(?<=\bXATTR\s+DELETE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.xattr-delete.sas
+                match: (?i)\b(XATTR|DELETE)\b
+          - begin: (?i)(?<=\bXATTR\s+OPTIONS)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.xattr-options.sas
+                match: (?i)\b(SEGLEN)\s*(?==)
+              - name: keyword.other.proc.datasets.xattr-options.sas
+                match: (?i)\b(XATTR|OPTIONS)\b
+          - begin: (?i)(?<=\bXATTR\s+REMOVE\s+DS)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.xattr-remove-ds.sas
+                match: (?i)\b(XATTR|REMOVE|DS|VAR)\b
+          - begin: (?i)(?<=\bXATTR\s+SET\s+DS)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.xattr-set-ds.sas
+                match: (?i)\b(XATTR|SET|DS|VAR)\b
+          - begin: (?i)(?<=\bXATTR\s+UPDATE\s+DS)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datasets.xattr-update-ds.sas
+                match: (?i)\b(XATTR|UPDATE|DS|VAR)\b
+      # DATEKEYS Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+DATEKEYS)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+DATEKEYS)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+          - name: keyword.other.proc.datekeys.sas
+            match: (?i)\b(BY|DATEKEYCALENDAR|DATEKEYDATA|DATEKEYDEF|DATEKEYDSOPT|DATEKEYKEY|DATEKEYPERIODS|ID|VAR)\b(?!s+=)
+          - begin: (?i)(?<=\bDATEKEYCALENDAR)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datekeys.datekeycalendar.sas
+                match: (?i)\b(OUT|SUM)\s*(?==)
+              - name: keyword.other.proc.datekeys.datekeycalendar.sas
+                match: (?i)\b(SUMMARY)\b
+          - begin: (?i)(?<=\bDATEKEYDATA)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datekeys.datekeydata.sas
+                match: (?i)\b(IN|OUT)\s*(?==)
+          - begin: (?i)(?<=\bDATEKEYDEF)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datekeys.datekeydef.sas
+                match: (?i)\b(SAS)\b
+          - begin: (?i)(?<=\bDATEKEYDSOPT)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datekeys.datekeydsopt.sas
+                match: (?i)\b(LOCALE)\s*(?==)
+              - name: keyword.other.proc.datekeys.datekeydsopt.sas
+                match: (?i)\b(POSIX|ONLY)\b
+          - begin: (?i)(?<=\bDATEKEYKEY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datekeys.datekeykey.sas
+                match: (?i)\b(SAS)\b
+          - begin: (?i)(?<=\bDATEKEYPERIODS)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datekeys.datekeyperiods.sas
+                match: (?i)\b(OUT)\s*(?==)
+          - begin: (?i)(?<=\bID)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.datekeys.id.sas
+                match: (?i)\b(INTERVAL)\s*(?==)
+              - name: keyword.other.proc.datekeys.id.sas
+                match: (?i)\b(SAS)\b
+      # DELETE Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+DELETE)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+DELETE)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.delete.sas
+                match: (?i)\b(DATA|ALTER|ENCRYPTKEY|GENNUM|LIBRARY|MEMTYPE)\s*(?==)
+      # DISPLAY Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+DISPLAY)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+DISPLAY)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.display.sas
+                match: (?i)\b(CATALOG)\s*(?==)
+              - name: keyword.other.proc.option.display.sas
+                match: (?i)\b(BATCH)\b
+      # DS2 Procedure
+      # Data steps do not end it
+      # Include data_step
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+DS2)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)((QUIT\b)|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        endCaptures:
+          3:
+            name: keyword.quit.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+DS2)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.ds2.sas
+                match: (?i)\b(BYPARTITION|CONN|DS2ACCEL|LIBS|MEMSIZE|SCOND|SESSREF|SESSUUID|XCODE)\s*(?==)
+              - name: keyword.other.proc.option.ds2.sas
+                match: (?i)\b(ANSIMODE|ERRORSTOP|NOERRORSTOP|LABEL|NOLABEL|NOLIBS|NUMBER|STIMER)\b
+          - include: '#data_step'
+          - name: keyword.other.proc.ds2.sas
+            match: (?i)\b(RUN\s+CANCEL)\b(?!s+=)
+      # DSTODS2 Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+DSTODS2)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)((QUIT\b)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        endCaptures:
+          3:
+            name: keyword.quit.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+DSTODS2)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.dstods2.sas
+                match: (?i)\b(IN|OUT|OUTDIR)\s*(?==)
+      # EXPORT Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+EXPORT)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+EXPORT)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.export.sas
+                match: (?i)\b(DATA|OUTFILE|OUTTABLE|DBMS)\s*(?==)
+              - name: keyword.other.proc.option.export.sas
+                match: (?i)\b(LABEL|REPLACE|SAS)\b
+          - name: keyword.other.proc.export.sas
+            match: (?i)\b(DBENCODING|DELIMITER|FMTLIB|META|PUTNAMES)\b(?!s+=)
+          - begin: (?i)(?<=\bDBENCODING)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.export.dbencoding.sas
+                match: (?i)\b(SAS)\b
+          - begin: (?i)(?<=\bPUTNAMES)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.export.putnames.sas
+                match: (?i)\b(YES|NO)\b
+      # FCMP Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+FCMP)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+FCMP)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.fcmp.sas
+                match: (?i)\b(DATA|INLIB|OUT|OUTFILE|OUTITEMSTORE|OUTLIB)\s*(?==)
+              - name: keyword.other.proc.option.fcmp.sas
+                match: (?i)\b(ENCRYPT|FLOW|LIBRARY|LIST|LISTALL|LISTCODE|LISTFUNCS|LISTPROG|LISTSOURCE|PRINT|TRACE)\b
+          - name: keyword.other.proc.fcmp.sas
+            match: (?i)\b(ABORT|ARRAY|ATTRIB|DELETEFUNC|DELETESUBR|FUNCTION|LABEL|LISTFUNC|LISTSUBR|OUTARGS|STATIC|STRUCT|SUBROUTINE)\b(?!s+=)
+          - begin: (?i)(?<=\bARRAY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.fcmp.array.sas
+                match: (?i)\b(NOSYMBOLS)\b
+          - begin: (?i)(?<=\bATTRIB)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.fcmp.attrib.sas
+                match: (?i)\b(FORMAT|LABEL|LENGTH)\s*(?==)
+          - begin: (?i)(?<=\bFUNCTION)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.fcmp.function.sas
+                match: (?i)\b(KIND|GROUP|LABEL)\s*(?==)
+              - name: keyword.other.proc.fcmp.function.sas
+                match: (?i)\b(VARARGS)\b
+          - begin: (?i)(?<=\bLISTFUNC)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.fcmp.listfunc.sas
+                match: (?i)\b(NODEPENDENTS)\b
+          - begin: (?i)(?<=\bSUBROUTINE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.fcmp.subroutine.sas
+                match: (?i)\b(GROUP|KIND)\s*(?==)
+              - name: keyword.other.proc.fcmp.subroutine.sas
+                match: (?i)\b(OUTARGS|VARARGS)\b
+      # FMTC2ITM Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+FMTC2ITM)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+FMTC2ITM)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.fmtc2itm.sas
+                match: (?i)\b(CATALOG|ITEMSTORE|ENCODING)\s*(?==)
+              - name: keyword.other.proc.option.fmtc2itm.sas
+                match: (?i)\b(PRINT|LOCALE)\b
+          - name: keyword.other.proc.fmtc2itm.sas
+            match: (?i)\b(SELECT)\b(?!s+=)
+      # FONTREG Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+FONTREG)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+FONTREG)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.fontreg.sas
+                match: (?i)\b(MODE|MSGLEVEL)\s*(?==)
+              - name: keyword.other.proc.option.fontreg.sas
+                match: (?i)\b(NOUPDATE|USESASHELP)\b
+          - name: keyword.other.proc.fontreg.sas
+            match: (?i)\b(FONTFILE|FONTPATH|REMOVE|TRUETYPE|TYPE1|OPENTYPE)\b(?!s+=)
+          - begin: (?i)(?<=\bREMOVE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.fontreg.remove.sas
+                match: (?i)\b(_ALL_)\b
+      # FONTREG Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+FONTREG)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+FONTREG)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.fontreg.sas
+                match: (?i)\b(MODE|MSGLEVEL)\s*(?==)
+              - name: keyword.other.proc.option.fontreg.sas
+                match: (?i)\b(NOUPDATE|USESASHELP)\b
+          - name: keyword.other.proc.fontreg.sas
+            match: (?i)\b(FONTFILE|FONTPATH|REMOVE|TRUETYPE|TYPE1|OPENTYPE)\b(?!s+=)
+          - begin: (?i)(?<=\bREMOVE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.fontreg.remove.sas
+                match: (?i)\b(_ALL_)\b
+      # FORMAT Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+FORMAT)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+FORMAT)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.format.sas
+                match: (?i)\b(CASFMTLIB|CNTLIN|CNTLOUT|LIBRARY|MAXLABLEN|MAXSELEN)\s*(?==)
+              - name: keyword.other.proc.option.format.sas
+                match: (?i)\b(FMTLIB|LOCALE|NOREPLACE|PAGE)\b
+          - name: keyword.other.proc.format.sas
+            match: (?i)\b(EXCLUDE|INVALUE|PICTURE|SELECT|VALUE)\b(?!s+=)
+          - begin: (?i)(?<=\bINVALUE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.format.invalue.sas
+                match: (?i)\b(DEFAULT|FUZZ|MAX|MIN)\s*(?==)
+              - name: keyword.other.proc.format.invalue.sas
+                match: (?i)\b(JUST|NOTSORTED|REGEXP|REGEXPE|UPCASE)\b
+          - begin: (?i)(?<=\bPICTURE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.format.picture.sas
+                match: (?i)\b(DATATYPE|DEFAULT|DECSEP|DIG3SEP|FILL|FUZZ|LANGUAGE|MAX|MIN|MULTIPLIER|PREFIX)\s*(?==)
+              - name: keyword.other.proc.format.picture.sas
+                match: (?i)\b(MULTILABEL|NOEDIT|NOTSORTED|ROUND)\b
+          - begin: (?i)(?<=\bVALUE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.format.value.sas
+                match: (?i)\b(DEFAULT|FUZZ|MAX|MIN)\s*(?==)
+              - name: keyword.other.proc.format.value.sas
+                match: (?i)\b(MULTILABEL|NOTSORTED)\b
+      # FSLIST Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+FSLIST)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+FSLIST)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.fslist.sas
+                match: (?i)\b(DD|UNIT|HSCROLL)\s*(?==)
+              - name: keyword.other.proc.option.fslist.sas
+                match: (?i)\b(FILEREF|DDNAME|CAPS|NOCAPS|CC|FORTCC|NOCC|NOBORDER|NUM|NONUM|OVP|NOOVP)\b
+      # GROOVY Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+GROOVY)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)((QUIT\b)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        endCaptures:
+          3:
+            name: keyword.quit.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+GROOVY)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+          - name: keyword.other.proc.groovy.sas
+            match: (?i)\b(ADD|EVALUATE|EXECUTE|SUBMIT|ENDSUBMIT|CLEAR)\b(?!s+=)
+          - begin: (?i)(?<=\bEVALUATE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.groovy.evaluate.sas
+                match: (?i)\b(LOAD|PARSEONLY|NORUN)\b
+          - begin: (?i)(?<=\bEXECUTE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.groovy.execute.sas
+                match: (?i)\b(LOAD|PARSEONLY|NORUN)\b
+          - begin: (?i)(?<=\bSUBMIT)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.groovy.submit.sas
+                match: (?i)\b(LOAD|PARSEONLY|NORUN)\b
+      # HADOOP Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+HADOOP)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+HADOOP)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.hadoop.sas
+                match: (?i)\b(AUTHDOMAIN|CFG|MAXWAIT|PASSWORD|USERNAME)\s*(?==)
+              - name: keyword.other.proc.option.hadoop.sas
+                match: (?i)\b(VERBOSE)\b
+          - name: keyword.other.proc.hadoop.sas
+            match: (?i)\b(HDFS|MAPREDUCE|PIG|PROPERTIES)\b(?!s+=)
+          - begin: (?i)(?<=\bHDFS)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.hadoop.hdfs.sas
+                match: (?i)\b(CAT|CHMOD|COPYFROMLOCAL|COPYTOLOCAL|DELETE|LS|MKDIR|RENAME)\s*(?==)
+          - begin: (?i)(?<=\bMAPREDUCE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.hadoop.mapreduce.sas
+                match: (?i)\b(COMBINE|GROUPCOMPARE|INPUT|INPUTFORMAT|JAR|MAP|OUTPUT|OUTPUTFORMAT|OUTPUTKEY|OUTPUTVALUE|PARTITIONER|REDUCE|REDUCETASKS|SORTCOMPARE|WORKINGDIR)\s*(?==)
+              - name: keyword.other.proc.hadoop.mapreduce.sas
+                match: (?i)\b(DELETERESULTS|REPLACE)\b
+          - begin: (?i)(?<=\bPIG)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.hadoop.pig.sas
+                match: (?i)\b(CODE|OUTPUT|PARAMETERS|REGISTERJAR|WORKINGDIR)\s*(?==)
+              - name: keyword.other.proc.hadoop.pig.sas
+                match: (?i)\b(DELETERESULTS|REPLACE)\b
+      # HDMD Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+HDMD)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+HDMD)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.hdmd.sas
+                match: (?i)\b(BYTE_ORDER|DATA_FILE|ENCODING|FILE_FORMAT|FILE_TYPE|FROM|HEADER_LINES|INPUT_CLASS|RECORD_LENGTH|ROW_TAG|SEP|TEXT_QUALIFIER)\s*(?==)
+              - name: keyword.other.proc.option.hdmd.sas
+                match: (?i)\b(MANAGED)\b
+          - name: keyword.other.proc.hdmd.sas
+            match: (?i)\b(COLUMN)\b(?!s+=)
+      - name: keyword.author.hui-ts.sas
+      # HTTP Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+HTTP)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+HTTP)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.http.sas
+                match: (?i)\b(URL|CT|HEADERIN|HEADEROUT|IN|MAXREDIRECTS|METHOD|OAUTH_BEARER|OUT|PROXYHOST|PROXYPASSWORD|PROXYPORT|PROXYUSERNAME|QUERY|TIMEOUT|WEBAUTHDOMAIN|WEBPASSWORD|WEBUSERNAME)\s*(?==)
+              - name: keyword.other.proc.option.http.sas
+                match: (?i)\b(AUTH_ANY|AUTH_BASIC|AUTH_NTLM|AUTH_NEGOTIATE|AUTH_NONE|CLEAR_CACHE|CLEAR_CONN_CACHE|CLEAR_COOKIES|EXPECT_100_CONTINUE|FOLLOWLOC|HEADEROUT_OVERWRITE|HTTP_TOKENAUTH|NO_CONN_CACHE|NO_COOKIES|NOFOLLOWLOC|PROXY_AUTH_BASIC|PROXY_AUTH_NTLM|PROXY_AUTH_NEGOTIATE)\b
+          - name: keyword.other.proc.http.sas
+            match: (?i)\b(DEBUG|HEADERS|SSLPARMS)\b(?!s+=)
+          - begin: (?i)(?<=\bDEBUG)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.http.debug.sas
+                match: (?i)\b(LEVEL)\s*(?==)
+              - name: keyword.other.proc.http.debug.sas
+                match: (?i)\b(NO_REQUEST_BODY|NO_REQUEST_HEADERS|NO_RESPONSE_BODY|NO_RESPONSE_HEADERS|OUTPUT_TEXT|REQUEST_BODY|REQUEST_HEADERS|RESPONSE_BODY|RESPONSE_HEADERS)\b
+      # IMPORT Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+IMPORT)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+IMPORT)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.import.sas
+                match: (?i)\b(DATAFILE|OUT|TABLE|DBMS)\s*(?==)
+              - name: keyword.other.proc.option.import.sas
+                match: (?i)\b(REPLACE|SAS)\b
+          - name: keyword.other.proc.import.sas
+            match: (?i)\b(DATAROW=|DBENCODING|DELIMITER=|FMTLIB=|GETNAMES|GUESSINGROWS=|META)\b(?!s+=)
+          - begin: (?i)(?<=\bDBENCODING)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.import.dbencoding.sas
+                match: (?i)\b(SAS)\b
+          - begin: (?i)(?<=\bGETNAMES)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.import.getnames.sas
+                match: (?i)\b(YES|NO)\b
+          - begin: (?i)(?<=\bGUESSINGROWS=)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.import.guessingrows=.sas
+                match: (?i)\b(MAX)\b
+      # JAVAINFO Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+JAVAINFO)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+JAVAINFO)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.javainfo.sas
+                match: (?i)\b(ALL|CLASSPATHS|HELP|JREOPTIONS|OS)\b
+      # JSON Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+JSON)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+JSON)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.json.sas
+                match: (?i)\b(OUT)\s*(?==)
+              - name: keyword.other.proc.option.json.sas
+                match: (?i)\b(FMTCHARACTER|NOFMTCHARACTER|FMTDATETIME|NOFMTDATETIME|FMTNUMERIC|NOFMTNUMERIC|KEYS|NOKEYS|PRETTY|NOPRETTY|SASTAGS|NOSASTAGS|SCAN|NOSCAN|TRIMBLANKS|NOTRIMBLANKS)\b
+          - name: keyword.other.proc.json.sas
+            match: (?i)\b(EXPORT|WRITE\s+VALUES|WRITE\s+OPEN|WRITE\s+CLOSE)\b(?!s+=)
+          - begin: (?i)(?<=\bEXPORT)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.json.export.sas
+                match: (?i)\b(TABLENAME)\s*(?==)
+              - name: keyword.other.proc.json.export.sas
+                match: (?i)\b(SAS|FMTCHARACTER|NOFMTCHARACTER|FMTDATETIME|NOFMTDATETIME|FMTNUMERIC|NOFMTNUMERIC|KEYS|NOKEYS|SASTAGS|NOSASTAGS|SCAN|NOSCAN|TRIMBLANKS|NOTRIMBLANKS)\b
+          - begin: (?i)(?<=\bWRITE\s+VALUES)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.json.write-values.sas
+                match: (?i)\b(SCAN|NOSCAN|TRIMBLANKS|NOTRIMBLANKS)\b
+      # LUA Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+LUA)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+LUA)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.lua.sas
+                match: (?i)\b(INFILE)\s*(?==)
+              - name: keyword.other.proc.option.lua.sas
+                match: (?i)\b(RESTART|TERMINATE)\b
+          - name: keyword.other.proc.lua.sas
+            match: (?i)\b(SUBMIT|ENDSUBMIT)\b(?!s+=)
+      # MEANS Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+MEANS)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+MEANS)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.means.sas
+                match: (?i)\b(ALPHA|CLASSDATA|DATA|FW|INCAS|MAXDEC|ORDER|QMARKERS|QMETHOD|QNTLDEF|SUMSIZE|VARDEF)\s*(?==)
+              - name: keyword.other.proc.option.means.sas
+                match: (?i)\b(CHARTYPE|COMPLETETYPES|DESCENDTYPES|EXCLNPWGT|EXCLUSIVE|IDMIN|MISSING|NONOBS|NOPRINT|NOTHREADS|NOTRAP|NWAY|PRINT|PRINTALLTYPES|PRINTIDVARS|STACKODSOUTPUT|THREADS)\b
+          - name: keyword.other.proc.means.sas
+            match: (?i)\b(BY|CLASS|FREQ|ID|OUTPUT|TYPES|VAR|WAYS|WEIGHT|ATTRIB|FORMAT|LABEL|WHERE)\b(?!s+=)
+          - begin: (?i)(?<=\bBY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.means.by.sas
+                match: (?i)\b(DESCENDING|NOTSORTED)\b
+          - begin: (?i)(?<=\bCLASS)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.means.class.sas
+                match: (?i)\b(ORDER)\s*(?==)
+              - name: keyword.other.proc.means.class.sas
+                match: (?i)\b(ASCENDING|DESCENDING|EXCLUSIVE|GROUPINTERNAL|MISSING|MLF|PRELOADFMT)\b
+          - begin: (?i)(?<=\bOUTPUT)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.means.output.sas
+                match: (?i)\b(OUT)\s*(?==)
+          - begin: (?i)(?<=\bVAR)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.means.var.sas
+                match: (?i)\b(WEIGHT)\s*(?==)
+      # MIGRATE Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+MIGRATE)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+MIGRATE)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.migrate.sas
+                match: (?i)\b(IN|OUT|BUFSIZE|SLIBREF)\s*(?==)
+              - name: keyword.other.proc.option.migrate.sas
+                match: (?i)\b(MOVE|KEEPNODUPKEY)\b
+      # OPTIONS Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+OPTIONS)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+OPTIONS)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.options.sas
+                match: (?i)\b(GROUP|OPTION)\s*(?==)
+              - name: keyword.other.proc.option.options.sas
+                match: (?i)\b(DEFINE|EXPAND|HEXVALUE|HOST|LISTINSERTAPPEND|LISTGROUPS|LISTOPTSAVE|LISTRESTRICT|LONG|LOGNUMBERFORMAT|NOEXPAND|NOHOST|NOLOGNUMBERFORMAT|RESTRICT|SHORT|VALUE)\b
+      # OPTLOAD Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+OPTLOAD)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+OPTLOAD)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.optload.sas
+                match: (?i)\b(DATA|KEY)\s*(?==)
+      # OPTSAVE Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+OPTSAVE)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+OPTSAVE)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.optsave.sas
+                match: (?i)\b(KEY|OUT)\s*(?==)
+      # PLOT Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+PLOT)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)((QUIT\b)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        endCaptures:
+          3:
+            name: keyword.quit.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+PLOT)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.plot.sas
+                match: (?i)\b(DATA|ENCRYPTKEY|HPERCENT|VPERCENT|VTOH)\s*(?==)
+              - name: keyword.other.proc.option.plot.sas
+                match: (?i)\b(FORMCHAR|MISSING|NOLEGEND|NOMISS|UNIFORM)\b
+          - name: keyword.other.proc.plot.sas
+            match: (?i)\b(BY|PLOT|ATTRIB|FORMAT|LABEL|WHERE)\b(?!s+=)
+          - begin: (?i)(?<=\bBY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.plot.by.sas
+                match: (?i)\b(DESCENDING|NOTSORTED)\b
+          - begin: (?i)(?<=\bPLOT)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.plot.plot.sas
+                match: (?i)\b(HAXIS|HPOS|HREF|HREFCHAR|HSPACE|OUTWARD|PLACEMENT|SLIST|SPLIT|VAXIS|VPOS|VREF|VREFCHAR|VSPACE)\s*(?==)
+              - name: keyword.other.proc.plot.plot.sas
+                match: (?i)\b(BOX|CONTOUR|HEXPAND|HREVERSE|HZERO|LIST|OVERLAY|PENALTIES|STATES|VEXPAND|VREVERSE|VZERO)\b
+      # PMENU Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+PMENU)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+PMENU)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.pmenu.sas
+                match: (?i)\b(CATALOG)\s*(?==)
+              - name: keyword.other.proc.option.pmenu.sas
+                match: (?i)\b(DESC)\b
+          - name: keyword.other.proc.pmenu.sas
+            match: (?i)\b(CHECKBOX|DIALOG|ITEM|MENU|RADIOBOX|RBUTTON|SELECTION|SEPARATOR;|SUBMENU|TEXT)\b(?!s+=)
+          - begin: (?i)(?<=\bCHECKBOX)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.pmenu.checkbox.sas
+                match: (?i)\b(COLOR|SUBSTITUTE)\s*(?==)
+              - name: keyword.other.proc.pmenu.checkbox.sas
+                match: (?i)\b(ON)\b
+          - begin: (?i)(?<=\bITEM)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.pmenu.item.sas
+                match: (?i)\b(ACCELERATE|HELP|ID|MNEMONIC|STATE)\s*(?==)
+              - name: keyword.other.proc.pmenu.item.sas
+                match: (?i)\b(GRAY)\b
+          - begin: (?i)(?<=\bRADIOBOX)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.pmenu.radiobox.sas
+                match: (?i)\b(DEFAULT)\s*(?==)
+          - begin: (?i)(?<=\bRBUTTON)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.pmenu.rbutton.sas
+                match: (?i)\b(COLOR|SUBSTITUTE)\s*(?==)
+              - name: keyword.other.proc.pmenu.rbutton.sas
+                match: (?i)\b(NONE)\b
+          - begin: (?i)(?<=\bSUBMENU)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.pmenu.submenu.sas
+                match: (?i)\b(SAS)\b
+          - begin: (?i)(?<=\bTEXT)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.pmenu.text.sas
+                match: (?i)\b(ATTR|COLOR)\s*(?==)
+      # PRESENV Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+PRESENV)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+PRESENV)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.presenv.sas
+                match: (?i)\b(PERMDIR|SASCODE)\s*(?==)
+              - name: keyword.other.proc.option.presenv.sas
+                match: (?i)\b(SHOW_COMMENTS)\b
+      # PRINT Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+PRINT)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+PRINT)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.print.sas
+                match: (?i)\b(BLANKLINE|CONTENTS|DATA|GRANDTOTAL_LABEL|HEADING|OBS|ROWS|SPLIT|WIDTH)\s*(?==)
+              - name: keyword.other.proc.option.print.sas
+                match: (?i)\b(DOUBLE|LABEL|N|NOOBS|ROUND|STYLE|SUMLABEL|NOSUMLABEL|UNIFORM)\b
+          - name: keyword.other.proc.print.sas
+            match: (?i)\b(BY|ID|PAGEBY|SUM|SUMBY|VAR|ATTRIB|FORMAT|LABEL|TITLE|WHERE)\b(?!s+=)
+          - begin: (?i)(?<=\bBY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.print.by.sas
+                match: (?i)\b(DESCENDING|NOTSORTED)\b
+          - begin: (?i)(?<=\bID)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.print.id.sas
+                match: (?i)\b(STYLE)\b
+          - begin: (?i)(?<=\bPAGEBY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.print.pageby.sas
+                match: (?i)\b(BY)\b
+          - begin: (?i)(?<=\bSUM)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.print.sum.sas
+                match: (?i)\b(STYLE)\b
+          - begin: (?i)(?<=\bSUMBY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.print.sumby.sas
+                match: (?i)\b(BY)\b
+          - begin: (?i)(?<=\bVAR)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.print.var.sas
+                match: (?i)\b(STYLE)\b
+      # PRINTTO Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+PRINTTO)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+PRINTTO)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.printto.sas
+                match: (?i)\b(LABEL|LOG|PRINT|UNIT)\s*(?==)
+              - name: keyword.other.proc.option.printto.sas
+                match: (?i)\b(NEW)\b
+      # PRODUCT_STATUS Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+PRODUCT_STATUS)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+PRODUCT_STATUS)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+      # PROTO Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+PROTO)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+PROTO)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.proto.sas
+                match: (?i)\b(PACKAGE|LABEL)\s*(?==)
+              - name: keyword.other.proc.option.proto.sas
+                match: (?i)\b(ENCRYPT|HIDE|NOSIGNALS|STDCALL)\b
+          - name: keyword.other.proc.proto.sas
+            match: (?i)\b(LINK|MAPMISS|function-prototype-1)\b(?!s+=)
+          - begin: (?i)(?<=\bLINK)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.proto.link.sas
+                match: (?i)\b(NOUNLOAD)\b
+          - begin: (?i)(?<=\bMAPMISS)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.proto.mapmiss.sas
+                match: (?i)\b(POINTER|INT|DOUBLE|LONG|SHORT)\s*(?==)
+          - begin: (?i)(?<=\bfunction-prototype-1)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.proto.function-prototype-1.sas
+                match: (?i)\b(LABEL|GROUP)\s*(?==)
+              - name: keyword.other.proc.proto.function-prototype-1.sas
+                match: (?i)\b(KIND)\b
+      # PRTDEF Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+PRTDEF)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+PRTDEF)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.prtdef.sas
+                match: (?i)\b(DATA)\s*(?==)
+              - name: keyword.other.proc.option.prtdef.sas
+                match: (?i)\b(DELETE|FOREIGN|LIST|REPLACE|USESASHELP)\b
+      # PRTEXP Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+PRTEXP)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+PRTEXP)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.prtexp.sas
+                match: (?i)\b(OUT)\s*(?==)
+              - name: keyword.other.proc.option.prtexp.sas
+                match: (?i)\b(USESASHELP)\b
+          - name: keyword.other.proc.prtexp.sas
+            match: (?i)\b(EXCLUDE|SELECT)\b(?!s+=)
+      # PWENCODE Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+PWENCODE)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+PWENCODE)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.pwencode.sas
+                match: (?i)\b(IN|OUT|METHOD)\s*(?==)
+      # QDEVICE Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+QDEVICE)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+QDEVICE)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.qdevice.sas
+                match: (?i)\b(CATALOG|DEVLOC|OUT|REGISTRY|REPORT|SUPPORT|UNITS)\s*(?==)
+          - name: keyword.other.proc.qdevice.sas
+            match: (?i)\b(DEVICE|PRINTER|VAR)\b(?!s+=)
+          - begin: (?i)(?<=\bDEVICE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.qdevice.device.sas
+                match: (?i)\b(_ALL_|_HTML_|_LISTING_|_RTF_)\b
+          - begin: (?i)(?<=\bPRINTER)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.qdevice.printer.sas
+                match: (?i)\b(_ALL_|_PCL_|_PDF_|_PRINTER_|_PS_)\b
+          - begin: (?i)(?<=\bVAR)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.qdevice.var.sas
+                match: (?i)\b(DESC|LOCATION|NAME|TYPE|BIT|BITSTRING|ODESC|OPTION|SUPPORT|ALIAS|FONT|FSTYLE|FTYPE|FWEIGHT|FVERSION|ANIMATION|BMIN|BOTTOM|CLRSPACE|COLS|COMPRESSION|COMPMETHOD|DEST|EMBEDDING|FHEIGHT|FORMAT|HEIGHT|HRES|IOTYPE|LEFT|LMIN|MAXCOLORS|MODULE|PROTOTYPE|RIGHT|RMIN|ROWS|TMIN|TOP|UNITS|VISUAL|VRES|WIDTH|XPIXELS|YPIXELS|LINE|FILL|SYMBOL)\b
+      # RANK Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+RANK)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+RANK)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.rank.sas
+                match: (?i)\b(DATA|GROUPS|NORMAL|OUT|TIES)\s*(?==)
+              - name: keyword.other.proc.option.rank.sas
+                match: (?i)\b(DESCENDING|FRACTION|NPLUS1|PRESERVERAWBYVALUES|PERCENT|SAVAGE)\b
+          - name: keyword.other.proc.rank.sas
+            match: (?i)\b(BY|RANKS|VAR|ATTRIB|FORMAT|LABEL|WHERE)\b(?!s+=)
+          - begin: (?i)(?<=\bBY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.rank.by.sas
+                match: (?i)\b(DESCENDING|NOTSORTED)\b
+      # REGISTRY Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+REGISTRY)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+REGISTRY)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.registry.sas
+                match: (?i)\b(COMPAREREG1|COMPAREREG2|COMPARETO|EXPORT|IMPORT|LEVELS|LISTREG|STARTAT|UNINSTALL)\s*(?==)
+              - name: keyword.other.proc.option.registry.sas
+                match: (?i)\b(CLEARSASUSER|DEBUGON|DEBUGOFF|FOLLOWLINKS|FULLSTATUS|KEYSONLY|LIST|LISTHELP|LISTUSER|UPCASE|UPCASEALL|USESASHELP)\b
+      # REPORT Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+REPORT)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+REPORT)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.report.sas
+                match: (?i)\b(BYPAGENO|CAPTION|COLWIDTH|CONTENTS|DATA|HELP|LS|OUT|OUTREPT|PANELS|PCTLDEF|PROFILE|PS|PSPACE|QMARKERS|QMETHOD|QNTLDEF|REPORT|SPACING|SPLIT|VARDEF)\s*(?==)
+              - name: keyword.other.proc.option.report.sas
+                match: (?i)\b(BOX|CENTER|NOCENTER|COMMAND|COMPLETECOLS|NOCOMPLETECOLS|COMPLETEROWS|NOCOMPLETEROWS|EXCLNPWGT|FORMCHAR|HEADLINE|HEADSKIP|LIST|MISSING|NAMED|NOALIAS|NOEXEC|NOHEADER|NOTHREADS|NOWINDOWS|PROMPT|SHOWALL|SPANROWS|STYLE|THREADS|WINDOWS|WRAP)\b
+          - name: keyword.other.proc.report.sas
+            match: (?i)\b(BREAK|BY|CALL\s+DEFINE|COLUMN|COMPUTE|DEFINE|ENDCOMP|FREQ|LINE|RBREAK|WEIGHT|ATTRIB|FORMAT|LABEL|WHERE)\b(?!s+=)
+          - begin: (?i)(?<=\bBREAK)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.report.break.sas
+                match: (?i)\b(COLOR|CONTENTS)\s*(?==)
+              - name: keyword.other.proc.report.break.sas
+                match: (?i)\b(DOL|DUL|OL|PAGE|SKIP|STYLE|SUMMARIZE|SUPPRESS|UL)\b
+          - begin: (?i)(?<=\bBY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.report.by.sas
+                match: (?i)\b(DESCENDING|NOTSORTED)\b
+          - begin: (?i)(?<=\bCALL\s+DEFINE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.report.call-define.sas
+                match: (?i)\b(_ROW_)\b
+          - begin: (?i)(?<=\bCOMPUTE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.report.compute.sas
+                match: (?i)\b(STYLE)\b
+          - begin: (?i)(?<=\bDEFINE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.report.define.sas
+                match: (?i)\b(COLOR|CONTENTS|FORMAT|SPACING|WEIGHT|WIDTH)\s*(?==)
+              - name: keyword.other.proc.report.define.sas
+                match: (?i)\b(ACROSS|ANALYSIS|CENTER|COMPUTED|DESCENDING|DISPLAY|EXCLUSIVE|FLOW|GROUP|ID|LEFT|MISSING|MLF|NOPRINT|NOZERO|ORDER|PAGE|PRELOADFMT|RIGHT|STYLE)\b
+          - begin: (?i)(?<=\bRBREAK)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.report.rbreak.sas
+                match: (?i)\b(COLOR|CONTENTS)\s*(?==)
+              - name: keyword.other.proc.report.rbreak.sas
+                match: (?i)\b(DOL|DUL|OL|PAGE|SKIP|STYLE|SUMMARIZE|UL)\b
+      # S3 Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+S3)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+S3)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.s3.sas
+                match: (?i)\b(AWSCONFIG|AWSCREDENTIALS|CONFIG|CREDENTIALSPROFILE|KEYID|PROFILE|REGION|ROLENAME|ROLEARN|SECRET|SESSION)\s*(?==)
+              - name: keyword.other.proc.option.s3.sas
+                match: (?i)\b(SSL|NOSSL)\b
+          - name: keyword.other.proc.s3.sas
+            match: (?i)\b(BUCKET|COPY|CREATE|DELETE|DESTROY|ENCKEY|GET|GETACCEL|GETDIR|INFO|LIST|MKDIR|PUT|PUTDIR|REGION|RMDIR)\b(?!s+=)
+          - begin: (?i)(?<=\bBUCKET)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.s3.bucket.sas
+                match: (?i)\b(ACCELERATE|NOACCELERATE)\b
+          - begin: (?i)(?<=\bCOPY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.s3.copy.sas
+                match: (?i)\b(ENCKEY|SRCKEY)\s*(?==)
+          - begin: (?i)(?<=\bENCKEY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.s3.enckey.sas
+                match: (?i)\b(ALGORITHM|CONTEXT|HEXKEY|ID|KEY|NAME)\s*(?==)
+              - name: keyword.other.proc.s3.enckey.sas
+                match: (?i)\b(ADD|LIST|REMOVE|REPLACE)\b
+          - begin: (?i)(?<=\bGET)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.s3.get.sas
+                match: (?i)\b(ENCKEY)\s*(?==)
+          - begin: (?i)(?<=\bGETDIR)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.s3.getdir.sas
+                match: (?i)\b(ENCKEY)\s*(?==)
+          - begin: (?i)(?<=\bINFO)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.s3.info.sas
+                match: (?i)\b(ENCKEY)\s*(?==)
+          - begin: (?i)(?<=\bLIST)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.s3.list.sas
+                match: (?i)\b(OUT)\s*(?==)
+              - name: keyword.other.proc.s3.list.sas
+                match: (?i)\b(_SHORT_)\b
+          - begin: (?i)(?<=\bPUT)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.s3.put.sas
+                match: (?i)\b(ENCKEY)\s*(?==)
+          - begin: (?i)(?<=\bPUTDIR)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.s3.putdir.sas
+                match: (?i)\b(ENCKEY)\s*(?==)
+          - begin: (?i)(?<=\bREGION)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.s3.region.sas
+                match: (?i)\b(HOST|NAME|PORT|SSLPORT)\s*(?==)
+              - name: keyword.other.proc.s3.region.sas
+                match: (?i)\b(ADD|LIST|REMOVE|REPLACE|SSLALLOWED|SSLREQUIRED)\b
+      # SCAPROC Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+SCAPROC)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+SCAPROC)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+          - name: keyword.other.proc.scaproc.sas
+            match: (?i)\b(RECORD|WRITE)\b(?!s+=)
+          - begin: (?i)(?<=\bRECORD)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.scaproc.record.sas
+                match: (?i)\b(ATTR|OPENTIMES|INTCON|EXPANDMACROS|GRID)\b
+      # SCOREACCEL Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+SCOREACCEL)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+SCOREACCEL)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.scoreaccel.sas
+                match: (?i)\b(SESSREF)\s*(?==)
+          - name: keyword.other.proc.scoreaccel.sas
+            match: (?i)\b(DELETEMODEL|PUBLISHMODEL|RUNMODEL)\b(?!s+=)
+          - begin: (?i)(?<=\bDELETEMODEL)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.scoreaccel.deletemodel.sas
+                match: (?i)\b(MODELNAME|MODELTABLE|CASLIB|CLASSPATH|DATABASE|DELETEGLOBAL|JOBMANAGEMENTURL|MODELDIR|PASSWORD|PERSISTTABLE|PROMOTETABLE|REPLACETABLE|SCHEMA|SERVER|TARGET|USERNAME|WEBHDFSURL)\s*(?==)
+              - name: keyword.other.proc.scoreaccel.deletemodel.sas
+                match: (?i)\b(AUTHDOMAIN)\b
+          - begin: (?i)(?<=\bPUBLISHMODEL)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.scoreaccel.publishmodel.sas
+                match: (?i)\b(MODELNAME|MODELTABLE|PROGRAMFILE|CASLIB|CLASSPATH|DATABASE|FORMATFILE|FORMATITEMSTOREFILE|JOBMANAGEMENTURL|KEEPLIST|MODELDIR|MODELNOTES|MODELTYPE|MODELUUID|OUTDIR|PASSWORD|PERSISTTABLE|PROMOTETABLE|PUBLISHGLOBAL|REPLACEMODEL|REPLACETABLE|SCHEMA|SERVER|STOREFILES|STORETABLES|TARGET|USERNAME|VARXMLFILE|WEBHDFSURL)\s*(?==)
+              - name: keyword.other.proc.scoreaccel.publishmodel.sas
+                match: (?i)\b(AUTHDOMAIN)\b
+          - begin: (?i)(?<=\bRUNMODEL)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.scoreaccel.runmodel.sas
+                match: (?i)\b(MODELNAME|MODELTABLE|CASLIB|CLASSPATH|CONFIGPATH|CUSTOMJAR|DATABASE|DBMAXTEXT|EPOPTIONS|FORCEOVERWRITE|HIVEPORT|INDATASET|INHDMD|INQUERY|INTABLE|JOBMANAGEMENTURL|KEEPLISTCOLUMNS|KEEPLISTFILE|MODELDIR|OUTDATASET|OUTHDMD|OUTKEY|OUTPUTFOLDER|OUTPUTFORMATCLASS|OUTRECORDFORMAT|OUTSCHEMA|OUTTABLE|OUTTABLEOPTIONS|PASSWORD|PLATFORM|PROPERTIES|SCHEMA|SENDPROGRAM|SERVER|TARGET|USERNAME|WEBHDFSURL)\s*(?==)
+              - name: keyword.other.proc.scoreaccel.runmodel.sas
+                match: (?i)\b(AUTHDOMAIN|TRACE|VERBOSE)\b
+      # SOAP Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+SOAP)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+SOAP)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.soap.sas
+                match: (?i)\b(IN|OUT)\s*(?==)
+              - name: keyword.other.proc.option.soap.sas
+                match: (?i)\b(SERVICE|URL|CONFIGFILE|DEBUG|ENVFILE|ENVIRONMENT|MUSTUNDERSTAND|PROXYDOMAIN|PROXYHOST|PROXYPASSWORD|PROXYPORT|PROXYUSERNAME|SOAPACTION|SRSURL|WEBAUTHDOMAIN|WEBDOMAIN|WEBPASSWORD|WEBUSERNAME|WSSAUTHDOMAIN|WSSUSERNAME|WSSPASSWORD|ENVELOPE)\b
+      # SORT Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+SORT)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+SORT)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.sort.sas
+                match: (?i)\b(SORTSEQ|DATA|DUPOUT|OUT|SORTSIZE|UNIQUEOUT)\s*(?==)
+              - name: keyword.other.proc.option.sort.sas
+                match: (?i)\b(ASCII|DANISH|EBCDIC|FINNISH|NATIONAL|NORWEGIAN|REVERSE|SWEDISH|DATECOPY|EQUALS|NOEQUALS|FORCE|NODUPKEY|NOTHREADS|NOUNIQUEKEY|OVERWRITE|PRESORTED|TAGSORT|THREADS)\b
+          - name: keyword.other.proc.sort.sas
+            match: (?i)\b(BY|KEY|ATTRIB|FORMAT|LABEL|WHERE)\b(?!s+=)
+          - begin: (?i)(?<=\bBY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.sort.by.sas
+                match: (?i)\b(DESCENDING)\b
+          - begin: (?i)(?<=\bKEY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.sort.key.sas
+                match: (?i)\b(ASCENDING|DESCENDING)\b
+      # SQOOP Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+SQOOP)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+SQOOP)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.sqoop.sas
+                match: (?i)\b(COMMAND|DBPWD|DBUSER|HADOOPPWD|HADOOPUSER|OOZIEURL|HIVE_SERVER|HIVE_URI|JOBTRACKER|NAMENODE|PASSWORDFILE|WFHDFSPATH)\s*(?==)
+              - name: keyword.other.proc.option.sqoop.sas
+                match: (?i)\b(DELETEWF)\b
+      # STANDARD Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+STANDARD)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+STANDARD)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.standard.sas
+                match: (?i)\b(DATA|MEAN|OUT|STD|VARDEF)\s*(?==)
+              - name: keyword.other.proc.option.standard.sas
+                match: (?i)\b(EXCLNPWGT|NOPRINT|PRESERVERAWBYVALUES|PRINT|REPLACE)\b
+          - name: keyword.other.proc.standard.sas
+            match: (?i)\b(BY|FREQ|VAR|WEIGHT|ATTRIB|FORMAT|LABEL|WHERE)\b(?!s+=)
+          - begin: (?i)(?<=\bBY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.standard.by.sas
+                match: (?i)\b(DESCENDING|NOTSORTED)\b
+      # STREAM Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+STREAM)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+STREAM)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.stream.sas
+                match: (?i)\b(OUTFILE|QUOTING|RESETDELIM)\s*(?==)
+              - name: keyword.other.proc.option.stream.sas
+                match: (?i)\b(MOD|NOABSSCMT|PRESCOL)\b
+      # SUMMARY Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+SUMMARY)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+SUMMARY)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.summary.sas
+                match: (?i)\b(ALPHA|CLASSDATA|DATA|FW|INCAS|MAXDEC|ORDER|QMARKERS|QMETHOD|QNTLDEF|SUMSIZE|VARDEF)\s*(?==)
+              - name: keyword.other.proc.option.summary.sas
+                match: (?i)\b(CHARTYPE|COMPLETETYPES|DESCENDTYPES|EXCLNPWGT|EXCLUSIVE|IDMIN|MISSING|NONOBS|NOPRINT|NOTHREADS|NOTRAP|NWAY|PRINT|PRINTALLTYPES|PRINTIDVARS|STACKODSOUTPUT|THREADS)\b
+          - name: keyword.other.proc.summary.sas
+            match: (?i)\b(BY|CLASS|FREQ|ID|OUTPUT|TYPES|VAR|WAYS|WEIGHT|ATTRIB|FORMAT|LABEL|WHERE)\b(?!s+=)
+          - begin: (?i)(?<=\bBY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.summary.by.sas
+                match: (?i)\b(DESCENDING|NOTSORTED)\b
+          - begin: (?i)(?<=\bCLASS)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.summary.class.sas
+                match: (?i)\b(ORDER)\s*(?==)
+              - name: keyword.other.proc.summary.class.sas
+                match: (?i)\b(ASCENDING|DESCENDING|EXCLUSIVE|GROUPINTERNAL|MISSING|MLF|PRELOADFMT)\b
+          - begin: (?i)(?<=\bOUTPUT)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.summary.output.sas
+                match: (?i)\b(OUT)\s*(?==)
+          - begin: (?i)(?<=\bVAR)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.summary.var.sas
+                match: (?i)\b(WEIGHT)\s*(?==)
+      # TABULATE Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+TABULATE)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+TABULATE)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.tabulate.sas
+                match: (?i)\b(ALPHA|CLASSDATA|CONTENTS|DATA|FORMAT|ORDER|OUT|QMARKERS|QMETHOD|QNTLDEF|STYLE|VARDEF)\s*(?==)
+              - name: keyword.other.proc.option.tabulate.sas
+                match: (?i)\b(EXCLNPWGT|EXCLUSIVE|FORMCHAR|MISSING|NOSEPS|NOTHREADS|THREADS|TRAP)\b
+          - name: keyword.other.proc.tabulate.sas
+            match: (?i)\b(BY|CLASS|CLASSLEV|FREQ|KEYLABEL|KEYWORD|TABLE|VAR|WEIGHT|ATTRIB|FORMAT|LABEL|WHERE)\b(?!s+=)
+          - begin: (?i)(?<=\bBY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.tabulate.by.sas
+                match: (?i)\b(DESCENDING|NOTSORTED)\b
+          - begin: (?i)(?<=\bCLASS)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.tabulate.class.sas
+                match: (?i)\b(ORDER|STYLE)\s*(?==)
+              - name: keyword.other.proc.tabulate.class.sas
+                match: (?i)\b(ASCENDING|DESCENDING|EXCLUSIVE|GROUPINTERNAL|MISSING|MLF|PRELOADFMT)\b
+          - begin: (?i)(?<=\bCLASSLEV)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.tabulate.classlev.sas
+                match: (?i)\b(STYLE)\s*(?==)
+          - begin: (?i)(?<=\bKEYWORD)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.tabulate.keyword.sas
+                match: (?i)\b(STYLE)\s*(?==)
+          - begin: (?i)(?<=\bTABLE)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.tabulate.table.sas
+                match: (?i)\b(BOX|CAPTION|CONTENTS|FORMAT_PRECEDENCE|FUZZ|INDENT|MISSTEXT|ROW|RTSPACE|STYLE|STYLE_PRECEDENCE)\s*(?==)
+              - name: keyword.other.proc.tabulate.table.sas
+                match: (?i)\b(CONDENSE|NOCELLMERGE|NOCONTINUED|PRINTMISS|ALL)\b
+          - begin: (?i)(?<=\bVAR)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.tabulate.var.sas
+                match: (?i)\b(STYLE|WEIGHT)\s*(?==)
+      # TIMEPLOT Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+TIMEPLOT)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+TIMEPLOT)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.timeplot.sas
+                match: (?i)\b(DATA|ENCRYPTKEY|MAXDEC|SPLIT)\s*(?==)
+              - name: keyword.other.proc.option.timeplot.sas
+                match: (?i)\b(UNIFORM)\b
+          - name: keyword.other.proc.timeplot.sas
+            match: (?i)\b(BY|CLASS|ID|PLOT|ATTRIB|FORMAT|LABEL|WHERE)\b(?!s+=)
+          - begin: (?i)(?<=\bBY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.timeplot.by.sas
+                match: (?i)\b(DESCENDING|NOTSORTED)\b
+          - begin: (?i)(?<=\bPLOT)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.timeplot.plot.sas
+                match: (?i)\b(AXIS|OVPCHAR|POS|REF|REFCHAR)\s*(?==)
+              - name: keyword.other.proc.timeplot.plot.sas
+                match: (?i)\b(HILOC|JOINREF|NOSYMNAME|NPP|OVERLAY|REVERSE)\b
+      # TRANSPOSE Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+TRANSPOSE)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+TRANSPOSE)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.transpose.sas
+                match: (?i)\b(DATA|DELIMITER|INDB|LABEL|NAME|OUT|PREFIX|SUFFIX)\s*(?==)
+              - name: keyword.other.proc.option.transpose.sas
+                match: (?i)\b(LET)\b
+          - name: keyword.other.proc.transpose.sas
+            match: (?i)\b(BY|COPY|ID|IDLABEL|VAR|ATTRIB|FORMAT|LABEL|WHERE)\b(?!s+=)
+          - begin: (?i)(?<=\bBY)\b(?!\s+=)
+            end: ;
+            patterns:
+              - include: '#global'
+              - include: '#format_informat'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.transpose.by.sas
+                match: (?i)\b(DESCENDING|NOTSORTED)\b
+      # XSL Procedure
+      - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+XSL)\b
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        beginCaptures:
+          0:
+            name: keyword.proc.sas
+        patterns:
+          - include: '#global'
+          - include: '#format_informat'
+          - begin: (?i)(?<=(^|;|\w+:)\s*PROC\s+XSL)\b
+            end: ;
+            patterns:
+              - include: '#comment'
+              - include: '#constant'
+              - include: '#macro'
+              - include: '#string'
+              - include: '#proc_data_set_option'
+              - name: keyword.other.proc.option.xsl.sas
+                match: (?i)\b(IN|OUT|XSL)\s*(?==)
+          - name: keyword.other.proc.xsl.sas
+            match: (?i)\b(PARAMETER)\b(?!s+=)
+
+scopeName: source.sas

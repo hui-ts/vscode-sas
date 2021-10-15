@@ -1,0 +1,56 @@
+{
+    "name": "vscode-sas",
+    "displayName": "SAS",
+    "description": "Visual Studio Code SAS Syntax",
+    "version": "0.0.1",
+    "icon": "resources/image/icon/icon.png",
+    "publisher": "hui-ts",
+    "author": {
+        "name": "HUI TS"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/hui-ts/vscode-sas"
+    },
+    "scripts": {
+        "yaml2json": "node .vscode/yaml2json.js"
+    },
+    "engines": {
+        "vscode": "^1.60.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "sas",
+                "aliases": [
+                    "SAS",
+                    "sas"
+                ],
+                "extensions": [
+                    ".sas"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "sas",
+                "scopeName": "source.sas",
+                "path": "./syntaxes/sas.tmLanguage.json"
+            }
+        ],
+        "themes": [
+            {
+                "label": "Dark+ (SAS)",
+                "uiTheme": "vs-dark",
+                "path": "./themes/dark_plus_sas.json"
+            }
+        ]
+    },
+    "devDependencies": {
+        "js-yaml": "^4.1.0"
+    }
+}
