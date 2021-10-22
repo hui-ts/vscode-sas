@@ -50,6 +50,28 @@
 				}
 			]
 		},
+		"subglobal": {
+			"patterns": [
+				{
+					"include": "#comment"
+				},
+				{
+					"include": "#constant"
+				},
+				{
+					"include": "#macro"
+				},
+				{
+					"include": "#string"
+				},
+				{
+					"include": "#operator"
+				},
+				{
+					"include": "#function"
+				}
+			]
+		},
 		"comment": {
 			"patterns": [
 				{
@@ -223,7 +245,7 @@
 			},
 			"patterns": [
 				{
-					"include": "#global"
+					"include": "#subglobal"
 				},
 				{
 					"name": "keyword.other.sas",
@@ -266,7 +288,7 @@
 					},
 					"patterns": [
 						{
-							"include": "#global"
+							"include": "#subglobal"
 						},
 						{
 							"name": "keyword.other.sas",
@@ -606,15 +628,27 @@
 				},
 				{
 					"include": "#format_informat"
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*DATA)\\b",
+					"end": ";",
+					"patterns": [
+						{
+							"include": "#subglobal"
+						},
+						{
+							"include": "#data_set_option"
+						},
+						{
+							"name": "keyword.other.sas",
+							"match": "(?i)(?<=(^|;|\\w+:)\\s*DATA\\s+)(_(NULL|DATA|LAST)_)"
+						}
+					]
 				}
 			]
 		},
 		"data_step_statment_keyword": {
 			"patterns": [
-				{
-					"name": "keyword.other.sas",
-					"match": "(?i)(?<=(^|;|\\w+:)\\s*DATA\\s+)(_(NULL|DATA|LAST)_)"
-				},
 				{
 					"begin": "(?i)(?<=(^|;|\\w+:|ELSE)\\s*)(IF)(?=\\b)",
 					"end": "(?i)(?:;|\\b(THEN)\\b)",
@@ -630,7 +664,7 @@
 					},
 					"patterns": [
 						{
-							"include": "#global"
+							"include": "#subglobal"
 						}
 					]
 				},
@@ -716,7 +750,7 @@
 		"data_set_option_rules": {
 			"patterns": [
 				{
-					"include": "#global"
+					"include": "#subglobal"
 				},
 				{
 					"name": "keyword.other.data-option.sas",
@@ -854,7 +888,7 @@
 							"match": "(?i)\\b(ADD\\s+CONSTRAINT|ADD|DROP\\s+FOREIGN\\s+KEY|DROP\\s+PRIMARY\\s+KEY|DROP\\s+CONSTRAINT|DROP|MODIFY)\\b"
 						},
 						{
-							"include": "#global"
+							"include": "#subglobal"
 						},
 						{
 							"include": "#format_informat"
@@ -870,7 +904,7 @@
 							"match": "(?i)\\b(ON)\\b"
 						},
 						{
-							"include": "#global"
+							"include": "#subglobal"
 						},
 						{
 							"include": "#format_informat"
@@ -889,7 +923,7 @@
 							"include": "#query_expression"
 						},
 						{
-							"include": "#global"
+							"include": "#subglobal"
 						},
 						{
 							"include": "#format_informat"
@@ -908,7 +942,7 @@
 							"include": "#query_expression"
 						},
 						{
-							"include": "#global"
+							"include": "#subglobal"
 						},
 						{
 							"include": "#format_informat"
@@ -927,7 +961,7 @@
 							"include": "#query_expression"
 						},
 						{
-							"include": "#global"
+							"include": "#subglobal"
 						},
 						{
 							"include": "#format_informat"
@@ -943,7 +977,7 @@
 							"match": "(?i)\\b(FROM)\\b"
 						},
 						{
-							"include": "#global"
+							"include": "#subglobal"
 						},
 						{
 							"include": "#format_informat"
@@ -962,7 +996,7 @@
 							"include": "#query_expression"
 						},
 						{
-							"include": "#global"
+							"include": "#subglobal"
 						},
 						{
 							"include": "#format_informat"
@@ -981,7 +1015,7 @@
 							"include": "#query_expression"
 						},
 						{
-							"include": "#global"
+							"include": "#subglobal"
 						},
 						{
 							"include": "#format_informat"
@@ -1000,7 +1034,7 @@
 							"include": "#query_expression"
 						},
 						{
-							"include": "#global"
+							"include": "#subglobal"
 						},
 						{
 							"include": "#format_informat"
@@ -1015,7 +1049,7 @@
 							"include": "#query_expression"
 						},
 						{
-							"include": "#global"
+							"include": "#subglobal"
 						},
 						{
 							"include": "#format_informat"
@@ -1031,7 +1065,7 @@
 							"match": "(?i)\\b(AS)\\b"
 						},
 						{
-							"include": "#global"
+							"include": "#subglobal"
 						},
 						{
 							"include": "#format_informat"
@@ -1047,7 +1081,7 @@
 							"match": "(?i)\\b(AS)\\b"
 						},
 						{
-							"include": "#global"
+							"include": "#subglobal"
 						},
 						{
 							"include": "#format_informat"
@@ -1063,7 +1097,7 @@
 							"match": "(?i)\\b(BY)\\b"
 						},
 						{
-							"include": "#global"
+							"include": "#subglobal"
 						},
 						{
 							"include": "#format_informat"

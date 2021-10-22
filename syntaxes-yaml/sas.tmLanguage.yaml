@@ -22,6 +22,16 @@ repository:
       - include: '#global_statement_keyword'
       - include: '#function'
 
+  # *sub-global
+  subglobal:
+    patterns:
+      - include: '#comment'
+      - include: '#constant'
+      - include: '#macro'
+      - include: '#string'
+      - include: '#operator'
+      - include: '#function'
+
   # comment
   comment: 
     patterns:
@@ -144,7 +154,7 @@ repository:
       0:
         name: keyword.other.sas
     patterns:
-      - include: '#global'
+      - include: '#subglobal'
       # System option with arguments
       - name: keyword.other.sas
         match: (?i)\b(ANIMATION|ANIMDURATION|ANIMLOOP|APPEND|APPLETLOC|AUTHINFO|AUTOSAVELOC|AZURETENANTID|BINDING|BOTTOMMARGIN|BUFNO|BUFSIZE|CATCACHE|CBUFNO|CGOPTIMIZE|CMPLIB|CMPMODEL|CMPOPT|COLOPHON|COMPRESS|COPIES|CPUCOUNT|CSTGLOBALLIB|CSTSAMPLELIB|DATAPAGESIZE|DATASTMTCHK|DATESTYLE|DEBUGOPT|DECIMALCONV|DEFLATION|DKRICOND|DKROCOND|DLDMGACTION|DMSLOGSIZE|DMSOUTSIZE|DMSPGMLINESIZE|DSACCEL|EMAILACKWAIT|EMAILAUTHPROTOCOL|EMAILHOST|EMAILID|EMAILPW|EMAILUTCOFFSET|ENGINE|ERRORCHECK|ERRORS|EVENTDS|EXTENDOBSCOUNTER|FILESYNC|FIRSTOBS|FMTSEARCH|FONTRENDERING|FONTSLOC|FORMCHAR|FORMDLIM|FORMS|HELPBROWSER|HELPPORT|HTTPSERVERPORTMAX|HTTPSERVERPORTMIN|IBUFNO|IBUFSIZE|IMLPACKAGEPRIVATE|IMLPACKAGEPUBLIC|IMLPACKAGESYSTEM|INITSTMT|INSERT|INTERVALDS|INVALIDDATA|JPEGQUALITY|LABELCHKPTLIB|_LAST_|LEFTMARGIN|LINESIZE|LOGPARM|LRECL|MISSING|MSGLEVEL|NEWS|OBS|ORIENTATION|PAGENO|PAGESIZE|PAPERDEST|PAPERSIZE|PAPERSOURCE|PAPERTYPE|PARM|PARMCARDS|PDFPAGELAYOUT|PDFPAGEVIEW|PDFPASSWORD|PDFPRINT|PDFSECURITY|PRIMARYPROVIDERDOMAIN|PRINTERPATH|REUSE|RIGHTMARGIN|S|S2|S2V|SASHELP|SASUSER|SEQ|SERVICESBASEURL|SKIP|SORTSIZE|STEPCHKPTLIB|STRIPESIZE|SUMSIZE|SVGFADEIN|SVGFADEMODE|SVGFADEOUT|SVGHEIGHT|SVGPRESERVEASPECTRATIO|SVGTITLE|SVGVIEWBOX|SVGWIDTH|SVGX|SVGY|SYSPRINTFONT|TERMSTMT|TEXTURELOC|TIMEZONE|TOPMARGIN|TRAINLOC|UBUFNO|UBUFSIZE|URLENCODING|USER|UTILLOC|UUIDCOUNT|UUIDGENDHOST|V6CREATEUPDATE|VALIDFMTNAME|VALIDMEMNAME|VALIDVARNAME|VARINITCHK|VARLENCHK|VBUFSIZE|WORK|YEARCUTOFF)\s*(?==)
@@ -178,7 +188,7 @@ repository:
             0:
               name: keyword.other.sas
           patterns:
-            - include: '#global'
+            - include: '#subglobal'
             # option with arguments
             - name: keyword.other.sas
               match: (?i)\b(ABSTRACT|ADVANCE|ADVANCE_AFTER|ANCHOR|ANTIALIASMAX|ARCHIVE|ATTRIBUTES|ATTRPRIORITY|AUTHOR|BASE|BITMAP_MODE|BODY|BOOKMARKLIST|BOX_SIZING|BYLINE|CATALOG|CATEGORY|CHARSET|CODE|CODEBASE|COLOR|COLUMN|COLUMN_GUTTER|COLUMN_SPAN|COLUMN_WIDTHS|COLUMNS|COMMENTS|COMPRESS|CSSSTYLE|DATAPANEL|DATASKINMAX|DESCRIPTION|DEVICE|DIR|DISCRETEMAX|DOC|DPI|DRILLTARGET|ENCODING|EVENT|EXPIRATION|FILE|FRAME|GPATH|GROUPMAX|HEADTEXT|HEIGHT|ID|IMAGENAME|KEYWORDS|LABELMAX|LABELPLACEMENT|LAYOUT|LEGENDAREAMAX|LINEPATTERNOBSMAX|LOESSOBSMAX|METATEXT|MIMETYPE|NAME|NAMEVALUE|NBINSMAX|NEWCHAPTER|NEWFILE|NXYBINSMAX|OBSMAX|OPERATOR|ORDER_TYPE|OUTPUTFMT|PAGEPANELS|PANELCELLMAX|PARAMETERS|PATH|PDFTOC|PREPAGE|PRINTER|RECORD_SEPARATOR|ROW|ROW_GUTTER|ROW_HEIGHTS|ROW_SPAN|ROWS|SGE|STACKDEPTHMAX|STARTPAGE|STATUS|STYLE|STYLESHEET|SUBJECT|TABLEROWS|TAGSET|TIPMAX|TITLE|TOTALCELLMAX|TRANTAB|WHERE|WIDTH|WORK|X|Y)\s*(?==)
@@ -347,15 +357,20 @@ repository:
       - include: '#data_step_statment_keyword'
       - include: '#data_set_option'
       - include: '#format_informat'
+      - begin: (?i)(?<=(^|;|\w+:)\s*DATA)\b
+        end: ;
+        patterns:
+          - include: '#subglobal'
+          - include: '#data_set_option'
+          # special dataset
+          - name: keyword.other.sas
+            match: (?i)(?<=(^|;|\w+:)\s*DATA\s+)(_(NULL|DATA|LAST)_)
 
   ## Data step statment keyword
   ## ref: Dictionary of SAS DATA Step Statements
   ## ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/lestmtsref/p0gct6ariiecuhn15jkq8pzfzgef.htm
   data_step_statment_keyword:
     patterns:
-      # special dataset
-      - name: keyword.other.sas
-        match: (?i)(?<=(^|;|\w+:)\s*DATA\s+)(_(NULL|DATA|LAST)_)
       # if-then
       - begin: (?i)(?<=(^|;|\w+:|ELSE)\s*)(IF)(?=\b)
         end: (?i)(?:;|\b(THEN)\b)
@@ -366,7 +381,7 @@ repository:
           1:
             name: keyword.other.sas
         patterns:
-          - include: '#global'
+          - include: '#subglobal'
       # then/else
       - name: keyword.run.sas
         match: (?i)(?<=((?<=IF\b[^;]*)\bTHEN|\bELSE)\b\s*)(RUN)\b(?!\s*=)
@@ -425,7 +440,7 @@ repository:
   ### data set option rules
   data_set_option_rules:
     patterns:
-      - include: '#global'
+      - include: '#subglobal'
       - name: keyword.other.data-option.sas
         match: (?i)\b(ALTER|BUFNO|BUFSIZE|CNTLLEV|COMPRESS|DLDMGACTION|DROP|ENCRYPT|ENCRYPTKEY|EXTENDOBSCOUNTER|FILECLOSE|FIRSTOBS|GENMAX|GENNUM|IDXNAME|IDXWHERE|INDEX|IN|KEEP|LABEL|MAXTABLEMEM|OBSBUF|OBS|OUTREP|POINTOBS|PW|PWREQ|READ|RENAME|REPEMPTY|REPLACE|REUSE|ROLE|SORTEDBY|SPILL|TOBSNO|TYPE|USEDIRECTIO|WHERE|WHEREUP|WRITE)\b(?=\s*=)
 
@@ -531,7 +546,7 @@ repository:
         patterns:
           - name: keyword.other.proc.sql.alter-table.sas
             match: (?i)\b(ADD\s+CONSTRAINT|ADD|DROP\s+FOREIGN\s+KEY|DROP\s+PRIMARY\s+KEY|DROP\s+CONSTRAINT|DROP|MODIFY)\b
-          - include: '#global'
+          - include: '#subglobal'
           - include: '#format_informat'
       # CREATE INDEX keyword
       - begin: (?i)(?<=\bCREATE(\s+UNIQUE)*\s+INDEX)\b(?!\s*=)
@@ -539,7 +554,7 @@ repository:
         patterns:
           - name: keyword.other.proc.sql.create-index.sas
             match: (?i)\b(ON)\b
-          - include: '#global'
+          - include: '#subglobal'
           - include: '#format_informat'
       # CREATE TABLE keyword
       - begin: (?i)(?<=\bCREATE\s+TABLE)\b(?!\s*=)
@@ -548,7 +563,7 @@ repository:
           - name: keyword.other.proc.sql.create-table.sas
             match: (?i)\b(LIKE|AS|ORDER\s+BY)\b
           - include: '#query_expression'
-          - include: '#global'
+          - include: '#subglobal'
           - include: '#format_informat'
       # CREATE VIEW keyword
       - begin: (?i)(?<=\bCREATE\s+VIEW)\b(?!\s*=)
@@ -557,7 +572,7 @@ repository:
           - name: keyword.other.proc.sql.create-view.sas
             match: (?i)\b(AS|ORDER\s+BY|USING)\b
           - include: '#query_expression'
-          - include: '#global'
+          - include: '#subglobal'
           - include: '#format_informat'
       # DELETE FROM keyword
       - begin: (?i)(?<=\bDELETE\s+FROM)\b(?!\s*=)
@@ -566,7 +581,7 @@ repository:
           - name: keyword.other.proc.sql.delete-form.sas
             match: (?i)\b(AS|WHERE)\b
           - include: '#query_expression'
-          - include: '#global'
+          - include: '#subglobal'
           - include: '#format_informat'
       # DROP INDEX keyword
       - begin: (?i)(?<=\bDROP\s+INDEX)\b(?!\s*=)
@@ -574,7 +589,7 @@ repository:
         patterns:
           - name: keyword.other.proc.sql.drop-index.sas
             match: (?i)\b(FROM)\b
-          - include: '#global'
+          - include: '#subglobal'
           - include: '#format_informat'
       # INSERT INTO keyword
       - begin: (?i)(?<=\bINSERT\s+INTO)\b(?!\s*=)
@@ -583,7 +598,7 @@ repository:
           - name: keyword.other.proc.sql.insert-into.sas
             match: (?i)\b(SET|VALUES)\b
           - include: '#query_expression'
-          - include: '#global'
+          - include: '#subglobal'
           - include: '#format_informat'
       # SELECT keyword
       - begin: (?i)(?<=\bSELECT(\s+DISTINCT|\s+UNIQUE)*)\b(?!\s*=)
@@ -592,7 +607,7 @@ repository:
           - name: keyword.other.proc.sql.select.sas
             match: (?i)\b(INTO|FROM|WHERE|GROUP\s+BY|HAVING|ORDER\s+BY|ASC|DESC|FROM\s+CONNECTION\s+TO)\b
           - include: '#query_expression'
-          - include: '#global'
+          - include: '#subglobal'
           - include: '#format_informat'
       # UPDATE keyword
       - begin: (?i)(?<=\bUPDATE)\b(?!\s*=)
@@ -601,14 +616,14 @@ repository:
           - name: keyword.other.proc.sql.update.sas
             match: (?i)\b(AS|SET|WHERE)\b
           - include: '#query_expression'
-          - include: '#global'
+          - include: '#subglobal'
           - include: '#format_informat'
       # VALIDATE keyword
       - begin: (?i)(?<=\bVALIDATE)\b(?!\s*=)
         end: ;
         patterns:
           - include: '#query_expression'
-          - include: '#global'
+          - include: '#subglobal'
           - include: '#format_informat'
       # CONNECT TO keyword
       - begin: (?i)(?<=\bCONNECT\s+TO)\b(?!\s*=)
@@ -616,7 +631,7 @@ repository:
         patterns:
           - name: keyword.other.proc.sql.connect-to.sas
             match: (?i)\b(AS)\b
-          - include: '#global'
+          - include: '#subglobal'
           - include: '#format_informat'
       # CONNECT USING keyword
       - begin: (?i)(?<=\bCONNECT\s+USING)\b(?!\s*=)
@@ -624,7 +639,7 @@ repository:
         patterns:
           - name: keyword.other.proc.sql.connect-using.sas
             match: (?i)\b(AS)\b
-          - include: '#global'
+          - include: '#subglobal'
           - include: '#format_informat'
       # EXECUTE keyword
       - begin: (?i)(?<=\bEXECUTE)\b(?!\s*=)
@@ -632,7 +647,7 @@ repository:
         patterns:
           - name: keyword.other.proc.sql.execute.sas
             match: (?i)\b(BY)\b
-          - include: '#global'
+          - include: '#subglobal'
           - include: '#format_informat'
 
   ## Query expression
