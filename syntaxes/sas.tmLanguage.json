@@ -289,6 +289,280 @@
 				{
 					"name": "keyword.other.global.sas",
 					"match": "(?i)(?<=(^|;|\\w+:)\\s*)(CATNAME|CHECKPOINT\\s+EXECUTE_ALWAYS|DM|ENDSAS|FILENAME|FOOTNOTE\\d*|%INCLUDE|LIBNAME|%LIST|LOCK|MISSING|PAGE|RESETLINE|%RUN|SASFILE|SKIP|SYSECHO|TITLE\\d*|X)\\b(?!\\s*=)"
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*CATNAME)\\b(?!\\s*=)",
+					"end": ";",
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#constant"
+						},
+						{
+							"include": "#macro"
+						},
+						{
+							"include": "#string"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"name": "keyword.other.global.catname.sas",
+							"match": "(?i)\\b(ACCESS)\\s*(?==)"
+						},
+						{
+							"name": "keyword.other.global.catname.sas",
+							"match": "(?i)\\b(CLEAR|_ALL_|LIST)\\b"
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*DM)\\b(?!\\s*=)",
+					"end": ";",
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#constant"
+						},
+						{
+							"include": "#macro"
+						},
+						{
+							"include": "#string"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"name": "keyword.other.global.dm.sas",
+							"match": "(?i)\\b(CONTINUE)\\b"
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*FILENAME)\\b(?!\\s*=)",
+					"end": ";",
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#constant"
+						},
+						{
+							"include": "#macro"
+						},
+						{
+							"include": "#string"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"name": "keyword.other.global.filename.sas",
+							"match": "(?i)\\b(ENCODING|RECFM)\\s*(?==)"
+						},
+						{
+							"name": "keyword.other.global.filename.sas",
+							"match": "(?i)\\b(ACTIVEMQ|AZURE|CATALOG|DATAURL|DISK|DUMMY|EMAIL|FTP|GTERM|HADOOP|JMS|PIPE|PLOTTER|PRINTER|S3|SFTP|SOCKET|TAPE|TEMP|TERMINAL|UPRINTER|URL|WEBDAV|ZIP|CLEAR|_ALL_|LIST)\\b"
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*FOOTNOTE\\d*)\\b(?!\\s*=)",
+					"end": ";",
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#constant"
+						},
+						{
+							"include": "#macro"
+						},
+						{
+							"include": "#string"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"name": "keyword.other.global.footnote\\d*.sas",
+							"match": "(?i)\\b(COLOR|BCOLOR|FONT|HEIGHT|JUSTIFY|LINK|UNDERLIN)\\s*(?==)"
+						},
+						{
+							"name": "keyword.other.global.footnote\\d*.sas",
+							"match": "(?i)\\b(BOLD|ITALIC)\\b"
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*%INCLUDE)\\b(?!\\s*=)",
+					"end": ";",
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#constant"
+						},
+						{
+							"include": "#macro"
+						},
+						{
+							"include": "#string"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"name": "keyword.other.global.%include.sas",
+							"match": "(?i)\\b(S2)\\s*(?==)"
+						},
+						{
+							"name": "keyword.other.global.%include.sas",
+							"match": "(?i)\\b(SOURCE2)\\b"
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*LIBNAME)\\b(?!\\s*=)",
+					"end": ";",
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#constant"
+						},
+						{
+							"include": "#macro"
+						},
+						{
+							"include": "#string"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"name": "keyword.other.global.libname.sas",
+							"match": "(?i)\\b(ACCESS|AUTHADMIN|AUTHALTER|AUTHPW|AUTHREAD|AUTHWRITE|COMPRESS|CVPBYTES|CVPENGINE|CVPFORMATWIDTH|CVPMULTIPLIER|CVPVARCHAR|EXTENDOBSCOUNTER|INENCODING|LIBRARYDEFINITION|OUTENCODING|OUTREP|POINTOBS|REPEMPTY)\\s*(?==)"
+						},
+						{
+							"name": "keyword.other.global.libname.sas",
+							"match": "(?i)\\b(CLEAR|_ALL_|LIST)\\b"
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*LOCK)\\b(?!\\s*=)",
+					"end": ";",
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#constant"
+						},
+						{
+							"include": "#macro"
+						},
+						{
+							"include": "#string"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"name": "keyword.other.global.lock.sas",
+							"match": "(?i)\\b(LIST|QUERY|SHOW|CLEAR|NOMSG)\\b"
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*RUN)\\b(?!\\s*=)",
+					"end": ";",
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#constant"
+						},
+						{
+							"include": "#macro"
+						},
+						{
+							"include": "#string"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"name": "keyword.other.global.run.sas",
+							"match": "(?i)\\b(CANCEL)\\b"
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*SASFILE)\\b(?!\\s*=)",
+					"end": ";",
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#constant"
+						},
+						{
+							"include": "#macro"
+						},
+						{
+							"include": "#string"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"name": "keyword.other.global.sasfile.sas",
+							"match": "(?i)\\b(OPEN|LOAD|CLOSE)\\b"
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*TITLE\\d*)\\b(?!\\s*=)",
+					"end": ";",
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#constant"
+						},
+						{
+							"include": "#macro"
+						},
+						{
+							"include": "#string"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"name": "keyword.other.global.title\\d*.sas",
+							"match": "(?i)\\b(COLOR|BCOLOR|FONT|HEIGHT|JUSTIFY|LINK|UNDERLIN)\\s*(?==)"
+						},
+						{
+							"name": "keyword.other.global.title\\d*.sas",
+							"match": "(?i)\\b(BOLD|ITALIC)\\b"
+						}
+					]
 				}
 			]
 		},
