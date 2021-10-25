@@ -288,15 +288,856 @@
 					},
 					"patterns": [
 						{
-							"include": "#subglobal"
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+CHTML)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.chtml.sas",
+									"match": "(?i)\\b(ANCHOR|ARCHIVE|ATTRIBUTES|BASE|BODY|CHARSET|CODE|CODEBASE|CONTENTS|ENCODING|EVENT|FRAME|GPATH|HEADTEXT|ID|METATEXT|NEWFILE|DOC|PAGE|PARAMETERS|PATH|RECORD_SEPARATOR|STYLE|STYLESHEET|TEXT|TRANTAB|TITLE|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.chtml.sas",
+									"match": "(?i)\\b(CLOSE|EXCLUDE|ALL|NONE|SELECT|SHOW|DOM|GFOOTNOTE|NOGFOOTNOTE|GTITLE|NOGTITLE|OPTIONS|PACKAGE|DYNAMIC|NO_BOTTOM_MATTER|NO_TOP_MATTER)\\b"
+								}
+							]
 						},
 						{
-							"name": "keyword.other.sas",
-							"match": "(?i)\\b(ABSTRACT|ADVANCE|ADVANCE_AFTER|ANCHOR|ANTIALIASMAX|ARCHIVE|ATTRIBUTES|ATTRPRIORITY|AUTHOR|BASE|BITMAP_MODE|BODY|BOOKMARKLIST|BOX_SIZING|BYLINE|CATALOG|CATEGORY|CHARSET|CODE|CODEBASE|COLOR|COLUMN|COLUMN_GUTTER|COLUMN_SPAN|COLUMN_WIDTHS|COLUMNS|COMMENTS|COMPRESS|CSSSTYLE|DATAPANEL|DATASKINMAX|DESCRIPTION|DEVICE|DIR|DISCRETEMAX|DOC|DPI|DRILLTARGET|ENCODING|EVENT|EXPIRATION|FILE|FRAME|GPATH|GROUPMAX|HEADTEXT|HEIGHT|ID|IMAGENAME|KEYWORDS|LABELMAX|LABELPLACEMENT|LAYOUT|LEGENDAREAMAX|LINEPATTERNOBSMAX|LOESSOBSMAX|METATEXT|MIMETYPE|NAME|NAMEVALUE|NBINSMAX|NEWCHAPTER|NEWFILE|NXYBINSMAX|OBSMAX|OPERATOR|ORDER_TYPE|OUTPUTFMT|PAGEPANELS|PANELCELLMAX|PARAMETERS|PATH|PDFTOC|PREPAGE|PRINTER|RECORD_SEPARATOR|ROW|ROW_GUTTER|ROW_HEIGHTS|ROW_SPAN|ROWS|SGE|STACKDEPTHMAX|STARTPAGE|STATUS|STYLE|STYLESHEET|SUBJECT|TABLEROWS|TAGSET|TIPMAX|TITLE|TOTALCELLMAX|TRANTAB|WHERE|WIDTH|WORK|X|Y)\\s*(?==)"
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+CSVALL)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.csvall.sas",
+									"match": "(?i)\\b(BODY|ENCODING|EVENT|ID|NEWFILE|DOC|PATH|RECORD_SEPARATOR|TRANTAB)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.csvall.sas",
+									"match": "(?i)\\b(CLOSE|EXCLUDE|ALL|NONE|SELECT|SHOW|DOM|OPTIONS|PACKAGE)\\b"
+								}
+							]
 						},
 						{
-							"name": "keyword.other.sas",
-							"match": "(?i)\\b(ACCESSIBLE|ACCESSIBLE_GRAPH|ACCESSIBLE_IDENTIFIER|ADD|ALL|ANTIALIAS|APPEND|BODYTITLE|BODYTITLE_AUX|BOOKMARKGEN|BORDER|BYGROUP|CLEAR|CLOSE|COLUMN_MAJOR|CONTENTS|DATA|DOM|ERROR|EXCLUDE|EXCLUDED|EXPLICIT|GFOOTNOTE|GTITLE|HEADERS|HOST|IMAGE_DPI|IMAGEMAP|KEEPN|LABEL|LISTING|MATCH_ALL|NOACCESSIBLE|NOACCESSIBLE_GRAPH|NOACCESSIBLE_IDENTIFIER|NOANTIALIAS|NOBOOKMARKGEN|NOBORDER|NOGFOOTNOTE|NOGTITLE|NOIMAGEMAP|NOKEEPN|NONE|NOPDFNOTE|NOSCALE|NOSCALEMARKERS|NOSUBPIXEL|NOTOC|NOTOC_DATA|NOTRKEEP|NOWARN|OFF|ON|OPEN|OPTIONS|PACKAGE|PAGE|PCL|PDF|PDFMARK|PDFNOTE|PERSIST|POP|PREPEND|PROC|PROPERTIES|PS|PUBLISH|PUSH|READ|REMOVE|RESET|ROW_MAJOR|ROWHEADERS|RUN|SASDATE|SCALE|SCALEMARKERS|SELECT|SHOW|SUBPIXEL|TABLE|TABLES|TAGSETSRTF|TEXT|TOC_DATA|UNIFORM|UPDATE|WARN|WRITE)\\b"
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+DOCUMENT)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.document.sas",
+									"match": "(?i)\\b(CATALOG|DIR|NAME)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.document.sas",
+									"match": "(?i)\\b(CLOSE|EXCLUDE|ALL|NONE|SELECT|SHOW)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+EPUB2)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.epub2.sas",
+									"match": "(?i)\\b(ANCHOR|BOX_SIZING|CSSSTYLE|DEVICE|EVENT|FILE|ID|NEWCHAPTER|STYLE|STYLESHEET|TITLE|WORK)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.epub2.sas",
+									"match": "(?i)\\b(CLOSE|EXCLUDE|ALL|NONE|SELECT|SHOW|DOM|GFOOTNOTE|NOGFOOTNOTE|GTITLE|NOGTITLE|IMAGE_DPI|OPTIONS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+EPUB3)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.epub3.sas",
+									"match": "(?i)\\b(ANCHOR|BOX_SIZING|CSSSTYLE|DEVICE|EVENT|FILE|ID|NEWCHAPTER|STYLE|STYLESHEET|TITLE|WORK)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.epub3.sas",
+									"match": "(?i)\\b(CLOSE|EXCLUDE|ALL|NONE|SELECT|SHOW|DOM|GFOOTNOTE|NOGFOOTNOTE|GTITLE|NOGTITLE|IMAGE_DPI|OPTIONS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+EXCEL)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.excel.sas",
+									"match": "(?i)\\b(SUBJECT|ANCHOR|AUTHOR|BOX_SIZING|CATEGORY|COMMENTS|CSSSTYLE|DPI|FILE|IMAGE_DPI|KEYWORDS|ID|STATUS|STYLE|TEXT|TITLE|WORK)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.excel.sas",
+									"match": "(?i)\\b(CLOSE|EXCLUDE|ALL|NONE|SELECT|SHOW|DOM|GFOOTNOTE|NOGFOOTNOTE|GTITLE|NOGTITLE|OPTIONS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+(\\w+\\s+)*EXCLUDE)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.exclude.sas",
+									"match": "(?i)\\b(WHERE)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.exclude.sas",
+									"match": "(?i)\\b(ALL|NONE|NOWARN|ODS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+GRAPHICS)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.graphics.sas",
+									"match": "(?i)\\b(ANTIALIASMAX|ATTRPRIORITY|DATASKINMAX|DISCRETEMAX|DRILLTARGET|GROUPMAX|HEIGHT|IMAGENAME|LABELMAX|LABELPLACEMENT|LEGENDAREAMAX|LINEPATTERNOBSMAX|LOESSOBSMAX|NBINSMAX|NXYBINSMAX|OBSMAX|OUTPUTFMT|PANELCELLMAX|STACKDEPTHMAX|TIPMAX|TOTALCELLMAX|WIDTH)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.graphics.sas",
+									"match": "(?i)\\b(ON|OFF|ANTIALIAS|NOANTIALIAS|BORDER|NOBORDER|IMAGEMAP|NOIMAGEMAP|PUSH|POP|RESET|SCALE|NOSCALE|SCALEMARKERS|NOSCALEMARKERS|SHOW|SUBPIXEL|NOSUBPIXEL|BYLINE|BYVAL|BY|BYVAR)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+HTML)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.html.sas",
+									"match": "(?i)\\b(ANCHOR|ARCHIVE|ATTRIBUTES|BASE|BODY|BOX_SIZING|CHARSET|CODE|CODEBASE|CONTENTS|CSSSTYLE|DEVICE|ENCODING|EVENT|FRAME|GPATH|HEADTEXT|ID|IMAGE_DPI|METATEXT|NEWFILE|DOC|PAGE|PARAMETERS|PATH|RECORD_SEPARATOR|SGE|STYLE|STYLESHEET|TEXT|TRANTAB|TITLE|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.html.sas",
+									"match": "(?i)\\b(CLOSE|EXCLUDE|ALL|NONE|SELECT|SHOW|DOM|GFOOTNOTE|NOGFOOTNOTE|GTITLE|NOGTITLE|OPTIONS|PACKAGE|DYNAMIC|NO_BOTTOM_MATTER|NO_TOP_MATTER)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+HTML3)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.html3.sas",
+									"match": "(?i)\\b(ANCHOR|ARCHIVE|ATTRIBUTES|BASE|BODY|CHARSET|CODE|CODEBASE|CONTENTS|CSSSTYLE|ENCODING|EVENT|FRAME|GPATH|HEADTEXT|ID|METATEXT|NEWFILE|DOC|PAGE|PARAMETERS|PATH|RECORD_SEPARATOR|STYLE|STYLESHEET|TEXT|TRANTAB|TITLE|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.html3.sas",
+									"match": "(?i)\\b(CLOSE|EXCLUDE|ALL|NONE|SELECT|SHOW|DOM|GFOOTNOTE|NOGFOOTNOTE|GTITLE|NOGTITLE|OPTIONS|PACKAGE|DYNAMIC|NO_BOTTOM_MATTER|NO_TOP_MATTER)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+HTML5)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.html5.sas",
+									"match": "(?i)\\b(ANCHOR|BASE|BODY|BOX_SIZING|CHARSET|CODE|CONTENTS|CSSSTYLE|DEVICE|ENCODING|FRAME|GPATH|HEADTEXT|ID|IMAGE_DPI|METATEXT|NEWFILE|BITMAP_MODE|PAGE|PARAMETERS|PATH|RECORD_SEPARATOR|SGE|STYLE|STYLESHEET|TEXT|TRANTAB|TITLE|URL|OUTLINE)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.html5.sas",
+									"match": "(?i)\\b(CLOSE|EXCLUDE|ALL|NONE|SELECT|SHOW|ACCESSIBLE_GRAPH|NOACCESSIBLE_GRAPH|DOM|GFOOTNOTE|NOGFOOTNOTE|GTITLE|NOGTITLE|OPTIONS|PACKAGE|DYNAMIC|NO_BOTTOM_MATTER|NO_TOP_MATTER)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+LAYOUT\\s+ABSOLUTE)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.layout-absolute.sas",
+									"match": "(?i)\\b(DESCRIPTION|HEIGHT|STYLE|WIDTH|X|Y)\\s*(?==)"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+LAYOUT\\s+GRIDDED)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.layout-gridded.sas",
+									"match": "(?i)\\b(ADVANCE|COLUMNS|COLUMN_GUTTER|COLUMN_WIDTHS|DESCRIPTION|HEIGHT|ORDER_TYPE|ROWS|ROW_GUTTER|ROW_HEIGHTS|STYLE|WIDTH|X|Y)\\s*(?==)"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+LISTING)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.listing.sas",
+									"match": "(?i)\\b(DATAPANEL|DEVICE|FILE|GPATH|IMAGE_DPI|SGE|STYLE)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.listing.sas",
+									"match": "(?i)\\b(CLOSE|EXCLUDE|ALL|NONE|SELECT|SHOW|PACKAGE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+MARKUP)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.markup.sas",
+									"match": "(?i)\\b(ANCHOR|ARCHIVE|ATTRIBUTES|BASE|BODY|CHARSET|CODE|CODEBASE|CONTENTS|CSSSTYLE|DEVICE|ENCODING|EVENT|FRAME|GPATH|HEADTEXT|ID|IMAGE_DPI|METATEXT|NEWFILE|DOC|PAGE|PARAMETERS|PATH|RECORD_SEPARATOR|STYLE|STYLESHEET|TAGSET|TEXT|TRANTAB|TITLE|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.markup.sas",
+									"match": "(?i)\\b(CLOSE|EXCLUDE|ALL|NONE|SELECT|SHOW|DOM|GFOOTNOTE|NOGFOOTNOTE|GTITLE|NOGTITLE|OPTIONS|PACKAGE|DYNAMIC|NO_BOTTOM_MATTER|NO_TOP_MATTER)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+OUTPUT)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.output.sas",
+									"match": "(?i)\\b(CLEAR|CLOSE|SHOW|NOWARN)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+PACKAGE)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.package.sas",
+									"match": "(?i)\\b(FILE|DATA|MIMETYPE|ABSTRACT|DESCRIPTION|EXPIRATION|NAMEVALUE|PATH)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.package.sas",
+									"match": "(?i)\\b(ADD|OPEN|PUBLISH|CLOSE|CLEAR)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+PATH)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.path.sas",
+									"match": "(?i)\\b(APPEND|PREPEND|REMOVE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+PCL)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.pcl.sas",
+									"match": "(?i)\\b(BOX_SIZING|COLOR|COLUMNS|CSSSTYLE|DPI|FILE|ID|NEWFILE|STARTPAGE|STYLE|TEXT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.pcl.sas",
+									"match": "(?i)\\b(CLOSE|EXCLUDE|ALL|NONE|SELECT|SHOW|DOM|GFOOTNOTE|NOGFOOTNOTE|GTITLE|NOGTITLE|PACKAGE|UNIFORM)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+PDF)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.pdf.sas",
+									"match": "(?i)\\b(ANCHOR|AUTHOR|BASE|BOOKMARKLIST|BOX_SIZING|COLOR|COLUMNS|COMPRESS|CONTENTS|CSSSTYLE|DPI|FILE|ID|KEYWORDS|NEWFILE|PDFTOC|STARTPAGE|STYLE|SUBJECT|TEXT|TITLE)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.pdf.sas",
+									"match": "(?i)\\b(CLOSE|EXCLUDE|ALL|NONE|SELECT|SHOW|ACCESSIBLE|NOACCESSIBLE|ACCESSIBLE_IDENTIFIER|NOACCESSIBLE_IDENTIFIER|BOOKMARKGEN|NOBOOKMARKGEN|DOM|GFOOTNOTE|NOGFOOTNOTE|GTITLE|NOGTITLE|NOTOC|PACKAGE|PDFNOTE|NOPDFNOTE|UNIFORM)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+POWERPOINT)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.powerpoint.sas",
+									"match": "(?i)\\b(SUBJECT|AUTHOR|BOX_SIZING|CATEGORY|COMMENTS|FILE|KEYWORDS|LAYOUT|ADVANCE_AFTER|STARTPAGE|STATUS|STYLE|TITLE|WORK)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.powerpoint.sas",
+									"match": "(?i)\\b(CLOSE|EXCLUDE|ALL|NONE|SELECT|SHOW|GFOOTNOTE|NOGFOOTNOTE|GTITLE|NOGTITLE|IMAGE_DPI|OPTIONS|SASDATE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+PHTML)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.phtml.sas",
+									"match": "(?i)\\b(ANCHOR|ARCHIVE|ATTRIBUTES|BASE|BODY|BOX_SIZING|CHARSET|CODE|CODEBASE|CONTENTS|CSSSTYLE|ENCODING|EVENT|FRAME|GPATH|HEADTEXT|ID|METATEXT|NEWFILE|DOC|PAGE|PARAMETERS|PATH|RECORD_SEPARATOR|STYLE|STYLESHEET|TEXT|TRANTAB|TITLE|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.phtml.sas",
+									"match": "(?i)\\b(CLOSE|EXCLUDE|ALL|NONE|SELECT|SHOW|DOM|GFOOTNOTE|NOGFOOTNOTE|GTITLE|NOGTITLE|OPTIONS|PACKAGE|DYNAMIC|NO_BOTTOM_MATTER|NO_TOP_MATTER)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+PRINTER)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.printer.sas",
+									"match": "(?i)\\b(ANCHOR|AUTHOR|BASE|BOOKMARKLIST|BOX_SIZING|COLOR|COLUMNS|COMPRESS|CONTENTS|CSSSTYLE|DPI|FILE|ID|KEYWORDS|NEWFILE|PDFTOC|PRINTER|STARTPAGE|STYLE|SUBJECT|TEXT|TITLE)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.printer.sas",
+									"match": "(?i)\\b(CLOSE|EXCLUDE|ALL|NONE|SELECT|SHOW|BOOKMARKGEN|NOBOOKMARKGEN|DOM|GFOOTNOTE|NOGFOOTNOTE|GTITLE|NOGTITLE|HOST|NOTOC|PACKAGE|PCL|PDF|PDFMARK|PDFNOTE|NOPDFNOTE|PS|UNIFORM)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+PS)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.ps.sas",
+									"match": "(?i)\\b(ANCHOR|AUTHOR|BASE|BOOKMARKLIST|BOX_SIZING|COLOR|COLUMNS|CSSSTYLE|DPI|FILE|ID|KEYWORDS|NEWFILE|STARTPAGE|STYLE|TEXT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.ps.sas",
+									"match": "(?i)\\b(CLOSE|EXCLUDE|ALL|NONE|SELECT|SHOW|BOOKMARKGEN|NOBOOKMARKGEN|DOM|GFOOTNOTE|NOGFOOTNOTE|GTITLE|NOGTITLE|PACKAGE|PDFMARK|PDFNOTE|NOPDFNOTE|UNIFORM)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+REGION)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.region.sas",
+									"match": "(?i)\\b(DESCRIPTION|HEIGHT|STYLE|WIDTH|X|Y)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.region.sas",
+									"match": "(?i)\\b(COLUMN|COLUMN_SPAN|DESCRIPTION|HEIGHT|ROW|ROW_SPAN|STYLE|WIDTH)\\s*(?==)"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+RESULTS)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.results.sas",
+									"match": "(?i)\\b(ON|OFF)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+RTF)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.rtf.sas",
+									"match": "(?i)\\b(ANCHOR|AUTHOR|BASE|BOX_SIZING|COLUMNS|CSSSTYLE|DEVICE|ENCODING|FILE|ID|NEWFILE|OPERATOR|PATH|PREPAGE|RECORD_SEPARATOR|STARTPAGE|STYLE|TEXT|TITLE|TRANTAB)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.rtf.sas",
+									"match": "(?i)\\b(CLOSE|EXCLUDE|ALL|NONE|SELECT|SHOW|BODYTITLE|BODYTITLE_AUX|CONTENTS|DOM|GFOOTNOTE|NOGFOOTNOTE|GTITLE|NOGTITLE|IMAGE_DPI|KEEPN|NOKEEPN|NOTOC_DATA|NOTRKEEP|PACKAGE|SASDATE|TOC_DATA)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+(\\w+\\s+)*SELECT)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.select.sas",
+									"match": "(?i)\\b(WHERE)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.select.sas",
+									"match": "(?i)\\b(ALL|NONE|NOWARN|ODS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+(\\w+\\s+)*SHOW)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.show.sas",
+									"match": "(?i)\\b(ODS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+\\w+\\.\\w+)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.tagset.sas",
+									"match": "(?i)\\b(ANCHOR|ARCHIVE|ATTRIBUTES|BASE|BODY|CHARSET|CODE|CODEBASE|CONTENTS|CSSSTYLE|ENCODING|EVENT|FRAME|GPATH|HEADTEXT|ID|METATEXT|NEWFILE|DOC|PAGE|PARAMETERS|PATH|RECORD_SEPARATOR|STYLE|STYLESHEET|TEXT|TRANTAB|TITLE|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.tagset.sas",
+									"match": "(?i)\\b(CLOSE|EXCLUDE|ALL|NONE|SELECT|SHOW|DOM|GFOOTNOTE|NOGFOOTNOTE|GTITLE|NOGTITLE|OPTIONS|EVENT_MAP|NAMEDHTML|SHORT_MAP|STYLE_DISPLAY|STYLE_POPUP|TEXT_MAP|DYNAMIC|NO_BOTTOM_MATTER|NO_TOP_MATTER)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+TAGSETS\\.RTF)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.tagsets.rtf.sas",
+									"match": "(?i)\\b(ANCHOR|AUTHOR|BASE|BOX_SIZING|COLUMNS|DEVICE|ENCODING|FILE|ID|NEWFILE|OPERATOR|CONTENTS|PAGEPANELS|PATH|PREPAGE|RECORD_SEPARATOR|STARTPAGE|STYLE|TABLEROWS|TEXT|TRANTAB)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.tagsets.rtf.sas",
+									"match": "(?i)\\b(CLOSE|EXCLUDE|ALL|NONE|SELECT|SHOW|GFOOTNOTE|NOGFOOTNOTE|GTITLE|NOGTITLE|IMAGE_DPI|OPTIONS|PACKAGE|UNIFORM|MEAS_EVENT_MAP|MEAS_SHORT_MAP|MEAS_TEXT_MAP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+TRACE)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.trace.sas",
+									"match": "(?i)\\b(OFF|ON|DOM|EXCLUDED|LABEL|LISTING)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+VERIFY)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.verify.sas",
+									"match": "(?i)\\b(ON|OFF|ERROR|WARN)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+WORD)\\b(?!\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"name": "keyword.other.ods.word.sas",
+									"match": "(?i)\\b(ANCHOR|AUTHOR|BASE|BOX_SIZING|CATEGORY|COLUMNS|COMMENTS|FILE|IMAGE_DPI|KEYWORDS|ID|STARTPAGE|STATUS|SUBJECT|STYLE|TITLE|WORK)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.ods.word.sas",
+									"match": "(?i)\\b(CLOSE|EXCLUDE|ALL|NONE|SELECT|SHOW|GFOOTNOTE|NOGFOOTNOTE|GTITLE|NOGTITLE|OPTIONS|SASDATE)\\b"
+								}
+							]
 						}
 					]
 				}
