@@ -8490,6 +8490,2803 @@
 							"match": "(?i)\\b(PARAMETER)\\b(?!\\s*=)"
 						}
 					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+SGDESIGN)\\b",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)(RUN(?=.*;)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.proc.sas"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#global"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*PROC\\s+SGDESIGN)\\b",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.option.sgdesign.sas",
+									"match": "(?i)\\b(SGD|DATA|DESCRIPTION|LIBNAME)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.option.sgdesign.sas",
+									"match": "(?i)\\b(CONTENT)\\b"
+								}
+							]
+						},
+						{
+							"name": "keyword.other.proc.sgdesign.sas",
+							"match": "(?i)\\b(DYNAMIC|BY|FORMAT|LABEL|WHERE)\\b(?!\\s*=)"
+						},
+						{
+							"begin": "(?i)(?<=\\bBY)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgdesign.by.sas",
+									"match": "(?i)\\b(DESCENDING|NOTSORTED)\\b"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+SGPANEL)\\b",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)(RUN(?=.*;)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.proc.sas"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#global"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*PROC\\s+SGPANEL)\\b",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.option.sgpanel.sas",
+									"match": "(?i)\\b(ASPECT|DATA|DATTRMAP|DESCRIPTION|PAD|PCTLEVEL|PCTNDEC|RATTRMAP|SGANNO)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.option.sgpanel.sas",
+									"match": "(?i)\\b(CYCLEATTRS|NOCYCLEATTRS|NOAUTOLEGEND|NOSUBPIXEL|SUBPIXEL|OPAQUE|NOOPAQUE)\\b"
+								}
+							]
+						},
+						{
+							"name": "keyword.other.proc.sgpanel.sas",
+							"match": "(?i)\\b(PANELBY|STYLEATTRS|BAND|BLOCK|BUBBLE|DENSITY|DOT|DROPLINE|ELLIPSE|ELLIPSEPARM|FRINGE|GRADLEGEND|HBAR|HBARBASIC|HBARPARM|HBOX|HEATMAP|HEATMAPPARM|HIGHLOW|HISTOGRAM|HLINE|INSET|KEYLEGEND|LEGENDITEM|LINEPARM|LOESS|NEEDLE|PBSPLINE|POLYGON|REFLINE|REG|SCATTER|SERIES|SPLINE|STEP|SYMBOLCHAR|SYMBOLIMAGE|TEXT|VBAR|VBARBASIC|VBARPARM|VBOX|VECTOR|VLINE|COLAXIS|COLAXISTABLE|ROWAXIS|ROWAXISTABLE|BY|FORMAT|LABEL|WHERE)\\b(?!\\s*=)"
+						},
+						{
+							"begin": "(?i)(?<=\\bPANELBY)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.panelby.sas",
+									"match": "(?i)\\b(COLHEADERPOS|COLUMNS|HEADERATTRS|HEADERBACKCOLOR|LAYOUT|ROWHEADERPOS|ROWS|SORT|SPACING|START|UNISCALE)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.panelby.sas",
+									"match": "(?i)\\b(BORDER|NOBORDER|MISSING|NOHEADER|NOHEADERBORDER|NOVARNAME|NOWALL|ONEPANEL|PROPORTIONAL|SKIPEMPTYCELLS|SPARSE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bSTYLEATTRS)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.styleattrs.sas",
+									"match": "(?i)\\b(BACKCOLOR|DATACOLORS|DATACONTRASTCOLORS|DATAFILLPATTERNS|DATALINEPATTERNS|DATASYMBOLS|WALLCOLOR)\\s*(?==)"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bBAND)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.band.sas",
+									"match": "(?i)\\b(X|LOWER|UPPER|ATTRID|CURVELABELATTRS|CURVELABELPOS|FILLATTRS|FILLPATTERNATTRS|GROUP|LEGENDLABEL|LINEATTRS|MODELNAME|NAME|SPLITCHAR|SPLITJUSTIFY|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|TYPE)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.band.sas",
+									"match": "(?i)\\b(CURVELABELLOWER|CURVELABELUPPER|FILL|NOFILL|FILLPATTERN|NOEXTEND|NOMISSINGGROUP|OUTLINE|NOOUTLINE|SPLITCHARNODROP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bBLOCK)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.block.sas",
+									"match": "(?i)\\b(X|BLOCK|ALTFILLATTRS|ATTRID|BLOCKLABEL|CLASS|FILLATTRS|FILLTYPE|LABELATTRS|LABELPOS|LINEATTRS|NAME|SPLITCHAR|TRANSPARENCY|VALUEATTRS|VALUEFITPOLICY|VALUEHALIGN|VALUEVALIGN)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.block.sas",
+									"match": "(?i)\\b(EXTENDMISSING|FILL|NOFILL|LABEL|NOMISSINGCLASS|OUTLINE|NOOUTLINE|NOVALUES|VALUES|SPLITCHARNODROP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bBUBBLE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.bubble.sas",
+									"match": "(?i)\\b(X|Y|SIZE|ATTRID|BRADIUSMAX|BRADIUSMIN|COLORMODEL|COLORRESPONSE|DATALABELATTRS|DATALABELPOS|DATASKIN|DRAWORDER|FILLATTRS|FILLPATTERNATTRS|GROUP|LEGENDLABEL|LINEATTRS|NAME|RATTRID|SPLITCHAR|SPLITJUSTIFY|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.bubble.sas",
+									"match": "(?i)\\b(ABSSCALE|DATALABEL|FILL|NOFILL|FILLPATTERN|NOMISSINGGROUP|OUTLINE|NOOUTLINE|PROPORTIONAL|SPLITCHARNODROP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bDENSITY)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.density.sas",
+									"match": "(?i)\\b(ATTRID|CURVELABEL|CURVELABELATTRS|CURVELABELPOS|FREQ|GROUP|LEGENDLABEL|LINEATTRS|NAME|SCALE|SPLITCHAR|SPLITJUSTIFY|TRANSPARENCY|WEIGHT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.density.sas",
+									"match": "(?i)\\b(SPLITCHARNODROP|TYPE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bDOT)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.dot.sas",
+									"match": "(?i)\\b(ALPHA|ATTRID|CATEGORYORDER|CLUSTERWIDTH|COLORMODEL|COLORRESPONSE|COLORSTAT|DATALABELATTRS|DATALABELPOS|DATASKIN|DISCRETEOFFSET|FREQ|GROUP|GROUPDISPLAY|GROUPORDER|LEGENDLABEL|LIMITATTRS|LIMITCAPSCALE|LIMITS|LIMITSTAT|MARKERATTRS|MARKERFILLATTRS|MARKEROUTLINEATTRS|NAME|NUMSTD|RATTRID|RESPONSE|SPLITCHAR|SPLITJUSTIFY|STAT|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL|WEIGHT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.dot.sas",
+									"match": "(?i)\\b(DATALABEL|FILLEDOUTLINEDMARKERS|MISSING|NOLIMITCAPS|SPLITCHARNODROP|STATLABEL|NOSTATLABEL)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bDROPLINE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.dropline.sas",
+									"match": "(?i)\\b(X|Y|DATASKIN|DISCRETEOFFSET|DROPTO|LABEL|LABELATTRS|LEGENDLABEL|LINEATTRS|NAME|TRANSPARENCY)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.dropline.sas",
+									"match": "(?i)\\b(NOCLIP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bELLIPSE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.ellipse.sas",
+									"match": "(?i)\\b(X|Y|ALPHA|FILLATTRS|FILLPATTERNATTRS|FREQ|GROUP|LEGENDLABEL|LINEATTRS|NAME|TRANSPARENCY)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.ellipse.sas",
+									"match": "(?i)\\b(FILL|NOFILL|FILLPATTERN|NOMISSINGGROUP|OUTLINE|NOOUTLINE|TYPE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bELLIPSEPARM)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.ellipseparm.sas",
+									"match": "(?i)\\b(SEMIMAJOR|SEMIMINOR|FILLATTRS|FILLPATTERNATTRS|GROUP|LEGENDLABEL|LINEATTRS|NAME|SLOPE|TRANSPARENCY|XORIGIN|YORIGIN)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.ellipseparm.sas",
+									"match": "(?i)\\b(FILL|NOFILL|FILLPATTERN|NOMISSINGGROUP|OUTLINE|NOOUTLINE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bFRINGE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.fringe.sas",
+									"match": "(?i)\\b(ATTRID|GROUP|HEIGHT|LEGENDLABEL|LINEATTRS|NAME|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.fringe.sas",
+									"match": "(?i)\\b(NOMISSINGGROUP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bGRADLEGEND)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.gradlegend.sas",
+									"match": "(?i)\\b(OUTERPAD|POSITION|TITLE|TITLEATTRS)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.gradlegend.sas",
+									"match": "(?i)\\b(BORDER|NOBORDER|EXTRACTSCALE|INTEGER|NOTITLE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bHBAR)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.hbar.sas",
+									"match": "(?i)\\b(ALPHA|ATTRID|BARWIDTH|BASELINE|BASELINEATTRS|CATEGORYORDER|CLUSTERWIDTH|COLORMODEL|COLORRESPONSE|COLORSTAT|DATALABELATTRS|DATALABELFITPOLICY|DATASKIN|DISCRETEOFFSET|DISPLAYBASELINE|FILLATTRS|FILLENDCOLOR|FILLPATTERNATTRS|FILLTYPE|FREQ|GROUP|GROUPDISPLAY|GROUPORDER|LEGENDLABEL|LIMITATTRS|LIMITCAPSCALE|LIMITS|LIMITSTAT|NAME|NUMSTD|OUTLINEATTRS|RATTRID|RESPONSE|SEGLABELATTRS|SEGLABELFITPOLICY|SEGLABELFORMAT|STAT|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL|WEIGHT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.hbar.sas",
+									"match": "(?i)\\b(DATALABEL|FILL|NOFILL|FILLPATTERN|MISSING|NOZEROBARS|OUTLINE|NOOUTLINE|SEGLABEL|STATLABEL|NOSTATLABEL)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bHBARBASIC)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.hbarbasic.sas",
+									"match": "(?i)\\b(ATTRID|BARWIDTH|BASELINE|BASELINEATTRS|CLUSTERWIDTH|COLORMODEL|COLORRESPONSE|COLORSTAT|DATALABELATTRS|DATALABELFITPOLICY|DATALABELFORMAT|DATASKIN|DISCRETEOFFSET|DISPLAYBASELINE|FILLATTRS|FILLENDCOLOR|FILLPATTERNATTRS|FILLTYPE|GROUP|GROUPDISPLAY|GROUPORDER|LEGENDLABEL|NAME|OUTLINEATTRS|RATTRID|RESPONSE|SEGLABELATTRS|SEGLABELFITPOLICY|SEGLABELFORMAT|STAT|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.hbarbasic.sas",
+									"match": "(?i)\\b(DATALABEL|FILL|NOFILL|FILLPATTERN|MISSING|NOZEROBARS|OUTLINE|NOOUTLINE|SEGLABEL)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bHBARPARM)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.hbarparm.sas",
+									"match": "(?i)\\b(CATEGORY|RESPONSE|ATTRID|BARWIDTH|BASELINE|BASELINEATTRS|CLUSTERWIDTH|COLORMODEL|COLORRESPONSE|DATALABELATTRS|DATALABELFITPOLICY|DATASKIN|DISCRETEOFFSET|DISPLAYBASELINE|FILLATTRS|FILLENDCOLOR|FILLPATTERNATTRS|FILLTYPE|GROUP|GROUPDISPLAY|GROUPORDER|LEGENDLABEL|LIMITATTRS|LIMITCAPSCALE|LIMITLOWER|LIMITUPPER|NAME|OUTLINEATTRS|RATTRID|SEGLABELATTRS|SEGLABELFITPOLICY|SEGLABELFORMAT|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.hbarparm.sas",
+									"match": "(?i)\\b(DATALABEL|FILL|NOFILL|FILLPATTERN|MISSING|NOZEROBARS|OUTLINE|NOOUTLINE|SEGLABEL)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bHBOX)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.hbox.sas",
+									"match": "(?i)\\b(ATTRID|BOXWIDTH|CAPSCALE|CAPSHAPE|CATEGORY|CLUSTERWIDTH|CONNECT|CONNECTATTRS|DATALABELATTRS|DATASKIN|DISCRETEOFFSET|FILLATTRS|FILLPATTERNATTRS|FREQ|GROUP|GROUPDISPLAY|GROUPORDER|INTBOXWIDTH|LEGENDLABEL|LINEATTRS|MEANATTRS|MEDIANATTRS|NAME|OUTLIERATTRS|PERCENTILE|SPLITCHAR|SPLITJUSTIFY|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|WEIGHT|WHISKERATTRS|WHISKERPCT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.hbox.sas",
+									"match": "(?i)\\b(DATALABEL|DISPLAYSTATS|EXTREME|FILL|NOFILL|FILLPATTERN|LABELFAR|MISSING|NOCAPS|NOMEAN|NOMEDIAN|NOOUTLIERS|NOTCHES|SPLITCHARNODROP|SPREAD)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bHEATMAP)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.heatmap.sas",
+									"match": "(?i)\\b(X|Y|COLORMODEL|COLORRESPONSE|COLORSTAT|FILLATTRS|FREQ|NAME|OUTLINEATTRS|RATTRID|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|WEIGHT|XBINSIZE|XBINSTART|YBINSIZE|YBINSTART)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.heatmap.sas",
+									"match": "(?i)\\b(DISCRETEX|DISCRETEY|OUTLINE|SHOWXBINS|SHOWYBINS|XENDLABELS|YENDLABELS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bHEATMAPPARM)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.heatmapparm.sas",
+									"match": "(?i)\\b(X|Y|COLORGROUP|COLORRESPONSE|ATTRID|COLORMODEL|FILLATTRS|NAME|OUTLINEATTRS|RATTRID|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL|XVALUES|YVALUES)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.heatmapparm.sas",
+									"match": "(?i)\\b(DISCRETEX|DISCRETEY|NOMISSINGCOLOR|OUTLINE|SHOWXBINS|SHOWYBINS|XENDLABELS|YENDLABELS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bHIGHLOW)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.highlow.sas",
+									"match": "(?i)\\b(X|HIGH|LOW|ATTRID|BARWIDTH|CLIPCAPSHAPE|CLOSE|CLUSTERWIDTH|COLORMODEL|COLORRESPONSE|DATASKIN|DISCRETEOFFSET|FILLATTRS|FILLPATTERNATTRS|GROUP|GROUPDISPLAY|GROUPORDER|HIGHCAP|HIGHLABEL|INTERVALBARWIDTH|LABELATTRS|LEGENDLABEL|LINEATTRS|LOWCAP|LOWLABEL|NAME|OPEN|RATTRID|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|TYPE|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.highlow.sas",
+									"match": "(?i)\\b(CLIPCAP|FILL|NOFILL|FILLPATTERN|NOMISSINGGROUP|OUTLINE|NOOUTLINE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bHISTOGRAM)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.histogram.sas",
+									"match": "(?i)\\b(ATTRID|BINSTART|BINWIDTH|BOUNDARY|DATALABELATTRS|DATASKIN|FILLATTRS|FILLENDCOLOR|FILLPATTERNATTRS|FILLTYPE|FREQ|GROUP|LEGENDLABEL|NAME|NBINS|SCALE|TRANSPARENCY|WEIGHT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.histogram.sas",
+									"match": "(?i)\\b(DATALABEL|FILL|NOFILL|FILLPATTERN|OUTLINE|NOOUTLINE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bHLINE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.hline.sas",
+									"match": "(?i)\\b(ALPHA|ATTRID|CATEGORYORDER|CLUSTERWIDTH|CURVELABELATTRS|CURVELABELPOS|DATALABELATTRS|DATALABELPOS|DATASKIN|DISCRETEOFFSET|FREQ|GROUP|GROUPDISPLAY|GROUPORDER|LEGENDLABEL|LIMITATTRS|LIMITCAPSCALE|LIMITS|LIMITSTAT|LINEATTRS|MARKERATTRS|MARKERFILLATTRS|MARKEROUTLINEATTRS|NAME|NUMSTD|RESPONSE|SPLITCHAR|SPLITJUSTIFY|STAT|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL|WEIGHT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.hline.sas",
+									"match": "(?i)\\b(BREAK|CURVELABEL|DATALABEL|FILLEDOUTLINEDMARKERS|MARKERS|MISSING|NOLIMITCAPS|SPLITCHARNODROP|STATLABEL|NOSTATLABEL)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bINSET)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.inset.sas",
+									"match": "(?i)\\b(BACKCOLOR|POSITION|SEPARATOR|TEXTATTRS|TITLE|TITLEATTRS)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.inset.sas",
+									"match": "(?i)\\b(BORDER|NOBORDER|NOLABEL|OPAQUE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bKEYLEGEND)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.keylegend.sas",
+									"match": "(?i)\\b(ACROSS|DOWN|EXCLUDE|FILLASPECT|FILLHEIGHT|LINELENGTH|OUTERPAD|POSITION|SCALE|SORTORDER|TITLE|TITLEATTRS|TYPE|VALUEATTRS)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.keylegend.sas",
+									"match": "(?i)\\b(AUTOITEMSIZE|AUTOOUTLINE|BORDER|NOBORDER)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bLEGENDITEM)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.legenditem.sas",
+									"match": "(?i)\\b(TYPE|NAME|FILLATTRS|LABEL|LABELATTRS|LINEATTRS|MARKERATTRS|OUTLINEATTRS|TEXT|TEXTATTRS)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.legenditem.sas",
+									"match": "(?i)\\b(FILLEDOUTLINEDMARKERS|NOFILL|NOOUTLINE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bLINEPARM)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.lineparm.sas",
+									"match": "(?i)\\b(X|Y|SLOPE|ATTRID|CURVELABELATTRS|CURVELABELPOS|GROUP|LEGENDLABEL|LINEATTRS|NAME|SPLITCHAR|SPLITJUSTIFY|TRANSPARENCY)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.lineparm.sas",
+									"match": "(?i)\\b(CLIP|CURVELABEL|NOEXTEND|NOMISSINGGROUP|SPLITCHARNODROP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bLOESS)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.loess.sas",
+									"match": "(?i)\\b(X|Y|ALPHA|ATTRID|CLMTRANSPARENCY|CURVELABELATTRS|CURVELABELPOS|DATALABELATTRS|DATALABELPOS|DEGREE|GROUP|INTERPOLATION|LEGENDLABEL|LINEATTRS|MARKERATTRS|MARKERFILLATTRS|MARKEROUTLINEATTRS|MAXPOINTS|NAME|REWEIGHT|SMOOTH|SPLITCHAR|SPLITJUSTIFY|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|WEIGHT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.loess.sas",
+									"match": "(?i)\\b(CLM|CLMATTRS|CURVELABEL|DATALABEL|FILLEDOUTLINEDMARKERS|JITTER|NOLEGCLM|NOLEGFIT|NOMARKERS|SPLITCHARNODROP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bNEEDLE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.needle.sas",
+									"match": "(?i)\\b(X|Y|ATTRID|BASELINE|BASELINEATTRS|CLUSTERWIDTH|DATALABELATTRS|DATALABELPOS|DATASKIN|DISCRETEOFFSET|DISPLAYBASELINE|GROUP|GROUPDISPLAY|GROUPORDER|LEGENDLABEL|LINEATTRS|MARKERATTRS|NAME|SPLITCHAR|SPLITJUSTIFY|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.needle.sas",
+									"match": "(?i)\\b(DATALABEL|MARKERS|NOMISSINGGROUP|SPLITCHARNODROP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bPBSPLINE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.pbspline.sas",
+									"match": "(?i)\\b(X|Y|ALPHA|ATTRID|CLIATTRS|CLMTRANSPARENCY|CURVELABELATTRS|CURVELABELPOS|DATALABELATTRS|DATALABELPOS|DEGREE|FREQ|GROUP|LEGENDLABEL|LINEATTRS|MARKERATTRS|MARKERFILLATTRS|MARKEROUTLINEATTRS|MAXPOINTS|NAME|NKNOTS|SMOOTH|SPLITCHAR|SPLITJUSTIFY|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|WEIGHT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.pbspline.sas",
+									"match": "(?i)\\b(CLI|CLM|CLMATTRS|CURVELABEL|DATALABEL|FILLEDOUTLINEDMARKERS|JITTER|NOLEGCLI|NOLEGCLM|NOLEGFIT|NOMARKERS|SPLITCHARNODROP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bPOLYGON)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.polygon.sas",
+									"match": "(?i)\\b(X|Y|ID|ATTRID|COLORMODEL|COLORRESPONSE|DATASKIN|FILLATTRS|FILLPATTERNATTRS|GROUP|LABELATTRS|LABELLOC|LABELPOS|LEGENDLABEL|LINEATTRS|NAME|RATTRID|ROTATE|ROTATELABEL|SPLITCHAR|SPLITJUSTIFY|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL|XOFFSET|YOFFSET)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.polygon.sas",
+									"match": "(?i)\\b(BACKLIGHT|FILL|NOFILL|FILLPATTERN|LABEL|NOMISSINGGROUP|OUTLINE|NOOUTLINE|SPLITCHARNODROP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bREFLINE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.refline.sas",
+									"match": "(?i)\\b(AXIS|DATASKIN|DISCRETEOFFSET|DISCRETETHICKNESS|LABELATTRS|LABELPOS|LEGENDLABEL|LINEATTRS|NAME|SPLITCHAR|SPLITJUSTIFY|TRANSPARENCY)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.refline.sas",
+									"match": "(?i)\\b(LABEL|NOCLIP|SPLITCHARNODROP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bREG)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.reg.sas",
+									"match": "(?i)\\b(X|Y|ALPHA|ATTRID|CLIATTRS|CLMTRANSPARENCY|CURVELABELATTRS|CURVELABELPOS|DATALABELATTRS|DATALABELPOS|DEGREE|FREQ|GROUP|LEGENDLABEL|LINEATTRS|MARKERATTRS|MARKERFILLATTRS|MARKEROUTLINEATTRS|MAXPOINTS|NAME|SPLITCHAR|SPLITJUSTIFY|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|WEIGHT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.reg.sas",
+									"match": "(?i)\\b(CLI|CLM|CLMATTRS|CURVELABEL|DATALABEL|FILLEDOUTLINEDMARKERS|JITTER|NOLEGCLI|NOLEGCLM|NOLEGFIT|NOMARKERS|SPLITCHARNODROP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bSCATTER)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.scatter.sas",
+									"match": "(?i)\\b(X|Y|ATTRID|CLUSTERWIDTH|COLORMODEL|COLORRESPONSE|DATALABELATTRS|DATALABELPOS|DATASKIN|DISCRETEOFFSET|ERRORBARATTRS|ERRORCAPSCALE|FREQ|GROUP|GROUPDISPLAY|GROUPORDER|JITTERWIDTH|LEGENDLABEL|MARKERATTRS|MARKERCHAR|MARKERCHARATTRS|MARKERFILLATTRS|MARKEROUTLINEATTRS|NAME|RATTRID|SPLITCHAR|SPLITJUSTIFY|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL|XERRORLOWER|XERRORUPPER|YERRORLOWER|YERRORUPPER)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.scatter.sas",
+									"match": "(?i)\\b(DATALABEL|FILLEDOUTLINEDMARKERS|JITTER|LABELSTRIP|NOERRORCAPS|NOMISSINGGROUP|SPLITCHARNODROP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bSERIES)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.series.sas",
+									"match": "(?i)\\b(X|Y|ARROWHEADPOS|ARROWHEADSCALE|ARROWHEADSHAPE|ATTRID|CLUSTERWIDTH|COLORMODEL|COLORRESPONSE|CURVELABELATTRS|CURVELABELPOS|DATALABELATTRS|DATALABELPOS|DATASKIN|DISCRETEOFFSET|GROUP|GROUPDISPLAY|GROUPLC|GROUPLP|GROUPMC|GROUPMS|GROUPORDER|LCATTRID|LEGENDLABEL|LINEATTRS|LPATTRID|MARKERATTRS|MARKERFILLATTRS|MARKEROUTLINEATTRS|MCATTRID|MSATTRID|NAME|RATTRID|SPLITCHAR|SPLITJUSTIFY|THICKMAX|THICKMAXRESP|THICKRESP|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.series.sas",
+									"match": "(?i)\\b(BREAK|CURVELABEL|DATALABEL|FILLEDOUTLINEDMARKERS|MARKERS|NOMISSINGGROUP|SMOOTHCONNECT|SPLITCHARNODROP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bSPLINE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.spline.sas",
+									"match": "(?i)\\b(X|Y|ARROWHEADPOS|ARROWHEADSCALE|ARROWHEADSHAPE|ATTRID|CLUSTERWIDTH|COLORMODEL|COLORRESPONSE|CURVELABELATTRS|CURVELABELPOS|DATASKIN|DISCRETEOFFSET|GROUP|GROUPDISPLAY|GROUPLC|GROUPLP|GROUPORDER|LEGENDLABEL|LINEATTRS|NAME|RATTRID|SEGPOINTS|SPLITCHAR|SPLITJUSTIFY|THICKMAX|THICKMAXRESP|THICKRESP|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.spline.sas",
+									"match": "(?i)\\b(BREAK|CURVELABEL|NOMISSINGGROUP|SPLITCHARNODROP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bSTEP)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.step.sas",
+									"match": "(?i)\\b(X|Y|ARROWHEADPOS|ARROWHEADSCALE|ARROWHEADSHAPE|ATTRID|CLUSTERWIDTH|CURVELABELATTRS|CURVELABELPOS|DATALABELATTRS|DATALABELPOS|DATASKIN|DISCRETEOFFSET|ERRORBARATTRS|ERRORCAPSCALE|GROUP|GROUPDISPLAY|GROUPORDER|JUSTIFY|LEGENDLABEL|LINEATTRS|MARKERATTRS|MARKERFILLATTRS|MARKEROUTLINEATTRS|NAME|SPLITCHAR|SPLITJUSTIFY|THICKMAX|THICKMAXRESP|THICKRESP|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL|YERRORLOWER|YERRORUPPER)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.step.sas",
+									"match": "(?i)\\b(BREAK|CURVELABEL|DATALABEL|FILLEDOUTLINEDMARKERS|MARKERS|NOERRORCAPS|NOMISSINGGROUP|SPLITCHARNODROP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bSYMBOLCHAR)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.symbolchar.sas",
+									"match": "(?i)\\b(NAME|CHAR|HOFFSET|ROTATE|SCALE|TEXTATTRS|VOFFSET)\\s*(?==)"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bSYMBOLIMAGE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.symbolimage.sas",
+									"match": "(?i)\\b(NAME|IMAGE|HOFFSET|ROTATE|SCALE|VOFFSET)\\s*(?==)"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bTEXT)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.text.sas",
+									"match": "(?i)\\b(X|Y|TEXT|ATTRID|BACKLIGHT|CLUSTERAXIS|CLUSTERWIDTH|COLORMODEL|COLORRESPONSE|CONTRIBUTEOFFSETS|DISCRETEOFFSET|FILLATTRS|GROUP|GROUPDISPLAY|LEGENDLABEL|NAME|OUTLINEATTRS|PAD|POSITION|RATTRID|ROTATE|SIZEMAX|SIZEMAXRESPONSE|SIZEMIN|SIZERESPONSE|SPLITCHAR|SPLITJUSTIFY|SPLITPOLICY|SPLITWIDTH|TEXTATTRS|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL|VCENTER)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.text.sas",
+									"match": "(?i)\\b(BACKFILL|NOMISSINGGROUP|OUTLINE|SPLITCHARNODROP|STRIP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bVBAR)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.vbar.sas",
+									"match": "(?i)\\b(ALPHA|ATTRID|BARWIDTH|BASELINE|BASELINEATTRS|CATEGORYORDER|CLUSTERWIDTH|COLORMODEL|COLORRESPONSE|COLORSTAT|DATALABELATTRS|DATALABELFITPOLICY|DATASKIN|DISCRETEOFFSET|DISPLAYBASELINE|FILLATTRS|FILLENDCOLOR|FILLPATTERNATTRS|FILLTYPE|FREQ|GROUP|GROUPDISPLAY|GROUPORDER|LEGENDLABEL|LIMITATTRS|LIMITCAPSCALE|LIMITS|LIMITSTAT|NAME|NUMSTD|OUTLINEATTRS|RATTRID|RESPONSE|SEGLABELATTRS|SEGLABELFITPOLICY|SEGLABELFORMAT|SPLITCHAR|STAT|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL|WEIGHT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.vbar.sas",
+									"match": "(?i)\\b(DATALABEL|FILL|NOFILL|FILLPATTERN|MISSING|NOZEROBARS|OUTLINE|NOOUTLINE|SEGLABEL|SPLITCHARNODROP|STATLABEL|NOSTATLABEL)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bVBARBASIC)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.vbarbasic.sas",
+									"match": "(?i)\\b(ATTRID|BARWIDTH|BASELINE|BASELINEATTRS|CLUSTERWIDTH|COLORMODEL|COLORRESPONSE|COLORSTAT|DATALABELATTRS|DATALABELFITPOLICY|DATALABELFORMAT|DATASKIN|DISCRETEOFFSET|DISPLAYBASELINE|FILLATTRS|FILLENDCOLOR|FILLPATTERNATTRS|FILLTYPE|GROUP|GROUPDISPLAY|GROUPORDER|LEGENDLABEL|NAME|OUTLINEATTRS|RATTRID|RESPONSE|SEGLABELATTRS|SEGLABELFITPOLICY|SEGLABELFORMAT|STAT|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.vbarbasic.sas",
+									"match": "(?i)\\b(DATALABEL|FILL|NOFILL|FILLPATTERN|MISSING|NOZEROBARS|OUTLINE|NOOUTLINE|SEGLABEL)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bVBARPARM)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.vbarparm.sas",
+									"match": "(?i)\\b(CATEGORY|RESPONSE|ATTRID|BARWIDTH|BASELINE|BASELINEATTRS|CLUSTERWIDTH|COLORMODEL|COLORRESPONSE|DATALABELATTRS|DATALABELFITPOLICY|DATASKIN|DISCRETEOFFSET|DISPLAYBASELINE|FILLATTRS|FILLENDCOLOR|FILLPATTERNATTRS|FILLTYPE|GROUP|GROUPDISPLAY|GROUPORDER|LEGENDLABEL|LIMITATTRS|LIMITCAPSCALE|LIMITLOWER|LIMITUPPER|NAME|OUTLINEATTRS|RATTRID|SEGLABELATTRS|SEGLABELFITPOLICY|SEGLABELFORMAT|SPLITCHAR|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.vbarparm.sas",
+									"match": "(?i)\\b(DATALABEL|FILL|NOFILL|FILLPATTERN|MISSING|NOZEROBARS|OUTLINE|NOOUTLINE|SEGLABEL|SPLITCHARNODROP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bVBOX)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.vbox.sas",
+									"match": "(?i)\\b(ATTRID|BOXWIDTH|CAPSCALE|CAPSHAPE|CATEGORY|CLUSTERWIDTH|CONNECT|CONNECTATTRS|DATALABELATTRS|DATASKIN|DISCRETEOFFSET|FILLATTRS|FILLPATTERNATTRS|FREQ|GROUP|GROUPDISPLAY|GROUPORDER|INTBOXWIDTH|LEGENDLABEL|LINEATTRS|MEANATTRS|MEDIANATTRS|NAME|OUTLIERATTRS|PERCENTILE|SPLITCHAR|SPLITJUSTIFY|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|WEIGHT|WHISKERATTRS|WHISKERPCT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.vbox.sas",
+									"match": "(?i)\\b(DATALABEL|DISPLAYSTATS|EXTREME|FILL|NOFILL|FILLPATTERN|LABELFAR|MISSING|NOCAPS|NOMEAN|NOMEDIAN|NOOUTLIERS|NOTCHES|SPLITCHARNODROP|SPREAD)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bVECTOR)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.vector.sas",
+									"match": "(?i)\\b(X|Y|ARROWDIRECTION|ARROWHEADSHAPE|ATTRID|COLORMODEL|COLORRESPONSE|DATALABELATTRS|DATALABELPOS|DATASKIN|GROUP|LEGENDLABEL|LINEATTRS|NAME|RATTRID|SPLITCHAR|SPLITJUSTIFY|THICKMAX|THICKMAXRESP|THICKRESP|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|XORIGIN|YORIGIN)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.vector.sas",
+									"match": "(?i)\\b(DATALABEL|NOARROWHEADS|NOMISSINGGROUP|SPLITCHARNODROP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bVLINE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.vline.sas",
+									"match": "(?i)\\b(ALPHA|ATTRID|CATEGORYORDER|CLUSTERWIDTH|CURVELABELATTRS|CURVELABELPOS|DATALABELATTRS|DATALABELPOS|DATASKIN|DISCRETEOFFSET|FREQ|GROUP|GROUPDISPLAY|GROUPORDER|LEGENDLABEL|LIMITATTRS|LIMITS|LIMITCAPSCALE|LIMITSTAT|LINEATTRS|MARKERATTRS|MARKERFILLATTRS|MARKEROUTLINEATTRS|NAME|NUMSTD|RESPONSE|SPLITCHAR|SPLITJUSTIFY|STAT|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL|WEIGHT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.vline.sas",
+									"match": "(?i)\\b(BREAK|CURVELABEL|DATALABEL|FILLEDOUTLINEDMARKERS|MARKERS|MISSING|NOLIMITCAPS|SPLITCHARNODROP|STATLABEL|NOSTATLABEL)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bCOLAXIS)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.colaxis.sas",
+									"match": "(?i)\\b(COLORBANDS|COLORBANDSATTRS|DISCRETEORDER|DISPLAY|FITPOLICY|GRIDATTRS|INTERVAL|LABEL|LABELATTRS|LABELPOS|LOGBASE|LOGSTYLE|LOGVTYPE|MAX|MIN|MINORCOUNT|MINORGRIDATTRS|MINORINTERVAL|OFFSETMAX|OFFSETMIN|SPLITCHAR|SPLITJUSTIFY|THRESHOLDMAX|THRESHOLDMIN|TYPE|VALUEATTRS|VALUES|VALUESDISPLAY|VALUESFORMAT|VALUESROTATE)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.colaxis.sas",
+									"match": "(?i)\\b(ALTERNATE|GRID|INTEGER|MINOR|MINORGRID|NOTIMESPLIT|REFTICKS|REVERSE|SPLITCHARNODROP|VALUESHINT)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bCOLAXISTABLE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.colaxistable.sas",
+									"match": "(?i)\\b(ATTRID|CLASS|CLASSDISPLAY|CLASSORDER|COLORGROUP|LABELATTRS|LABELPOS|NAME|PAD|POSITION|STAT|TEXTGROUP|TEXTGROUPID|TITLE|TITLEATTRS|VALUEATTRS|X)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.colaxistable.sas",
+									"match": "(?i)\\b(DROPONMISSING|LABEL|NOLABEL|NOMISSINGCHAR|NOMISSINGCLASS|SEPARATOR|STATLABEL|NOSTATLABEL)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bROWAXIS)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.rowaxis.sas",
+									"match": "(?i)\\b(COLORBANDS|COLORBANDSATTRS|DISCRETEORDER|DISPLAY|FITPOLICY|GRIDATTRS|INTERVAL|LABEL|LABELATTRS|LABELPOS|LOGBASE|LOGSTYLE|LOGVTYPE|MAX|MIN|MINORCOUNT|MINORGRIDATTRS|MINORINTERVAL|OFFSETMAX|OFFSETMIN|SPLITCHAR|SPLITJUSTIFY|THRESHOLDMAX|THRESHOLDMIN|TYPE|VALUEATTRS|VALUES|VALUESDISPLAY|VALUESFORMAT|VALUESHALIGN)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.rowaxis.sas",
+									"match": "(?i)\\b(ALTERNATE|GRID|INTEGER|MINOR|MINORGRID|NOTIMESPLIT|REFTICKS|REVERSE|SPLITCHARNODROP|VALUESHINT)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bROWAXISTABLE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.rowaxistable.sas",
+									"match": "(?i)\\b(ATTRID|CLASS|CLASSDISPLAY|CLASSORDER|COLORGROUP|LABELATTRS|LABELHALIGN|LABELJUSTIFY|LABELPOS|NAME|PAD|POSITION|STAT|TEXTGROUP|TEXTGROUPID|TITLE|TITLEATTRS|TITLEHALIGN|TITLEJUSTIFY|VALUEATTRS|VALUEHALIGN|VALUEJUSTIFY|Y)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.rowaxistable.sas",
+									"match": "(?i)\\b(DROPONMISSING|LABEL|NOLABEL|NOMISSINGCHAR|NOMISSINGCLASS|SEPARATOR|STATLABEL|NOSTATLABEL)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bBY)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpanel.by.sas",
+									"match": "(?i)\\b(DESCENDING|NOTSORTED)\\b"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+SGPIE)\\b",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)(RUN(?=.*;)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.proc.sas"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#global"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*PROC\\s+SGPIE)\\b",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.option.sgpie.sas",
+									"match": "(?i)\\b(DATA|DATTRMAP|DESCRIPTION)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.option.sgpie.sas",
+									"match": "(?i)\\b(NOAUTOLEGEND|OPAQUE|NOOPAQUE)\\b"
+								}
+							]
+						},
+						{
+							"name": "keyword.other.proc.sgpie.sas",
+							"match": "(?i)\\b(DONUT|KEYLEGEND|PIE|STYLEATTRS|BY|FORMAT|LABEL|WHERE)\\b(?!\\s*=)"
+						},
+						{
+							"begin": "(?i)(?<=\\bDONUT)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpie.donut.sas",
+									"match": "(?i)\\b(ATTRID|DATALABELATTRS|DATALABELDISPLAY|DATALABELLOC|DATASKIN|DIRECTION|HOLELABELATTRS|HOLEVALUEATTRS|MAXSLICES|OTHERFILLATTRS|OTHERLABEL|OTHERPERCENT|RESPONSE|SLICEORDER|STARTANGLE|STARTPOS|STATFMT|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpie.donut.sas",
+									"match": "(?i)\\b(HOLELABEL|HOLEVALUE|MISSING|RINGSIZE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bKEYLEGEND)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpie.keylegend.sas",
+									"match": "(?i)\\b(ACROSS|DOWN|FILLASPECT|FILLHEIGHT|POSITION|SCALE|SORTORDER|TITLE|TITLEATTRS|VALUEATTRS)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpie.keylegend.sas",
+									"match": "(?i)\\b(AUTOITEMSIZE|BORDER|NOBORDER)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bPIE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpie.pie.sas",
+									"match": "(?i)\\b(ATTRID|DATALABELATTRS|DATALABELDISPLAY|DATALABELLOC|DATASKIN|DIRECTION|MAXSLICES|OTHERFILLATTRS|OTHERLABEL|OTHERPERCENT|RESPONSE|SLICEORDER|STARTANGLE|STARTPOS|STATFMT|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgpie.pie.sas",
+									"match": "(?i)\\b(MISSING)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bSTYLEATTRS)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpie.styleattrs.sas",
+									"match": "(?i)\\b(BACKCOLOR|DATACOLORS)\\s*(?==)"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bBY)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgpie.by.sas",
+									"match": "(?i)\\b(DESCENDING|NOTSORTED)\\b"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+SGPLOT)\\b",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)(RUN(?=.*;)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.proc.sas"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#global"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*PROC\\s+SGPLOT)\\b",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.option.sgplot.sas",
+									"match": "(?i)\\b(ASPECT|DATA|DATTRMAP|DESCRIPTION|PAD|PCTLEVEL|PCTNDEC|RATTRMAP|SGANNO|TMPLOUT|UNIFORM)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.option.sgplot.sas",
+									"match": "(?i)\\b(CYCLEATTRS|NOCYCLEATTRS|NOAUTOLEGEND|NOBORDER|NOSUBPIXEL|SUBPIXEL|NOWALL|OPAQUE|NOOPAQUE)\\b"
+								}
+							]
+						},
+						{
+							"name": "keyword.other.proc.sgplot.sas",
+							"match": "(?i)\\b(STYLEATTRS|BAND|BLOCK|BUBBLE|DENSITY|DOT|DROPLINE|ELLIPSE|ELLIPSEPARM|FRINGE|GRADLEGEND|HBAR|HBARBASIC|HBARPARM|HBOX|HEATMAP|HEATMAPPARM|HIGHLOW|HISTOGRAM|HLINE|INSET|KEYLEGEND|LEGENDITEM|LINEPARM|LOESS|NEEDLE|PBSPLINE|POLYGON|REFLINE|REG|SCATTER|SERIES|SPLINE|STEP|SYMBOLCHAR|SYMBOLIMAGE|TEXT|VBAR|VBARBASIC|VBARPARM|VBOX|VECTOR|VLINE|WATERFALL|XAXIS|X2AXIS|XAXISTABLE|YAXIS|Y2AXIS|YAXISTABLE|BY|FORMAT|LABEL|WHERE)\\b(?!\\s*=)"
+						},
+						{
+							"begin": "(?i)(?<=\\bSTYLEATTRS)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.styleattrs.sas",
+									"match": "(?i)\\b(AXISBREAK|AXISEXTENT|BACKCOLOR|DATACOLORS|DATACONTRASTCOLORS|DATAFILLPATTERNS|DATALINEPATTERNS|DATASYMBOLS|WALLCOLOR)\\s*(?==)"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bBAND)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.band.sas",
+									"match": "(?i)\\b(X|LOWER|UPPER|ATTRID|CURVELABELATTRS|CURVELABELLOC|CURVELABELPOS|FILLATTRS|FILLPATTERNATTRS|GROUP|LEGENDLABEL|LINEATTRS|MODELNAME|NAME|SPLITCHAR|SPLITJUSTIFY|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|TYPE)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.band.sas",
+									"match": "(?i)\\b(CURVELABELLOWER|CURVELABELUPPER|FILL|NOFILL|FILLPATTERN|NOEXTEND|NOMISSINGGROUP|OUTLINE|NOOUTLINE|SPLITCHARNODROP|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bBLOCK)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.block.sas",
+									"match": "(?i)\\b(X|BLOCK|ALTFILLATTRS|ATTRID|BLOCKLABEL|CLASS|FILLATTRS|FILLTYPE|LABELATTRS|LABELPOS|LINEATTRS|NAME|POSITION|SPLITCHAR|TRANSPARENCY|VALUEATTRS|VALUEFITPOLICY|VALUEHALIGN|VALUEVALIGN)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.block.sas",
+									"match": "(?i)\\b(EXTENDMISSING|FILL|NOFILL|LABEL|NOMISSINGCLASS|OUTLINE|NOOUTLINE|NOVALUES|VALUES|SPLITCHARNODROP|X2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bBUBBLE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.bubble.sas",
+									"match": "(?i)\\b(X|Y|SIZE|ATTRID|BRADIUSMAX|BRADIUSMIN|COLORMODEL|COLORRESPONSE|DATALABELATTRS|DATALABELPOS|DATASKIN|DRAWORDER|FILLATTRS|FILLPATTERNATTRS|GROUP|LEGENDLABEL|LINEATTRS|NAME|RATTRID|SPLITCHAR|SPLITJUSTIFY|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.bubble.sas",
+									"match": "(?i)\\b(ABSSCALE|DATALABEL|FILL|NOFILL|FILLPATTERN|NOMISSINGGROUP|OUTLINE|NOOUTLINE|PROPORTIONAL|SPLITCHARNODROP|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bDENSITY)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.density.sas",
+									"match": "(?i)\\b(ATTRID|CURVELABEL|CURVELABELATTRS|CURVELABELLOC|CURVELABELPOS|FREQ|GROUP|LEGENDLABEL|LINEATTRS|NAME|SCALE|SPLITCHAR|SPLITJUSTIFY|TRANSPARENCY|WEIGHT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.density.sas",
+									"match": "(?i)\\b(SPLITCHARNODROP|TYPE|X2AXIS|Y2AXIS|NORMAL|QUADRATIC|TRIANGULAR)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bDOT)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.dot.sas",
+									"match": "(?i)\\b(ALPHA|ATTRID|CATEGORYORDER|CLUSTERWIDTH|COLORMODEL|COLORRESPONSE|COLORSTAT|DATALABELATTRS|DATALABELPOS|DATASKIN|DISCRETEOFFSET|FREQ|GROUP|GROUPDISPLAY|GROUPORDER|LEGENDLABEL|LIMITATTRS|LIMITCAPSCALE|LIMITS|LIMITSTAT|MARKERATTRS|MARKERFILLATTRS|MARKEROUTLINEATTRS|NAME|NUMSTD|RATTRID|RESPONSE|SPLITCHAR|SPLITJUSTIFY|STAT|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL|WEIGHT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.dot.sas",
+									"match": "(?i)\\b(DATALABEL|FILLEDOUTLINEDMARKERS|MISSING|NOLIMITCAPS|SPLITCHARNODROP|STATLABEL|NOSTATLABEL)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bDROPLINE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.dropline.sas",
+									"match": "(?i)\\b(X|Y|DATASKIN|DISCRETEOFFSET|DROPTO|LABEL|LABELATTRS|LEGENDLABEL|LINEATTRS|NAME|TRANSPARENCY)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.dropline.sas",
+									"match": "(?i)\\b(NOCLIP|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bELLIPSE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.ellipse.sas",
+									"match": "(?i)\\b(X|Y|ALPHA|FILLATTRS|FILLPATTERNATTRS|FREQ|GROUP|LEGENDLABEL|LINEATTRS|NAME|TRANSPARENCY)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.ellipse.sas",
+									"match": "(?i)\\b(CLIP|FILL|NOFILL|FILLPATTERN|NOMISSINGGROUP|OUTLINE|NOOUTLINE|TYPE|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bELLIPSEPARM)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.ellipseparm.sas",
+									"match": "(?i)\\b(SEMIMAJOR|SEMIMINOR|FILLATTRS|FILLPATTERNATTRS|GROUP|LEGENDLABEL|LINEATTRS|NAME|SLOPE|TRANSPARENCY|XORIGIN|YORIGIN)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.ellipseparm.sas",
+									"match": "(?i)\\b(CLIP|FILL|NOFILL|FILLPATTERN|NOMISSINGGROUP|OUTLINE|NOOUTLINE|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bFRINGE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.fringe.sas",
+									"match": "(?i)\\b(ATTRID|GROUP|HEIGHT|LEGENDLABEL|LINEATTRS|NAME|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.fringe.sas",
+									"match": "(?i)\\b(NOMISSINGGROUP|X2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bGRADLEGEND)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.gradlegend.sas",
+									"match": "(?i)\\b(OUTERPAD|POSITION|TITLE|TITLEATTRS)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.gradlegend.sas",
+									"match": "(?i)\\b(BORDER|NOBORDER|EXTRACTSCALE|INTEGER|NOTITLE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bHBAR)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.hbar.sas",
+									"match": "(?i)\\b(ALPHA|ATTRID|BARWIDTH|BASELINE|BASELINEATTRS|CATEGORYORDER|CLUSTERWIDTH|COLORMODEL|COLORRESPONSE|COLORSTAT|DATALABELATTRS|DATALABELFITPOLICY|DATALABELPOS|DATASKIN|DISCRETEOFFSET|DISPLAYBASELINE|FILLATTRS|FILLENDCOLOR|FILLPATTERNATTRS|FILLTYPE|FREQ|GROUP|GROUPDISPLAY|GROUPORDER|LEGENDLABEL|LIMITATTRS|LIMITCAPSCALE|LIMITS|LIMITSTAT|NAME|NUMSTD|OUTLINEATTRS|RATTRID|RESPONSE|SEGLABELATTRS|SEGLABELFITPOLICY|SEGLABELFORMAT|STAT|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL|WEIGHT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.hbar.sas",
+									"match": "(?i)\\b(DATALABEL|FILL|NOFILL|FILLPATTERN|MISSING|NOZEROBARS|OUTLINE|NOOUTLINE|SEGLABEL|STATLABEL|NOSTATLABEL|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bHBARBASIC)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.hbarbasic.sas",
+									"match": "(?i)\\b(ATTRID|BARWIDTH|BASELINE|BASELINEATTRS|CLUSTERWIDTH|COLORMODEL|COLORRESPONSE|COLORSTAT|DATALABELATTRS|DATALABELFITPOLICY|DATALABELFORMAT|DATASKIN|DISCRETEOFFSET|DISPLAYBASELINE|FILLATTRS|FILLENDCOLOR|FILLPATTERNATTRS|FILLTYPE|GROUP|GROUPDISPLAY|GROUPORDER|LEGENDLABEL|NAME|OUTLINEATTRS|RATTRID|RESPONSE|SEGLABELATTRS|SEGLABELFITPOLICY|SEGLABELFORMAT|STAT|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.hbarbasic.sas",
+									"match": "(?i)\\b(DATALABEL|FILL|NOFILL|FILLPATTERN|MISSING|NOZEROBARS|OUTLINE|NOOUTLINE|SEGLABEL|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bHBARPARM)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.hbarparm.sas",
+									"match": "(?i)\\b(CATEGORY|RESPONSE|ATTRID|BARWIDTH|BASELINE|BASELINEATTRS|CLUSTERWIDTH|COLORMODEL|COLORRESPONSE|DATALABELATTRS|DATALABELFITPOLICY|DATALABELPOS|DATASKIN|DISCRETEOFFSET|DISPLAYBASELINE|FILLATTRS|FILLENDCOLOR|FILLPATTERNATTRS|FILLTYPE|GROUP|GROUPDISPLAY|GROUPORDER|LEGENDLABEL|LIMITATTRS|LIMITCAPSCALE|LIMITLOWER|LIMITUPPER|NAME|OUTLINEATTRS|RATTRID|SEGLABELATTRS|SEGLABELFITPOLICY|SEGLABELFORMAT|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.hbarparm.sas",
+									"match": "(?i)\\b(DATALABEL|FILL|NOFILL|FILLPATTERN|MISSING|NOZEROBARS|OUTLINE|NOOUTLINE|SEGLABEL|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bHBOX)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.hbox.sas",
+									"match": "(?i)\\b(ATTRID|BOXWIDTH|CAPSCALE|CAPSHAPE|CATEGORY|CLUSTERWIDTH|CONNECT|CONNECTATTRS|DATALABELATTRS|DATASKIN|DISCRETEOFFSET|FILLATTRS|FILLPATTERNATTRS|FREQ|GROUP|GROUPDISPLAY|GROUPORDER|INTBOXWIDTH|LEGENDLABEL|LINEATTRS|MEANATTRS|MEDIANATTRS|NAME|OUTLIERATTRS|PERCENTILE|SPLITCHAR|SPLITJUSTIFY|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|WEIGHT|WHISKERATTRS|WHISKERPCT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.hbox.sas",
+									"match": "(?i)\\b(DATALABEL|DISPLAYSTATS|EXTREME|FILL|NOFILL|FILLPATTERN|LABELFAR|MISSING|NOCAPS|NOMEAN|NOMEDIAN|NOOUTLIERS|NOTCHES|SPLITCHARNODROP|SPREAD|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bHEATMAP)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.heatmap.sas",
+									"match": "(?i)\\b(X|Y|COLORMODEL|COLORRESPONSE|COLORSTAT|FILLATTRS|FREQ|NAME|NXBINS|NYBINS|OUTLINEATTRS|RATTRID|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|WEIGHT|XBINSIZE|XBINSTART|YBINSIZE|YBINSTART)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.heatmap.sas",
+									"match": "(?i)\\b(DISCRETEX|DISCRETEY|OUTLINE|SHOWXBINS|SHOWYBINS|X2AXIS|XENDLABELS|Y2AXIS|YENDLABELS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bHEATMAPPARM)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.heatmapparm.sas",
+									"match": "(?i)\\b(X|Y|COLORGROUP|COLORRESPONSE|ATTRID|COLORMODEL|FILLATTRS|NAME|OUTLINEATTRS|RATTRID|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL|XVALUES|YVALUES)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.heatmapparm.sas",
+									"match": "(?i)\\b(DISCRETEX|DISCRETEY|NOMISSINGCOLOR|OUTLINE|SHOWXBINS|SHOWYBINS|X2AXIS|XENDLABELS|Y2AXIS|YENDLABELS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bHIGHLOW)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.highlow.sas",
+									"match": "(?i)\\b(X|HIGH|LOW|ATTRID|BARWIDTH|CLIPCAPSHAPE|CLOSE|CLUSTERWIDTH|COLORMODEL|COLORRESPONSE|DATASKIN|DISCRETEOFFSET|FILLATTRS|FILLPATTERNATTRS|GROUP|GROUPDISPLAY|GROUPORDER|HIGHCAP|HIGHLABEL|INTERVALBARWIDTH|LABELATTRS|LEGENDLABEL|LINEATTRS|LOWCAP|LOWLABEL|NAME|OPEN|RATTRID|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|TYPE|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.highlow.sas",
+									"match": "(?i)\\b(CLIPCAP|FILL|NOFILL|FILLPATTERN|NOMISSINGGROUP|OUTLINE|NOOUTLINE|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bHISTOGRAM)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.histogram.sas",
+									"match": "(?i)\\b(ATTRID|BINSTART|BINWIDTH|BOUNDARY|DATALABELATTRS|DATASKIN|FILLATTRS|FILLENDCOLOR|FILLPATTERNATTRS|FILLTYPE|FREQ|GROUP|LEGENDLABEL|NAME|NBINS|SCALE|TRANSPARENCY|WEIGHT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.histogram.sas",
+									"match": "(?i)\\b(DATALABEL|FILL|NOFILL|FILLPATTERN|OUTLINE|NOOUTLINE|SHOWBINS|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bHLINE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.hline.sas",
+									"match": "(?i)\\b(ALPHA|ATTRID|CATEGORYORDER|CLUSTERWIDTH|CURVELABELATTRS|CURVELABELLOC|CURVELABELPOS|DATALABELATTRS|DATALABELPOS|DATASKIN|DISCRETEOFFSET|FREQ|GROUP|GROUPDISPLAY|GROUPORDER|LEGENDLABEL|LIMITATTRS|LIMITCAPSCALE|LIMITS|LIMITSTAT|LINEATTRS|MARKERATTRS|MARKERFILLATTRS|MARKEROUTLINEATTRS|NAME|NUMSTD|RESPONSE|SPLITCHAR|SPLITJUSTIFY|STAT|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL|WEIGHT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.hline.sas",
+									"match": "(?i)\\b(BREAK|CURVELABEL|DATALABEL|FILLEDOUTLINEDMARKERS|MARKERS|MISSING|NOLIMITCAPS|SPLITCHARNODROP|STATLABEL|NOSTATLABEL|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bINSET)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.inset.sas",
+									"match": "(?i)\\b(BACKCOLOR|LABELALIGN|POSITION|TEXTATTRS|TITLE|TITLEATTRS|VALUEALIGN)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.inset.sas",
+									"match": "(?i)\\b(BORDER|NOBORDER|OPAQUE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bKEYLEGEND)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.keylegend.sas",
+									"match": "(?i)\\b(ACROSS|DOWN|EXCLUDE|FILLASPECT|FILLHEIGHT|LINELENGTH|LOCATION|OUTERPAD|POSITION|SCALE|SORTORDER|TITLE|TITLEATTRS|TYPE|VALUEATTRS)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.keylegend.sas",
+									"match": "(?i)\\b(AUTOITEMSIZE|AUTOOUTLINE|BORDER|NOBORDER|OPAQUE|NOOPAQUE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bLEGENDITEM)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.legenditem.sas",
+									"match": "(?i)\\b(TYPE|NAME|FILLATTRS|LABEL|LABELATTRS|LINEATTRS|MARKERATTRS|OUTLINEATTRS|TEXT|TEXTATTRS)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.legenditem.sas",
+									"match": "(?i)\\b(FILLEDOUTLINEDMARKERS|NOFILL|NOOUTLINE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bLINEPARM)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.lineparm.sas",
+									"match": "(?i)\\b(X|Y|SLOPE|ATTRID|CURVELABELATTRS|CURVELABELLOC|CURVELABELPOS|GROUP|LEGENDLABEL|LINEATTRS|NAME|SPLITCHAR|SPLITJUSTIFY|TRANSPARENCY)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.lineparm.sas",
+									"match": "(?i)\\b(CLIP|CURVELABEL|NOEXTEND|NOMISSINGGROUP|SPLITCHARNODROP|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bLOESS)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.loess.sas",
+									"match": "(?i)\\b(X|Y|ALPHA|ATTRID|CLMTRANSPARENCY|CURVELABELATTRS|CURVELABELLOC|CURVELABELPOS|DATALABELATTRS|DATALABELPOS|DEGREE|GROUP|INTERPOLATION|LEGENDLABEL|LINEATTRS|MARKERATTRS|MARKERFILLATTRS|MARKEROUTLINEATTRS|MAXPOINTS|NAME|REWEIGHT|SMOOTH|SPLITCHAR|SPLITJUSTIFY|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|WEIGHT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.loess.sas",
+									"match": "(?i)\\b(CLM|CLMATTRS|CURVELABEL|DATALABEL|FILLEDOUTLINEDMARKERS|JITTER|NOLEGCLM|NOLEGFIT|NOMARKERS|SPLITCHARNODROP|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bNEEDLE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.needle.sas",
+									"match": "(?i)\\b(X|Y|ATTRID|BASELINE|BASELINEATTRS|CLUSTERWIDTH|DATALABELATTRS|DATALABELPOS|DATASKIN|DISCRETEOFFSET|DISPLAYBASELINE|GROUP|GROUPDISPLAY|GROUPORDER|LEGENDLABEL|LINEATTRS|MARKERATTRS|NAME|SPLITCHAR|SPLITJUSTIFY|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.needle.sas",
+									"match": "(?i)\\b(DATALABEL|MARKERS|NOMISSINGGROUP|SPLITCHARNODROP|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bPBSPLINE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.pbspline.sas",
+									"match": "(?i)\\b(X|Y|ALPHA|ATTRID|CLMTRANSPARENCY|CURVELABELATTRS|CURVELABELLOC|CURVELABELPOS|DATALABELATTRS|DATALABELPOS|DEGREE|FREQ|GROUP|LEGENDLABEL|LINEATTRS|MARKERATTRS|MARKERFILLATTRS|MARKEROUTLINEATTRS|MAXPOINTS|NAME|NKNOTS|SMOOTH|SPLITCHAR|SPLITJUSTIFY|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|WEIGHT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.pbspline.sas",
+									"match": "(?i)\\b(CLI|CLIATTRS|CLM|CLMATTRS|CURVELABEL|DATALABEL|FILLEDOUTLINEDMARKERS|JITTER|NOLEGCLI|NOLEGCLM|NOLEGFIT|NOMARKERS|SPLITCHARNODROP|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bPOLYGON)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.polygon.sas",
+									"match": "(?i)\\b(X|Y|ID|ATTRID|COLORMODEL|COLORRESPONSE|DATASKIN|FILLATTRS|FILLPATTERNATTRS|GROUP|LABELATTRS|LABELLOC|LABELPOS|LEGENDLABEL|LINEATTRS|NAME|RATTRID|ROTATE|ROTATELABEL|SPLITCHAR|SPLITJUSTIFY|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL|XOFFSET|YOFFSET)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.polygon.sas",
+									"match": "(?i)\\b(BACKLIGHT|FILL|NOFILL|FILLPATTERN|LABEL|NOMISSINGGROUP|OUTLINE|NOOUTLINE|SPLITCHARNODROP|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bREFLINE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.refline.sas",
+									"match": "(?i)\\b(AXIS|DATASKIN|DISCRETEOFFSET|DISCRETETHICKNESS|LABELATTRS|LABELLOC|LABELPOS|LEGENDLABEL|LINEATTRS|NAME|SPLITCHAR|SPLITJUSTIFY|TRANSPARENCY)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.refline.sas",
+									"match": "(?i)\\b(LABEL|NOCLIP|SPLITCHARNODROP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bREG)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.reg.sas",
+									"match": "(?i)\\b(X|Y|ALPHA|ATTRID|CLMTRANSPARENCY|CURVELABELATTRS|CURVELABELLOC|CURVELABELPOS|DATALABELATTRS|DATALABELPOS|DEGREE|FREQ|GROUP|LEGENDLABEL|LINEATTRS|MARKERATTRS|MARKERFILLATTRS|MARKEROUTLINEATTRS|MAXPOINTS|NAME|SPLITCHAR|SPLITJUSTIFY|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|WEIGHT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.reg.sas",
+									"match": "(?i)\\b(CLI|CLIATTRS|CLM|CLMATTRS|CURVELABEL|DATALABEL|FILLEDOUTLINEDMARKERS|JITTER|NOLEGCLI|NOLEGCLM|NOLEGFIT|NOMARKERS|SPLITCHARNODROP|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bSCATTER)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.scatter.sas",
+									"match": "(?i)\\b(X|Y|ATTRID|CLUSTERWIDTH|COLORMODEL|COLORRESPONSE|DATALABELATTRS|DATALABELPOS|DATASKIN|DISCRETEOFFSET|ERRORBARATTRS|ERRORCAPSCALE|FREQ|GROUP|GROUPDISPLAY|GROUPORDER|JITTERWIDTH|LEGENDLABEL|MARKERATTRS|MARKERCHAR|MARKERCHARATTRS|MARKERFILLATTRS|MARKEROUTLINEATTRS|NAME|RATTRID|SPLITCHAR|SPLITJUSTIFY|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL|XERRORLOWER|XERRORUPPER|YERRORLOWER|YERRORUPPER)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.scatter.sas",
+									"match": "(?i)\\b(DATALABEL|FILLEDOUTLINEDMARKERS|JITTER|LABELSTRIP|NOERRORCAPS|NOMISSINGGROUP|SPLITCHARNODROP|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bSERIES)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.series.sas",
+									"match": "(?i)\\b(X|Y|ARROWHEADPOS|ARROWHEADSCALE|ARROWHEADSHAPE|ATTRID|CLUSTERWIDTH|COLORMODEL|COLORRESPONSE|CURVELABELATTRS|CURVELABELLOC|CURVELABELPOS|DATALABELATTRS|DATALABELPOS|DATASKIN|DISCRETEOFFSET|GROUP|GROUPDISPLAY|GROUPLC|GROUPLP|GROUPMC|GROUPMS|GROUPORDER|LCATTRID|LEGENDLABEL|LINEATTRS|LPATTRID|MARKERATTRS|MARKERFILLATTRS|MARKEROUTLINEATTRS|MCATTRID|MSATTRID|NAME|RATTRID|SPLITCHAR|SPLITJUSTIFY|THICKMAX|THICKMAXRESP|THICKRESP|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.series.sas",
+									"match": "(?i)\\b(BREAK|CURVELABEL|DATALABEL|FILLEDOUTLINEDMARKERS|MARKERS|NOMISSINGGROUP|SMOOTHCONNECT|SPLITCHARNODROP|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bSPLINE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.spline.sas",
+									"match": "(?i)\\b(X|Y|ARROWHEADPOS|ARROWHEADSCALE|ARROWHEADSHAPE|ATTRID|CLUSTERWIDTH|COLORMODEL|COLORRESPONSE|CURVELABELATTRS|CURVELABELLOC|CURVELABELPOS|DATASKIN|DISCRETEOFFSET|GROUP|GROUPDISPLAY|GROUPLC|GROUPLP|GROUPORDER|LEGENDLABEL|LINEATTRS|NAME|RATTRID|SEGPOINTS|SPLITCHAR|SPLITJUSTIFY|THICKMAX|THICKMAXRESP|THICKRESP|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.spline.sas",
+									"match": "(?i)\\b(BREAK|CURVELABEL|NOMISSINGGROUP|SPLITCHARNODROP|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bSTEP)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.step.sas",
+									"match": "(?i)\\b(X|Y|ARROWHEADPOS|ARROWHEADSCALE|ARROWHEADSHAPE|ATTRID|CLUSTERWIDTH|CURVELABELATTRS|CURVELABELLOC|CURVELABELPOS|DATALABELATTRS|DATALABELPOS|DATASKIN|DISCRETEOFFSET|ERRORBARATTRS|ERRORCAPSCALE|GROUP|GROUPDISPLAY|GROUPORDER|JUSTIFY|LEGENDLABEL|LINEATTRS|MARKERATTRS|MARKERFILLATTRS|MARKEROUTLINEATTRS|NAME|SPLITCHAR|SPLITJUSTIFY|THICKMAX|THICKMAXRESP|THICKRESP|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL|YERRORLOWER|YERRORUPPER)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.step.sas",
+									"match": "(?i)\\b(BREAK|CURVELABEL|DATALABEL|FILLEDOUTLINEDMARKERS|MARKERS|NOERRORCAPS|NOMISSINGGROUP|SPLITCHARNODROP|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bSYMBOLCHAR)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.symbolchar.sas",
+									"match": "(?i)\\b(NAME|CHAR|HOFFSET|ROTATE|SCALE|TEXTATTRS|VOFFSET)\\s*(?==)"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bSYMBOLIMAGE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.symbolimage.sas",
+									"match": "(?i)\\b(NAME|IMAGE|HOFFSET|ROTATE|SCALE|VOFFSET)\\s*(?==)"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bTEXT)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.text.sas",
+									"match": "(?i)\\b(X|Y|TEXT|ATTRID|BACKLIGHT|CLUSTERAXIS|CLUSTERWIDTH|COLORMODEL|COLORRESPONSE|CONTRIBUTEOFFSETS|DISCRETEOFFSET|FILLATTRS|GROUP|GROUPDISPLAY|LEGENDLABEL|NAME|OUTLINEATTRS|PAD|POSITION|RATTRID|ROTATE|SIZEMAX|SIZEMAXRESPONSE|SIZEMIN|SIZERESPONSE|SPLITCHAR|SPLITJUSTIFY|SPLITPOLICY|SPLITWIDTH|TEXTATTRS|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL|VCENTER)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.text.sas",
+									"match": "(?i)\\b(BACKFILL|NOMISSINGGROUP|OUTLINE|SPLITCHARNODROP|STRIP|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bVBAR)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.vbar.sas",
+									"match": "(?i)\\b(ALPHA|ATTRID|BARWIDTH|BASELINE|BASELINEATTRS|CATEGORYORDER|CLUSTERWIDTH|COLORMODEL|COLORRESPONSE|COLORSTAT|DATALABELATTRS|DATALABELFITPOLICY|DATALABELPOS|DATASKIN|DISCRETEOFFSET|DISPLAYBASELINE|FILLATTRS|FILLENDCOLOR|FILLPATTERNATTRS|FILLTYPE|FREQ|GROUP|GROUPDISPLAY|GROUPORDER|LEGENDLABEL|LIMITATTRS|LIMITCAPSCALE|LIMITS|LIMITSTAT|NAME|NUMSTD|OUTLINEATTRS|RATTRID|RESPONSE|SEGLABELATTRS|SEGLABELFITPOLICY|SEGLABELFORMAT|SPLITCHAR|STAT|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL|WEIGHT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.vbar.sas",
+									"match": "(?i)\\b(DATALABEL|FILL|NOFILL|FILLPATTERN|MISSING|NOZEROBARS|OUTLINE|NOOUTLINE|SEGLABEL|SPLITCHARNODROP|STATLABEL|NOSTATLABEL|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bVBARBASIC)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.vbarbasic.sas",
+									"match": "(?i)\\b(ATTRID|BARWIDTH|BASELINE|BASELINEATTRS|CLUSTERWIDTH|COLORMODEL|COLORRESPONSE|COLORSTAT|DATALABELATTRS|DATALABELFITPOLICY|DATALABELFORMAT|DATASKIN|DISCRETEOFFSET|DISPLAYBASELINE|FILLATTRS|FILLENDCOLOR|FILLPATTERNATTRS|FILLTYPE|GROUP|GROUPDISPLAY|GROUPORDER|LEGENDLABEL|NAME|OUTLINEATTRS|RATTRID|RESPONSE|SEGLABELATTRS|SEGLABELFITPOLICY|SEGLABELFORMAT|STAT|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.vbarbasic.sas",
+									"match": "(?i)\\b(DATALABEL|FILL|NOFILL|FILLPATTERN|MISSING|NOZEROBARS|OUTLINE|NOOUTLINE|SEGLABEL|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bVBARPARM)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.vbarparm.sas",
+									"match": "(?i)\\b(CATEGORY|RESPONSE|ATTRID|BARWIDTH|BASELINE|BASELINEATTRS|CLUSTERWIDTH|COLORMODEL|COLORRESPONSE|DATALABELATTRS|DATALABELFITPOLICY|DATALABELPOS|DATASKIN|DISCRETEOFFSET|DISPLAYBASELINE|FILLATTRS|FILLENDCOLOR|FILLPATTERNATTRS|FILLTYPE|GROUP|GROUPDISPLAY|GROUPORDER|LEGENDLABEL|LIMITATTRS|LIMITCAPSCALE|LIMITLOWER|LIMITUPPER|NAME|OUTLINEATTRS|RATTRID|SEGLABELATTRS|SEGLABELFITPOLICY|SEGLABELFORMAT|SPLITCHAR|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.vbarparm.sas",
+									"match": "(?i)\\b(DATALABEL|FILL|NOFILL|FILLPATTERN|MISSING|NOZEROBARS|OUTLINE|NOOUTLINE|SEGLABEL|SPLITCHARNODROP|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bVBOX)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.vbox.sas",
+									"match": "(?i)\\b(ATTRID|BOXWIDTH|CAPSCALE|CAPSHAPE|CATEGORY|CLUSTERWIDTH|CONNECT|CONNECTATTRS|DATALABELATTRS|DATASKIN|DISCRETEOFFSET|FILLATTRS|FILLPATTERNATTRS|FREQ|GROUP|GROUPDISPLAY|GROUPORDER|INTBOXWIDTH|LEGENDLABEL|LINEATTRS|MEANATTRS|MEDIANATTRS|NAME|OUTLIERATTRS|PERCENTILE|SPLITCHAR|SPLITJUSTIFY|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|WEIGHT|WHISKERATTRS|WHISKERPCT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.vbox.sas",
+									"match": "(?i)\\b(DATALABEL|DISPLAYSTATS|EXTREME|FILL|NOFILL|FILLPATTERN|LABELFAR|MISSING|NOCAPS|NOMEAN|NOMEDIAN|NOOUTLIERS|NOTCHES|SPLITCHARNODROP|SPREAD|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bVECTOR)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.vector.sas",
+									"match": "(?i)\\b(X|Y|ARROWDIRECTION|ARROWHEADSHAPE|ATTRID|COLORMODEL|COLORRESPONSE|DATALABELATTRS|DATALABELPOS|DATASKIN|GROUP|LEGENDLABEL|LINEATTRS|NAME|RATTRID|SPLITCHAR|SPLITJUSTIFY|THICKMAX|THICKMAXRESP|THICKRESP|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|XORIGIN|YORIGIN)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.vector.sas",
+									"match": "(?i)\\b(DATALABEL|NOARROWHEADS|NOMISSINGGROUP|SPLITCHARNODROP|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bVLINE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.vline.sas",
+									"match": "(?i)\\b(ALPHA|ATTRID|CATEGORYORDER|CLUSTERWIDTH|CURVELABELATTRS|CURVELABELLOC|CURVELABELPOS|DATALABELATTRS|DATALABELPOS|DATASKIN|DISCRETEOFFSET|FREQ|GROUP|GROUPDISPLAY|GROUPORDER|LEGENDLABEL|LIMITATTRS|LIMITCAPSCALE|LIMITS|LIMITSTAT|LINEATTRS|MARKERATTRS|MARKERFILLATTRS|MARKEROUTLINEATTRS|NAME|NUMSTD|RESPONSE|SPLITCHAR|SPLITJUSTIFY|STAT|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL|WEIGHT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.vline.sas",
+									"match": "(?i)\\b(BREAK|CURVELABEL|DATALABEL|FILLEDOUTLINEDMARKERS|MARKERS|MISSING|NOLIMITCAPS|SPLITCHARNODROP|STATLABEL|NOSTATLABEL|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bWATERFALL)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.waterfall.sas",
+									"match": "(?i)\\b(CATEGORY|RESPONSE|ATTRID|BARWIDTH|BASELINEATTRS|COLORGROUP|COLORMODEL|COLORRESPONSE|DATALABELATTRS|DATASKIN|FILLATTRS|FINALBARATTRS|FINALBARTICKVALUE|INITIALBARATTRS|INITIALBARTICKVALUE|INITIALBARVALUE|NAME|RATTRID|STAT|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|URL)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.waterfall.sas",
+									"match": "(?i)\\b(DATALABEL|FILL|NOFILL|MISSING|OUTLINE|NOOUTLINE|X2AXIS|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bXAXIS)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.xaxis.sas",
+									"match": "(?i)\\b(COLORBANDS|COLORBANDSATTRS|DISCRETEORDER|DISPLAY|FITPOLICY|GRIDATTRS|INTERVAL|LABEL|LABELATTRS|LABELPOS|LOGBASE|LOGSTYLE|LOGVTYPE|MAX|MIN|MINORCOUNT|MINORGRIDATTRS|MINORINTERVAL|OFFSETMAX|OFFSETMIN|RANGES|SPLITCHAR|SPLITJUSTIFY|THRESHOLDMAX|THRESHOLDMIN|TICKSTYLE|TYPE|VALUEATTRS|VALUES|VALUESDISPLAY|VALUESFORMAT|VALUESROTATE)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.xaxis.sas",
+									"match": "(?i)\\b(GRID|INTEGER|MINOR|MINORGRID|NOTIMESPLIT|REFTICKS|REVERSE|SPLITCHARNODROP|VALUESHINT)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bX2AXIS)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.x2axis.sas",
+									"match": "(?i)\\b(COLORBANDS|COLORBANDSATTRS|DISCRETEORDER|DISPLAY|FITPOLICY|GRIDATTRS|INTERVAL|LABEL|LABELATTRS|LABELPOS|LOGBASE|LOGSTYLE|LOGVTYPE|MAX|MIN|MINORCOUNT|MINORGRIDATTRS|MINORINTERVAL|OFFSETMAX|OFFSETMIN|RANGES|SPLITCHAR|SPLITJUSTIFY|THRESHOLDMAX|THRESHOLDMIN|TICKSTYLE|TYPE|VALUEATTRS|VALUES|VALUESDISPLAY|VALUESFORMAT|VALUESROTATE)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.x2axis.sas",
+									"match": "(?i)\\b(GRID|INTEGER|MINOR|MINORGRID|NOTIMESPLIT|REFTICKS|REVERSE|SPLITCHARNODROP|VALUESHINT)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bXAXISTABLE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.xaxistable.sas",
+									"match": "(?i)\\b(ATTRID|CLASS|CLASSDISPLAY|CLASSORDER|COLORGROUP|INDENT|INDENTWEIGHT|LABELATTRS|LABELPOS|LOCATION|NAME|PAD|POSITION|STAT|TEXTGROUP|TEXTGROUPID|TITLE|TITLEATTRS|VALUEATTRS|X)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.xaxistable.sas",
+									"match": "(?i)\\b(DROPONMISSING|LABEL|NOLABEL|NOMISSINGCHAR|NOMISSINGCLASS|SEPARATOR|STATLABEL|NOSTATLABEL|X2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bYAXIS)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.yaxis.sas",
+									"match": "(?i)\\b(COLORBANDS|COLORBANDSATTRS|DISCRETEORDER|DISPLAY|FITPOLICY|GRIDATTRS|INTERVAL|LABEL|LABELATTRS|LABELPOS|LOGBASE|LOGSTYLE|LOGVTYPE|MAX|MIN|MINORCOUNT|MINORGRIDATTRS|MINORINTERVAL|OFFSETMAX|OFFSETMIN|RANGES|SPLITCHAR|SPLITJUSTIFY|THRESHOLDMAX|THRESHOLDMIN|TICKSTYLE|TYPE|VALUEATTRS|VALUES|VALUESDISPLAY|VALUESFORMAT|VALUESHALIGN)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.yaxis.sas",
+									"match": "(?i)\\b(GRID|INTEGER|MINOR|MINORGRID|NOTIMESPLIT|REFTICKS|REVERSE|SPLITCHARNODROP|VALUESHINT)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bY2AXIS)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.y2axis.sas",
+									"match": "(?i)\\b(COLORBANDS|COLORBANDSATTRS|DISCRETEORDER|DISPLAY|FITPOLICY|GRIDATTRS|INTERVAL|LABEL|LABELATTRS|LABELPOS|LOGBASE|LOGSTYLE|LOGVTYPE|MAX|MIN|MINORCOUNT|MINORGRIDATTRS|MINORINTERVAL|OFFSETMAX|OFFSETMIN|RANGES|SPLITCHAR|SPLITJUSTIFY|THRESHOLDMAX|THRESHOLDMIN|TICKSTYLE|TYPE|VALUEATTRS|VALUES|VALUESDISPLAY|VALUESFORMAT|VALUESHALIGN)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.y2axis.sas",
+									"match": "(?i)\\b(GRID|INTEGER|MINOR|MINORGRID|NOTIMESPLIT|REFTICKS|REVERSE|SPLITCHARNODROP|VALUESHINT)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bYAXISTABLE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.yaxistable.sas",
+									"match": "(?i)\\b(ATTRID|CLASS|CLASSDISPLAY|CLASSORDER|COLORGROUP|INDENT|INDENTWEIGHT|LABELATTRS|LABELHALIGN|LABELJUSTIFY|LABELPOS|LOCATION|NAME|PAD|POSITION|STAT|TEXTGROUP|TEXTGROUPID|TITLE|TITLEATTRS|TITLEHALIGN|TITLEJUSTIFY|VALUEATTRS|VALUEHALIGN|VALUEJUSTIFY|Y)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.yaxistable.sas",
+									"match": "(?i)\\b(DROPONMISSING|LABEL|NOLABEL|NOMISSINGCHAR|NOMISSINGCLASS|SEPARATOR|STATLABEL|NOSTATLABEL|Y2AXIS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bBY)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgplot.by.sas",
+									"match": "(?i)\\b(DESCENDING|NOTSORTED)\\b"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+SGRENDER)\\b",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)(RUN(?=.*;)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.proc.sas"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#global"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*PROC\\s+SGRENDER)\\b",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.option.sgrender.sas",
+									"match": "(?i)\\b(TEMPLATE|DATA|DATTRMAP|OBJECT|OBJECTLABEL|SGANNO|SGE)\\s*(?==)"
+								}
+							]
+						},
+						{
+							"name": "keyword.other.proc.sgrender.sas",
+							"match": "(?i)\\b(DATTRVAR|DYNAMIC|BY|FORMAT|LABEL|WHERE)\\b(?!\\s*=)"
+						},
+						{
+							"begin": "(?i)(?<=\\bBY)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgrender.by.sas",
+									"match": "(?i)\\b(DESCENDING|NOTSORTED)\\b"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+SGSCATTER)\\b",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)(RUN(?=.*;)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.proc.sas"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#global"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*PROC\\s+SGSCATTER)\\b",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.option.sgscatter.sas",
+									"match": "(?i)\\b(BACKCOLOR|DATA|DATACOLORS|DATACONTRASTCOLORS|DATALINEPATTERNS|DATASYMBOLS|DATTRMAP|DESCRIPTION|PAD|RATTRMAP|SGANNO|TMPLOUT|WALLCOLOR)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.option.sgscatter.sas",
+									"match": "(?i)\\b(NOSUBPIXEL|SUBPIXEL|OPAQUE|NOOPAQUE)\\b"
+								}
+							]
+						},
+						{
+							"name": "keyword.other.proc.sgscatter.sas",
+							"match": "(?i)\\b(COMPARE|MATRIX|PLOT|BY|FORMAT|LABEL|WHERE)\\b(?!\\s*=)"
+						},
+						{
+							"begin": "(?i)(?<=\\bCOMPARE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgscatter.compare.sas",
+									"match": "(?i)\\b(X|Y|ATTRID|COLORMODEL|COLORRESPONSE|DATALABELPOS|GRADLEGEND|GRIDATTRS|GROUP|LEGEND|MARKERATTRS|MARKERFILLATTRS|MARKEROUTLINEATTRS|MINORGRIDATTRS|RATTRID|SPLITCHAR|SPLITJUSTIFY|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgscatter.compare.sas",
+									"match": "(?i)\\b(DATALABEL|ELLIPSE|FILLEDOUTLINEDMARKERS|GRID|JITTER|JOIN|LOESS|MINORGRID|NOGRADLEGEND|NOLEGEND|NOWALL|PBSPLINE|REFTICKS|REG|SPACING|SPLITCHARNODROP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bMATRIX)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgscatter.matrix.sas",
+									"match": "(?i)\\b(ATTRID|COLORMODEL|COLORRESPONSE|DATALABEL|DATALABELPOS|DIAGONAL|GRADLEGEND|GROUP|LEGEND|MARKERATTRS|RATTRID|SPLITCHAR|SPLITJUSTIFY|START|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgscatter.matrix.sas",
+									"match": "(?i)\\b(ELLIPSE|NOGRADLEGEND|NOLEGEND|SPLITCHARNODROP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bPLOT)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgscatter.plot.sas",
+									"match": "(?i)\\b(ASPECT|ATTRID|AXISEXTENT|COLORMODEL|COLORRESPONSE|COLUMNS|DATALABELPOS|GRADLEGEND|GRIDATTRS|GROUP|LEGEND|MARKERATTRS|MARKERFILLATTRS|MARKEROUTLINEATTRS|MINORGRIDATTRS|RATTRID|ROWS|SPLITCHAR|SPLITJUSTIFY|TIP|TIPFORMAT|TIPLABEL|TRANSPARENCY|UNISCALE)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.sgscatter.plot.sas",
+									"match": "(?i)\\b(DATALABEL|ELLIPSE|FILLEDOUTLINEDMARKERS|GRID|JITTER|JOIN|LOESS|MINORGRID|NOBORDER|NOGRADLEGEND|NOLEGEND|NOWALL|PBSPLINE|REFTICKS|REG|SPACING|SPLITCHARNODROP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bBY)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.sgscatter.by.sas",
+									"match": "(?i)\\b(DESCENDING|NOTSORTED)\\b"
+								}
+							]
+						}
+					]
 				}
 			]
 		}
