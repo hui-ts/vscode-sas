@@ -1426,6 +1426,151 @@
 							"match": "(?i)\\b(BOLD|ITALIC)\\b"
 						}
 					]
+				},
+				{
+					"name": "keyword.other.global.sas",
+					"match": "(?i)(?<=(^|;|\\w+:)\\s*)(AXIS\\d*|GOPTIONS|LEGEND\\d*|PATTERN\\d*|SYMBOL\\d*)\\b(?!\\s*=)"
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*AXIS\\d*)\\b(?!\\s*=)",
+					"end": ";",
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#constant"
+						},
+						{
+							"include": "#macro"
+						},
+						{
+							"include": "#string"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"name": "keyword.other.global.axis.sas",
+							"match": "(?i)\\b(COLOR|INTERVAL|LABEL|LENGTH|LOGBASE|LOGSTYLE|MAJOR|MINOR|OFFSET|ORDER|ORIGIN|REFLABEL|SPLIT|STYLE|VALUE|WIDTH|ANGLE|FONT|FORMAT|HEIGHT|JUSTIFY|POSITION|ROTATE|TICK|NUMBER)\\s*(?==)"
+						},
+						{
+							"name": "keyword.other.global.axis.sas",
+							"match": "(?i)\\b(NOBRACKETS|NOPLANE|STAGGER|AUTOREF)\\b"
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*GOPTIONS)\\b(?!\\s*=)",
+					"end": ";",
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#constant"
+						},
+						{
+							"include": "#macro"
+						},
+						{
+							"include": "#string"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"name": "keyword.other.global.goptions.sas",
+							"match": "(?i)\\b(ASPECT|AUTOSIZE|BINDING|CBACK|CBY|CHARREC|CHARTYPE|CMAP|COLORS|COLORTYPE|CPATTERN|CSYMBOL|CTEXT|CTITLE|DASHLINE|DASHSCALE|DELAY|DESCRIPTION|DEVADDR|DEVICE|DEVMAP|DEVOPTS|DEVTYPE|DISPOSAL|DRVINIT1|DRVINIT2|DRVTERM1|DRVTERM2|EXTENSION|FBY|FCACHE|FILECLOSE|FILLINC|FONTRES|FORMAT|FTEXT|FTITLE|FTRACK|GACCESS|GCOPIES|GEND|GEPILOG|GOUTMODE|GPROLOG|GPROTOCOL|GSFLEN|GSFMODE|GSFNAME|GSIZE|GSTART|GUNIT|GWAIT|HANDSHAKE|HBY|HEADER|HEADERFILE|HORIGIN|HOSTSPEC|HPOS|HSIZE|HTEXT|HTITLE|IBACK|ID|IMAGESTYLE|INTERACTIVE|INTERPOL|ITERATION|KEYMAP|LCOLS|LFACTOR|LROWS|MAXCOLORS|MAXPOLY|MODEL|MODULE|NAK|OFFSHADOW|PAPERDEST|PAPERFEED|PAPERLIMIT|PAPERSIZE|PAPERSOURCE|PAPERTYPE|PATH|PCOLS|PENMOUNTS|POLYFILL|POSTGEPILOG|POSTGPROLOG|POSTGRAPH1|POSTGRAPH2|PPDFILE|PREGEPILOG|PREGPROLOG|PREGRAPH1|PREGRAPH2|PROCESS|PROCESSINPUT|PROCESSOUTPUT|PROMPTCHARS|PROWS|RECTFILL|RENDER|RENDERLIB|REPAINT|RESET|ROTATION|SIMFONT|SPEED|SWFONTRENDER|SYMBOLS|TARGETDEVICE|TRAILER|TRAILERFILE|TRANTAB|TYPE|UCC|VORIGIN|VPOS|VSIZE|XMAX|XPIXELS|YMAX|YPIXELS)\\s*(?==)"
+						},
+						{
+							"name": "keyword.other.global.goptions.sas",
+							"match": "(?i)\\b(ACCESSIBLE|NOACCESSIBLE|ALTDESC|NOALTDESC|AUTOCOPY|NOAUTOCOPY|AUTOFEED|NOAUTOFEED|BORDER|NOBORDER|CELL|NOCELL|CHARACTERS|NOCHARACTERS|CIRCLEARC|NOCIRCLEARC|COLLATE|NOCOLLATE|DASH|NODASH|DISPLAY|NODISPLAY|DRVQRY|NODRVQRY|DUPLEX|NODUPLEX|ERASE|NOERASE|FASTTEXT|NOFASTTEXT|FILEONLY|NOFILEONLY|FILL|NOFILL|GRAPHRC|NOGRAPHRC|GSFPROMPT|NOGSFPROMPT|IMAGEPRINT|NOIMAGEPRINT|INTERLACED|NONINTERLACED|PCLIP|NOPCLIP|PENSORT|NOPENSORT|PIEFILL|NOPIEFILL|POLYGONCLIP|NOPOLYGONCLIP|POLYGONFILL|NOPOLYGONFILL|PROMPT|NOPROMPT|QMSG|NOQMSG|REVERSE|NOREVERSE|ROTATE|NOROTATE|SWAP|NOSWAP|SYMBOL|NOSYMBOL|TRANSPARENCY|NOTRANSPARENCY|USERINPUT|NOUSERINPUT|V6COMP|NOV6COMP)\\b"
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*LEGEND\\d*)\\b(?!\\s*=)",
+					"end": ";",
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#constant"
+						},
+						{
+							"include": "#macro"
+						},
+						{
+							"include": "#string"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"name": "keyword.other.global.legend.sas",
+							"match": "(?i)\\b(ACROSS|CBLOCK|CBORDER|CFRAME|CSHADOW|DOWN|FWIDTH|LABEL|MODE|OFFSET|ORDER|ORIGIN|POSITION|REPEAT|SHAPE|SPACE|SPLIT|VALUE|ANGLE|COLOR|FONT|HEIGHT|JUSTIFY|ROTATE|TICK)\\s*(?==)"
+						},
+						{
+							"name": "keyword.other.global.legend.sas",
+							"match": "(?i)\\b(FRAME|NOFRAME|ROWMAJOR|COLMAJOR)\\b"
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*PATTERN\\d*)\\b(?!\\s*=)",
+					"end": ";",
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#constant"
+						},
+						{
+							"include": "#macro"
+						},
+						{
+							"include": "#string"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"name": "keyword.other.global.pattern.sas",
+							"match": "(?i)\\b(COLOR|IMAGE|IMAGESTYLE|REPEAT|VALUE)\\s*(?==)"
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*SYMBOL\\d*)\\b(?!\\s*=)",
+					"end": ";",
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#constant"
+						},
+						{
+							"include": "#macro"
+						},
+						{
+							"include": "#string"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"name": "keyword.other.global.symbol.sas",
+							"match": "(?i)\\b(BWIDTH|CI|CO|COLOR|CV|FONT|HEIGHT|INTERPOL|LINE|MODE|REPEAT|SINGULAR|STEP|VALUE|WIDTH)\\s*(?==)"
+						},
+						{
+							"name": "keyword.other.global.symbol.sas",
+							"match": "(?i)\\b(POINTLABEL)\\b"
+						}
+					]
 				}
 			]
 		},
@@ -11282,6 +11427,1842 @@
 								},
 								{
 									"name": "keyword.other.proc.sgscatter.by.sas",
+									"match": "(?i)\\b(DESCENDING|NOTSORTED)\\b"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+GANNO)\\b",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)(RUN(?=.*;)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.proc.sas"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#global"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*PROC\\s+GANNO)\\b",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.option.ganno.sas",
+									"match": "(?i)\\b(ANNOTATE|DESCRIPTION|GOUT|IMAGEMAP|NAME)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.option.ganno.sas",
+									"match": "(?i)\\b(DATASYS)\\b"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+GAREABAR)\\b",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)((QUIT\\b)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.proc.sas"
+						}
+					},
+					"endCaptures": {
+						"3": {
+							"name": "keyword.quit.sas"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#global"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*PROC\\s+GAREABAR)\\b",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.option.gareabar.sas",
+									"match": "(?i)\\b(DATA)\\s*(?==)"
+								}
+							]
+						},
+						{
+							"name": "keyword.other.proc.gareabar.sas",
+							"match": "(?i)\\b(HBAR|HBAR3D|VBAR|VBAR3D|BY|NOTE|FORMAT|LABEL|WHERE)\\b(?!\\s*=)"
+						},
+						{
+							"begin": "(?i)(?<=\\bHBAR|HBAR3D|VBAR|VBAR3D)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gareabar.hbar|hbar3d|vbar|vbar3d.sas",
+									"match": "(?i)\\b(SUMVAR|CFRAME|COUTLINE|CTEXT|DESCRIPTION|LEGEND|NAME|SUBGROUP|WIDTHSTAT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.gareabar.hbar|hbar3d|vbar|vbar3d.sas",
+									"match": "(?i)\\b(CONTINUOUS|DISCRETE|FRAME|NOFRAME|NOLEGEND)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bBY)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gareabar.by.sas",
+									"match": "(?i)\\b(DESCENDING|NOTSORTED)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bNOTE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gareabar.note.sas",
+									"match": "(?i)\\b(ALT|ANGLE|BCOLOR|BLANK|BOX|BSPACE|COLOR|DRAW|FONT|HEIGHT|JUSTIFY|LANGLE|LINK|LSPACE|MOVE|ROTATE|UNDERLIN)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.gareabar.note.sas",
+									"match": "(?i)\\b(WRAP)\\b"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+GBARLINE)\\b",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)(RUN(?=.*;)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.proc.sas"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#global"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*PROC\\s+GBARLINE)\\b",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.option.gbarline.sas",
+									"match": "(?i)\\b(DATA|ANNOTATE|IMAGEMAP)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.option.gbarline.sas",
+									"match": "(?i)\\b(UNIFORMAXES)\\b"
+								}
+							]
+						},
+						{
+							"name": "keyword.other.proc.gbarline.sas",
+							"match": "(?i)\\b(BAR|PLOT|BY|FORMAT|LABEL|WHERE)\\b(?!\\s*=)"
+						},
+						{
+							"begin": "(?i)(?<=\\bBAR)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gbarline.bar.sas",
+									"match": "(?i)\\b(ANNOTATE|AXIS|CAUTOREF|CAXIS|CERROR|CFRAME|CLM|COUTLINE|CREF|CTEXT|DESCRIPTION|ERRORBAR|HTML|HTML_LEGEND|INSIDE|LAUTOREF|LEGEND|LEVELS|LREF|MAXIS|MIDPOINTS|MINOR|NAME|OUTSIDE|PATTERNID|RAXIS|REF|SPACE|STATFMT|SUBGROUP|SUMVAR|TYPE|URL|WAUTOREF|WIDTH|WOUTLINE|WREF)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.gbarline.bar.sas",
+									"match": "(?i)\\b(ASCENDING|AUTOREF|CFREQ|CLIPREF|CPERCENT|DESCENDING|DISCRETE|FRAME|NOFRAME|FREQ|MEAN|MISSING|NOAXIS|NOBASEREF|NOLEGEND|NOZERO|PERCENT|RANGE|SUM)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bPLOT)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gbarline.plot.sas",
+									"match": "(?i)\\b(AXIS|CAUTOREF|CAXIS|CREF|CTEXT|HTML|HTML_LEGEND|LAUTOREF|LEGEND|LREF|MINOR|RAXIS|REF|STATFMT|SUMVAR|TYPE|URL|WAUTOREF|WREF)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.gbarline.plot.sas",
+									"match": "(?i)\\b(ASCENDING|AUTOREF|CFREQ|CLIPREF|CPERCENT|DESCENDING|FREQ|MEAN|NOAXIS|NOLINE|NOMARKER|PERCENT|SUM)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bBY)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gbarline.by.sas",
+									"match": "(?i)\\b(DESCENDING|NOTSORTED)\\b"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+GCHART)\\b",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)((QUIT\\b)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.proc.sas"
+						}
+					},
+					"endCaptures": {
+						"3": {
+							"name": "keyword.quit.sas"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#global"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*PROC\\s+GCHART)\\b",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.option.gchart.sas",
+									"match": "(?i)\\b(DATA|ANNOTATE|GOUT|IMAGEMAP)\\s*(?==)"
+								}
+							]
+						},
+						{
+							"name": "keyword.other.proc.gchart.sas",
+							"match": "(?i)\\b(BLOCK|HBAR|HBAR3D|VBAR|VBAR3D|PIE|PIE3D|DONUT|STAR|BY|NOTE|FORMAT|LABEL|WHERE)\\b(?!\\s*=)"
+						},
+						{
+							"begin": "(?i)(?<=\\bBLOCK)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gchart.block.sas",
+									"match": "(?i)\\b(ANNOTATE|BLOCKMAX|CAXIS|COUTLINE|CTEXT|DESCRIPTION|FREQ|GROUP|HTML|HTML_LEGEND|LEGEND|LEVELS|MIDPOINTS|NAME|PATTERNID|STATFMT|SUBGROUP|SUMVAR|TYPE|URL|WOUTLINE)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.gchart.block.sas",
+									"match": "(?i)\\b(DISCRETE|G100|MISSING|NOHEADING|NOLEGEND)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bHBAR|HBAR3D|VBAR|VBAR3D)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gchart.hbar|hbar3d|vbar|vbar3d.sas",
+									"match": "(?i)\\b(ANNOTATE|AXIS|CAUTOREF|CAXIS|CERROR|CFRAME|CFREQLABEL|CLM|COUTLINE|CREF|CPERCENTLABEL|CTEXT|DESCRIPTION|ERRORBAR|FREQLABEL|GAXIS|GROUP|GSPACE|HTML|HTML_LEGEND|IFRAME|IMAGESTYLE|INSIDE|LAUTOREF|LEGEND|LEVELS|LGROUPREF|LMIDPOINTREF|LREF|MAXIS|MEANLABEL|MIDPOINTS|MINOR|NAME|OUTSIDE|PATTERNID|PERCENTLABEL|RAXIS|REF|SHAPE|SPACE|STATFMT|SUBGROUP|SUBOUTSIDE|SUMLABEL|SUMVAR|TYPE|URL|WAUTOREF|WGROUPREF|WMIDPOINTREF|WIDTH|WOUTLINE|WREF)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.gchart.hbar|hbar3d|vbar|vbar3d.sas",
+									"match": "(?i)\\b(ASCENDING|AUTOREF|CFREQ|CGROUPREF|HBAR|VBAR|CLIPREF|CMIDPOINTREF|CPERCENT|DESCENDING|DISCRETE|FRAME|NOFRAME|FREQ|FRONTREF|G100|GROUPREF|MEAN|MIDPOINTREF|MISSING|NOAXIS|NOBASEREF|NOLEGEND|NOSTATS|HBAR3D|NOSYMBOL|NOZERO|PERCENT|PERCENTSUM|RANGE|SUM)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bPIE|PIE3D|DONUT)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gchart.pie|pie3d|donut.sas",
+									"match": "(?i)\\b(ACROSS|ANGLE|ANNOTATE|CFILL|COUTLINE|CTEXT|DESCRIPTION|DETAIL|DETAIL_PERCENT|DETAIL_RADIUS|DETAIL_SLICE|DETAIL_THRESHOLD|DETAIL_VALUE|DONUTPCT|DOWN|EXPLODE|FILL|FREQ|GROUP|HTML|HTML_LEGEND|INVISIBLE|LABEL|LEVELS|MIDPOINTS|NAME|OTHER|OTHERCOLOR|OTHERLABEL|PERCENT|PLABEL|PPERCENT|RADIUS|SLICE|STATFMT|SUBGROUP|SUMVAR|TYPE|URL|VALUE|WOUTLINE|COLOR|FONT|HEIGHT|JUSTIFY|ROTATE)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.gchart.pie|pie3d|donut.sas",
+									"match": "(?i)\\b(ASCENDING|CLOCKWISE|DESCENDING|DISCRETE|JSTYLE|LEGEND|MATCHCOLOR|MISSING|NOGROUPHEADING|NOHEADING|NOLEGEND)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bSTAR)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gchart.star.sas",
+									"match": "(?i)\\b(ACROSS|ANGLE|ANNOTATE|CFILL|COUTLINE|CTEXT|DESCRIPTION|DOWN|FILL|FREQ|GROUP|HTML|HTML_LEGEND|LEGEND|LEVELS|MIDPOINTS|NAME|PERCENT|SLICE|STARMAX|STARMIN|STATFMT|SUMVAR|TYPE|URL|VALUE|WOUTLINE)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.gchart.star.sas",
+									"match": "(?i)\\b(ASCENDING|DESCENDING|DISCRETE|MATCHCOLOR|MISSING|NOCONNECT|NOGROUPHEADING|NOHEADING|NOLEGEND)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bBY)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gchart.by.sas",
+									"match": "(?i)\\b(DESCENDING|NOTSORTED)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bNOTE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gchart.note.sas",
+									"match": "(?i)\\b(ALT|ANGLE|BCOLOR|BLANK|BOX|BSPACE|COLOR|DRAW|FONT|HEIGHT|JUSTIFY|LANGLE|LINK|LSPACE|MOVE|ROTATE|UNDERLIN)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.gchart.note.sas",
+									"match": "(?i)\\b(WRAP)\\b"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+GCONTOUR)\\b",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)(RUN(?=.*;)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.proc.sas"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#global"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*PROC\\s+GCONTOUR)\\b",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.option.gcontour.sas",
+									"match": "(?i)\\b(ANNOTATE|DATA|GOUT)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.option.gcontour.sas",
+									"match": "(?i)\\b(INCOMPLETE)\\b"
+								}
+							]
+						},
+						{
+							"name": "keyword.other.proc.gcontour.sas",
+							"match": "(?i)\\b(PLOT|BY|FORMAT|LABEL|WHERE)\\b(?!\\s*=)"
+						},
+						{
+							"begin": "(?i)(?<=\\bPLOT)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gcontour.plot.sas",
+									"match": "(?i)\\b(ANNOTATE|CAUTOHREF|CAUTOVREF|CAXIS|CFRAME|CHREF|CLEVELS|COUTLINE|CTEXT|CVREF|DESCRIPTION|HAXIS|HMINOR|HREF|LAUTOHREF|LAUTOVREF|LEGEND|LEVELS|LHREF|LLEVELS|LVREF|NAME|NLEVELS|VAXIS|VMINOR|VREF|WAUTOHREF|WAUTOVREF|WHREF|WVREF|XTICKNUM|YTICKNUM|CHECK|MAXHIDE|TOLANGLE)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.gcontour.plot.sas",
+									"match": "(?i)\\b(AUTOHREF|AUTOLABEL|AUTOVREF|GRID|HREVERSE|JOIN|LJOIN|NOAXIS|NOFRAME|NOLEGEND|PATTERN|SMOOTH|VREVERSE|REVEAL)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bBY)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gcontour.by.sas",
+									"match": "(?i)\\b(DESCENDING|NOTSORTED)\\b"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+GDEVICE)\\b",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)((QUIT\\b)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.proc.sas"
+						}
+					},
+					"endCaptures": {
+						"3": {
+							"name": "keyword.quit.sas"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#global"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*PROC\\s+GDEVICE)\\b",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.option.gdevice.sas",
+									"match": "(?i)\\b(CATALOG)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.option.gdevice.sas",
+									"match": "(?i)\\b(BROWSE|NOFS)\\b"
+								}
+							]
+						},
+						{
+							"name": "keyword.other.proc.gdevice.sas",
+							"match": "(?i)\\b(ADD|COPY|DELETE|FS|LIST|MODIFY|QUIT|RENAME)\\b(?!\\s*=)"
+						},
+						{
+							"begin": "(?i)(?<=\\bLIST)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gdevice.list.sas",
+									"match": "(?i)\\b(_ALL_|_NEXT_|_PREV_|DUMP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bRENAME)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gdevice.rename.sas",
+									"match": "(?i)\\b(NEWNAME)\\s*(?==)"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+GFONT)\\b",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)(RUN(?=.*;)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.proc.sas"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#global"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*PROC\\s+GFONT)\\b",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.option.gfont.sas",
+									"match": "(?i)\\b(DATA|NAME|CTEXT|GOUT|HEIGHT|REFCOL|ROMCOL|ROMFONT|ROMHT|BASELINE|CAPLINE|CHARSPACETYPE|CODELEN|KERNDATA|MWIDTH|RESOL|SPACEDATA)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.option.gfont.sas",
+									"match": "(?i)\\b(NOBUILD|NOKEYMAP|NOROMAN|NOROMHEX|REFLINES|ROMHEX|SHOWALL|SHOWROMAN|FILLED|NODISPLAY|UNIFORM)\\b"
+								}
+							]
+						},
+						{
+							"name": "keyword.other.proc.gfont.sas",
+							"match": "(?i)\\b(NOTE)\\b(?!\\s*=)"
+						},
+						{
+							"begin": "(?i)(?<=\\bNOTE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gfont.note.sas",
+									"match": "(?i)\\b(ALT|ANGLE|BCOLOR|BLANK|BOX|BSPACE|COLOR|DRAW|FONT|HEIGHT|JUSTIFY|LANGLE|LINK|LSPACE|MOVE|ROTATE|UNDERLIN)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.gfont.note.sas",
+									"match": "(?i)\\b(WRAP)\\b"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+GKPI)\\b",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)((QUIT\\b)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.proc.sas"
+						}
+					},
+					"endCaptures": {
+						"3": {
+							"name": "keyword.quit.sas"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#global"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*PROC\\s+GKPI)\\b",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.option.gkpi.sas",
+									"match": "(?i)\\b(MODE)\\s*(?==)"
+								}
+							]
+						},
+						{
+							"name": "keyword.other.proc.gkpi.sas",
+							"match": "(?i)\\b(DIAL)\\b(?!\\s*=)"
+						},
+						{
+							"begin": "(?i)(?<=\\bDIAL)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gkpi.dial.sas",
+									"match": "(?i)\\b(ACTUAL|BOUNDS|ACTIVECOLORS|AFONT|BFONT|COLORS|DESCRIPTION|FORMAT|LABEL|LFONT|LINK|NAME|TARGET|TYPE|FONT|COLOR|HEIGHT|JUSTIFICATION)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.gkpi.dial.sas",
+									"match": "(?i)\\b(AVALUE|NOAVALUE|BVALUE|NOBVALUE|LOWBOUNDARY|NOLOWBOUNDARY)\\b"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+GOPTIONS)\\b",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)(RUN(?=.*;)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.proc.sas"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#global"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*PROC\\s+GOPTIONS)\\b",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.option.goptions.sas",
+									"match": "(?i)\\b(OPTION)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.option.goptions.sas",
+									"match": "(?i)\\b(AXIS|CENTIMETERS|FOOTNOTE|LEGEND|NOLIST|NOLOG|PATTERN|SHORT|SYMBOL|TITLE)\\b"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+GPLOT)\\b",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)((QUIT\\b)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.proc.sas"
+						}
+					},
+					"endCaptures": {
+						"3": {
+							"name": "keyword.quit.sas"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#global"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*PROC\\s+GPLOT)\\b",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.option.gplot.sas",
+									"match": "(?i)\\b(DATA|ANNOTATE|GOUT|IMAGEMAP)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.option.gplot.sas",
+									"match": "(?i)\\b(UNIFORM)\\b"
+								}
+							]
+						},
+						{
+							"name": "keyword.other.proc.gplot.sas",
+							"match": "(?i)\\b(BUBBLE|BUBBLE2|PLOT|PLOT2|BY|FORMAT|LABEL|WHERE)\\b(?!\\s*=)"
+						},
+						{
+							"begin": "(?i)(?<=\\bBUBBLE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gplot.bubble.sas",
+									"match": "(?i)\\b(ANNOTATE|BCOLOR|BFILL|BFONT|BSCALE|BSIZE|CAUTOHREF|CAUTOVREF|CAXIS|CFRAME|CHREF|CTEXT|CVREF|DATAORDER|DESCRIPTION|HAXIS|HMINOR|HREF|HTML|IFRAME|IMAGESTYLE|LAUTOHREF|LAUTOVREF|LHREF|LVREF|NAME|URL|VAXIS|VMINOR|VREF|WAUTOHREF|WAUTOVREF|WHREF|WVREF)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.gplot.bubble.sas",
+									"match": "(?i)\\b(AUTOHREF|AUTOVREF|BLABEL|FRAME|FRONTREF|GRID|NOFRAME|HREVERSE|HZERO|NOAXIS|VREVERSE|VZERO)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bBUBBLE2)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gplot.bubble2.sas",
+									"match": "(?i)\\b(ANNOTATE|BCOLOR|BFILL|BFONT|BSCALE|BSIZE|CAUTOVREF|CAXIS|CFRAME|CTEXT|CVREF|DATAORDER|HTML|LAUTOVREF|LVREF|URL|VAXIS|VMINOR|VREF|WAUTOVREF|WVREF)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.gplot.bubble2.sas",
+									"match": "(?i)\\b(AUTOVREF|BLABEL|FRAME|FRONTREF|GRID|NOAXIS|NOFRAME|VREVERSE|VZERO)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bPLOT)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gplot.plot.sas",
+									"match": "(?i)\\b(ANNOTATE|AREAS|CAUTOHREF|CAUTOVREF|CAXIS|CBASELINE|CFRAME|CHREF|COUTLINE|CTEXT|CVREF|DESCRIPTION|HAXIS|HMINOR|HREF|HTML|HTML_LEGEND|IFRAME|IMAGESTYLE|LAUTOHREF|LAUTOVREF|LHREF|LVREF|NAME|URL|VAXIS|VMINOR|VREF|WAUTOHREF|WAUTOVREF|WHREF|WVREF)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.gplot.plot.sas",
+									"match": "(?i)\\b(AUTOHREF|AUTOVREF|FRAME|FRONTREF|GRID|HREVERSE|HZERO|LEGEND|NOAXIS|NOFRAME|NOLASTAREA|NOLEGEND|OVERLAY|REGEQN|SKIPMISS|VREVERSE|VZERO)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bPLOT2)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gplot.plot2.sas",
+									"match": "(?i)\\b(ANNOTATE|AREAS|CAUTOVREF|CAXIS|CBASELINE|CFRAME|COUTLINE|CTEXT|CVREF|HTML|HTML_LEGEND|LAUTOVREF|LVREF|URL|VAXIS|VMINOR|VREF|WAUTOVREF|WVREF)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.gplot.plot2.sas",
+									"match": "(?i)\\b(AUTOVREF|FRAME|FRONTREF|GRID|LEGEND|NOAXIS|NOFRAME|NOLASTAREA|NOLEGEND|OVERLAY|REGEQN|SKIPMISS|VREVERSE|VZERO)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bBY)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gplot.by.sas",
+									"match": "(?i)\\b(DESCENDING|NOTSORTED)\\b"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+GRADAR)\\b",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)((QUIT\\b)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.proc.sas"
+						}
+					},
+					"endCaptures": {
+						"3": {
+							"name": "keyword.quit.sas"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#global"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*PROC\\s+GRADAR)\\b",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.option.gradar.sas",
+									"match": "(?i)\\b(ANNOTATE|DATA|GOUT)\\s*(?==)"
+								}
+							]
+						},
+						{
+							"name": "keyword.other.proc.gradar.sas",
+							"match": "(?i)\\b(CHART|BY|NOTE|FORMAT|LABEL|WHERE)\\b(?!\\s*=)"
+						},
+						{
+							"begin": "(?i)(?<=\\bCHART)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gradar.chart.sas",
+									"match": "(?i)\\b(ACROSSVAR|ANNOTATE|CAXIS|CFRAME|CFRAMESIDE|CFRAMETOP|CSPOKES|CSTARCIRCLES|CSTARFILL|CSTARS|CTEXT|CTILES|DESCRIPTION|DOWNVAR|FONT|FREQ|HEIGHT|HTML_LEGEND|IFRAME|IMAGESTYLE|INHEIGHT|INTERTILE|LSPOKES|LSTARCIRCLES|LSTARS|MAXNVERT|MODE|NAME|NCOLS|NLEVELS|NROWS|OTHER|OVERLAYVAR|SPEED|SPKLABEL|SPOKESCALE|STARAXIS|STARCIRCLES|STARFILL|STARINRADIUS|STARLEGEND|STARLEGENDLAB|STAROUTRADIUS|STARSTART|STARTYPE|SUMVAR|TILELEGEND|TILELEGLABEL|URL|WAXIS|WFRAME|WINDROSECIRCLES|WSPOKES|WSTARCIRCLES|WSTARS)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.gradar.chart.sas",
+									"match": "(?i)\\b(CALENDAR|FRAME|NOFRAME|INBORDER|MISSING|NOLEGEND|NOZEROREF|SPIDERWEB|WINDROSE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bBY)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gradar.by.sas",
+									"match": "(?i)\\b(DESCENDING|NOTSORTED)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bNOTE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gradar.note.sas",
+									"match": "(?i)\\b(ALT|ANGLE|BCOLOR|BLANK|BOX|BSPACE|COLOR|DRAW|FONT|HEIGHT|JUSTIFY|LANGLE|LINK|LSPACE|MOVE|ROTATE|UNDERLIN)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.gradar.note.sas",
+									"match": "(?i)\\b(WRAP)\\b"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+GREPLAY)\\b",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)((QUIT\\b)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.proc.sas"
+						}
+					},
+					"endCaptures": {
+						"3": {
+							"name": "keyword.quit.sas"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#global"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*PROC\\s+GREPLAY)\\b",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.option.greplay.sas",
+									"match": "(?i)\\b(CC|CMAP|GOUT|IGOUT|IMAGEMAP|TC|TEMPLATE)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.option.greplay.sas",
+									"match": "(?i)\\b(BYLINE|FS|NOBYLINE|NOFS|PRESENTATION)\\b"
+								}
+							]
+						},
+						{
+							"name": "keyword.other.proc.greplay.sas",
+							"match": "(?i)\\b(?|BYLINE|CC|CCOPY|CDEF|CDELETE|CMAP|COPY|DELETE|DEVICE|FS|GOUT|GROUP|IGOUT|LIST|MODIFY|MOVE|NOBYLINE|PREVIEW|QUIT|REPLAY|TC|TCOPY|TDEF|TDELETE|TEMPLATE|TREPLAY)\\b(?!\\s*=)"
+						},
+						{
+							"begin": "(?i)(?<=\\b?)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.greplay.?.sas",
+									"match": "(?i)\\b(CC|CMAP|DEVICE|GOUT|IGOUT|TC|TEMPLATE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bCCOPY)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.greplay.ccopy.sas",
+									"match": "(?i)\\b(CMAP)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bCDEF)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.greplay.cdef.sas",
+									"match": "(?i)\\b(DES)\\s*(?==)"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bCDELETE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.greplay.cdelete.sas",
+									"match": "(?i)\\b(_ALL_)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bCOPY)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.greplay.copy.sas",
+									"match": "(?i)\\b(_ALL_)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bDELETE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.greplay.delete.sas",
+									"match": "(?i)\\b(_ALL_)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bLIST)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.greplay.list.sas",
+									"match": "(?i)\\b(CC|CMAP|IGOUT|TC|TEMPLATE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bMOVE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.greplay.move.sas",
+									"match": "(?i)\\b(AFTER|BEFORE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bPREVIEW)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.greplay.preview.sas",
+									"match": "(?i)\\b(_ALL_)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bREPLAY)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.greplay.replay.sas",
+									"match": "(?i)\\b(_ALL_|_FIRST_|_LAST_)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bTCOPY)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.greplay.tcopy.sas",
+									"match": "(?i)\\b(TEMPLATE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bTDEF)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.greplay.tdef.sas",
+									"match": "(?i)\\b(DES|COLOR|COPY|LLX|LLY|LRX|LRY|NUMBER|ROTATE|SCALEX|SCALEY|ULX|ULY|URX|URY|XLATEX|XLATEY)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.greplay.tdef.sas",
+									"match": "(?i)\\b(CLIP|DEF|DELETE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bTDELETE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.greplay.tdelete.sas",
+									"match": "(?i)\\b(_ALL_)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bTREPLAY)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.greplay.treplay.sas",
+									"match": "(?i)\\b(DES|NAME)\\s*(?==)"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+GSLIDE)\\b",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)((QUIT\\b)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.proc.sas"
+						}
+					},
+					"endCaptures": {
+						"3": {
+							"name": "keyword.quit.sas"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#global"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*PROC\\s+GSLIDE)\\b",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.option.gslide.sas",
+									"match": "(?i)\\b(ANNOTATE|CFRAME|DESCRIPTION|GOUT|IFRAME|IMAGEMAP|IMAGESTYLE|LFRAME|NAME|WFRAME)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.option.gslide.sas",
+									"match": "(?i)\\b(BORDER|FRAME)\\b"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+GTILE)\\b",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)((QUIT\\b)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.proc.sas"
+						}
+					},
+					"endCaptures": {
+						"3": {
+							"name": "keyword.quit.sas"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#global"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*PROC\\s+GTILE)\\b",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.option.gtile.sas",
+									"match": "(?i)\\b(DATA)\\s*(?==)"
+								}
+							]
+						},
+						{
+							"name": "keyword.other.proc.gtile.sas",
+							"match": "(?i)\\b(FLOW|BY|NOTE|FORMAT|LABEL|WHERE)\\b(?!\\s*=)"
+						},
+						{
+							"begin": "(?i)(?<=\\bFLOW)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gtile.flow.sas",
+									"match": "(?i)\\b(TILEBY|BASELINE|CDEFAULT|COLORPOINTS|COLORRAMP|COLORTYPE|COLORVAR|DESCRIPTION|DETAILLEVEL|LABELLEVEL|MAXLEGENDVALUE|MINLEGENDVALUE|NAME)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.gtile.flow.sas",
+									"match": "(?i)\\b(NOLEGEND)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bBY)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gtile.by.sas",
+									"match": "(?i)\\b(DESCENDING|NOTSORTED)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bNOTE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.gtile.note.sas",
+									"match": "(?i)\\b(ALT|ANGLE|BCOLOR|BLANK|BOX|BSPACE|COLOR|DRAW|FONT|HEIGHT|JUSTIFY|LANGLE|LINK|LSPACE|MOVE|ROTATE|UNDERLIN)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.gtile.note.sas",
+									"match": "(?i)\\b(WRAP)\\b"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+G3D)\\b",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)(RUN(?=.*;)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.proc.sas"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#global"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*PROC\\s+G3D)\\b",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.option.g3d.sas",
+									"match": "(?i)\\b(ANNOTATE|DATA|GOUT)\\s*(?==)"
+								}
+							]
+						},
+						{
+							"name": "keyword.other.proc.g3d.sas",
+							"match": "(?i)\\b(PLOT|SCATTER|BY|NOTE|FORMAT|LABEL|WHERE)\\b(?!\\s*=)"
+						},
+						{
+							"begin": "(?i)(?<=\\bPLOT)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.g3d.plot.sas",
+									"match": "(?i)\\b(ANNOTATE|CAXIS|CBOTTOM|CTEXT|CTOP|DESCRIPTION|NAME|ROTATE|TILT|XAXIS|XTICKNUM|XYTYPE|YAXIS|YTICKNUM|ZAXIS|ZMAX|ZMIN|ZTICKNUM)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.g3d.plot.sas",
+									"match": "(?i)\\b(GRID|NOAXIS|NOLABEL|SIDE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bSCATTER)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.g3d.scatter.sas",
+									"match": "(?i)\\b(ANNOTATE|CAXIS|COLOR|CTEXT|DESCRIPTION|NAME|ROTATE|SHAPE|SIZE|TILT|XAXIS|XTICKNUM|YAXIS|YTICKNUM|ZAXIS|ZMAX|ZMIN|ZTICKNUM)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.g3d.scatter.sas",
+									"match": "(?i)\\b(GRID|NOAXIS|NOLABEL|NONEEDLE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bBY)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.g3d.by.sas",
+									"match": "(?i)\\b(DESCENDING|NOTSORTED)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bNOTE)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.g3d.note.sas",
+									"match": "(?i)\\b(ALT|ANGLE|BCOLOR|BLANK|BOX|BSPACE|COLOR|DRAW|FONT|HEIGHT|JUSTIFY|LANGLE|LINK|LSPACE|MOVE|ROTATE|UNDERLIN)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.g3d.note.sas",
+									"match": "(?i)\\b(WRAP)\\b"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+G3GRID)\\b",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)(RUN(?=.*;)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.proc.sas"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#global"
+						},
+						{
+							"include": "#format_informat"
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*PROC\\s+G3GRID)\\b",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#constant"
+								},
+								{
+									"include": "#macro"
+								},
+								{
+									"include": "#string"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.option.g3grid.sas",
+									"match": "(?i)\\b(DATA|OUT|OUTTRI)\\s*(?==)"
+								}
+							]
+						},
+						{
+							"name": "keyword.other.proc.g3grid.sas",
+							"match": "(?i)\\b(GRID|BY)\\b(?!\\s*=)"
+						},
+						{
+							"begin": "(?i)(?<=\\bGRID)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.g3grid.grid.sas",
+									"match": "(?i)\\b(AXIS1|AXIS2|NAXIS1|NAXIS2|NEAR|SMOOTH)\\s*(?==)"
+								},
+								{
+									"name": "keyword.other.proc.g3grid.grid.sas",
+									"match": "(?i)\\b(JOIN|NOSCALE|PARTIAL|SCALE|SPLINE)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=\\bBY)\\b(?!\\s*=)",
+							"end": ";",
+							"patterns": [
+								{
+									"include": "#global"
+								},
+								{
+									"include": "#format_informat"
+								},
+								{
+									"include": "#proc_data_set_option"
+								},
+								{
+									"name": "keyword.other.proc.g3grid.by.sas",
 									"match": "(?i)\\b(DESCENDING|NOTSORTED)\\b"
 								}
 							]
