@@ -1,5 +1,8 @@
 # Visual Studio Code SAS Syntax
 
+[![VS Marketplace Version](https://vsmarketplacebadge.apphb.com/version-short/hui-ts.vscode-sas.svg?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=hui-ts.vscode-sas)
+[![Total Install](https://vsmarketplacebadge.apphb.com/installs/hui-ts.vscode-sas.svg?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=hui-ts.vscode-sas)
+
 Syntax highlighting for SAS in Visual Studio Code
 
 ## Features
@@ -19,6 +22,8 @@ Syntax highlighting for SAS in Visual Studio Code
 - SQL procedure
 - Base SAS procedures: statistical procedures
 - Base SAS procedures
+- SAS ODS Graphics: procedures
+- SAS/GRAPH procedures
 
 ### Theme
 
@@ -36,6 +41,11 @@ Syntax highlighting for SAS in Visual Studio Code
 ![](resources/image/example/proc.png)
 #### Macro
 ![](resources/image/example/macro.png)
+
+## Installation
+
+ - In VS code, open Extensions (Ctrl+Shift+X) and search for `hui-ts.vscode-sas` to install it; or
+ - Click `Install` button in the [VS maketplace page](https://marketplace.visualstudio.com/items?itemName=hui-ts.vscode-sas) to install it in VS code.
 
 ## Extension Settings
 
@@ -63,8 +73,7 @@ Read [changelog](CHANGELOG.md).
 
 ## Contributions
 
-- If you are new to VS Code language extensions, you may read [Language Extensions Overview
-](https://code.visualstudio.com/api/language-extensions/overview). Moreover, you may read this [TextMate manual](https://macromates.com/manual/en/language_grammars) and this [tutorial](https://www.apeth.com/nonblog/stories/textmatebundle.html) for TextMate grammar.
+- If you are new to VS Code language extensions, you may read [Language Extensions Overview](https://code.visualstudio.com/api/language-extensions/overview). Moreover, you may read this [TextMate manual](https://macromates.com/manual/en/language_grammars) and this [tutorial](https://www.apeth.com/nonblog/stories/textmatebundle.html) for TextMate grammar.
 - If you want to play with this project, you can download it and run `npm i` in the terminal to install the required dependencies. Then, you may make some changes in `/syntaxes-yaml/sas.tmLanguage.yaml` and then press `F5` to see the effect.
 
 ## More
