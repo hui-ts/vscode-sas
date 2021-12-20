@@ -833,14 +833,17 @@ repository:
   ## ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/ledsoptsref/p1pczmnhbq4axpn1l15s9mk6mobp.htm
   ## for data step
   data_set_option:
-    begin: (?i)(?<=(DATA|SET)\s+[A-Z_][\d\w_.]*\s*)\(
-    end: \)(?=\s*;)
+    begin: (?i)(?<=(DATA|SET))\b
+    end: \b(?=\s*;)
     patterns:
-      - include: '#data_set_option_rules'
+      - begin: (?i)(?<=\s+[A-Z_][\d\w_.]*\s*)\(
+        end: \)
+        patterns:
+          - include: '#data_set_option_rules'
 
   ## for sql procedure
   sql_data_set_option:
-    begin: (?i)(?<=(FROM\s+|,\s*|LIKE\s+)[A-Z_][\d\w_.]*\s*)\(
+    begin: (?i)(?<=(CREATE\s+TABLE\s+|FROM\s+|,\s*|LIKE\s+)[A-Z_][\d\w_.]*\s*)\(
     end: \)
     patterns:
       - include: '#data_set_option_rules'
@@ -858,6 +861,10 @@ repository:
       - include: '#subglobal'
       - name: keyword.other.data-option.sas
         match: (?i)\b(ALTER|BUFNO|BUFSIZE|CNTLLEV|COMPRESS|DLDMGACTION|DROP|ENCRYPT|ENCRYPTKEY|EXTENDOBSCOUNTER|FILECLOSE|FIRSTOBS|GENMAX|GENNUM|IDXNAME|IDXWHERE|INDEX|IN|KEEP|LABEL|MAXTABLEMEM|OBSBUF|OBS|OUTREP|POINTOBS|PW|PWREQ|READ|RENAME|REPEMPTY|REPLACE|REUSE|ROLE|SORTEDBY|SPILL|TOBSNO|TYPE|USEDIRECTIO|WHERE|WHEREUP|WRITE)\b(?=\s*=)
+      - begin: (?i)(?<=\b(INDEX|RENAME|WHERE)\s*=)\(
+        end: \)
+        patterns:
+          - include: '#subglobal'
 
   ## Formats and Informats
   ## ref: Dictionary of Formats
