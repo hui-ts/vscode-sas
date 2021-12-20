@@ -1656,19 +1656,19 @@
 				},
 				{
 					"name": "keyword.run.sas",
-					"match": "(?i)(?<=((?<=IF\\b[^;]*)\\bTHEN|\\bELSE)\\b\\s*)(RUN)\\b(?!\\s*=)"
+					"match": "(?i)(?<=(\\bTHEN|\\bELSE)\\b\\s*)(RUN)\\b(?!\\s*=)"
 				},
 				{
 					"name": "keyword.other.global.sas",
-					"match": "(?i)(?<=((?<=IF[^;]*)\\bTHEN|\\bELSE)\\b\\s*)(CATNAME|CHECKPOINT\\s+EXECUTE_ALWAYS|DM|ENDSAS|FILENAME|FOOTNOTE\\d*|%INCLUDE|LIBNAME|%LIST|LOCK|MISSING|PAGE|RESETLINE|%RUN|SASFILE|SKIP|SYSECHO|TITLE\\d*|X)\\b(?!\\s*=)"
+					"match": "(?i)(?<=(\\bTHEN|\\bELSE)\\b\\s*)(CATNAME|CHECKPOINT\\s+EXECUTE_ALWAYS|DM|ENDSAS|FILENAME|FOOTNOTE\\d*|%INCLUDE|LIBNAME|%LIST|LOCK|MISSING|PAGE|RESETLINE|%RUN|SASFILE|SKIP|SYSECHO|TITLE\\d*|X)\\b(?!\\s*=)"
 				},
 				{
 					"name": "keyword.other.data.sas",
-					"match": "(?i)(?<=((?<=IF[^;]*)\\bTHEN|\\bELSE)\\b\\s*)(CARDS|DATALINES|CARDS4|DATALINES4)\\b(?!\\s*=)"
+					"match": "(?i)(?<=(\\bTHEN|\\bELSE)\\b\\s*)(CARDS|DATALINES|CARDS4|DATALINES4)\\b(?!\\s*=)"
 				},
 				{
 					"name": "keyword.other.data.sas",
-					"match": "(?i)(?<=((?<=IF[^;]*)\\bTHEN|\\bELSE)\\b\\s*)(ABORT|ARRAY|ATTRIB|BY|CALL|CONTINUE|DATA|DELETE|DESCRIBE|DISPLAY|DO\\s+UNTIL|DO\\s+WHILE|DO|DROP|END|ERROR|EXECUTE|FILE|FORMAT|GO\\s+TO|GOTO|ELSE|INFILE|INFORMAT|INPUT|KEEP|LABEL|LEAVE|LENGTH|LINK|LIST|LOCKDOWN|LOSTCARD|MERGE|MODIFY|OUTPUT|PUT|PUTLOG|REDIRECT|REMOVE|RENAME|REPLACE|RETAIN|RETURN|SELECT|SET|STOP|UPDATE|WHERE|WINDOW)\\b(?!\\s*=)"
+					"match": "(?i)(?<=(\\bTHEN|\\bELSE)\\b\\s*)(ABORT|ARRAY|ATTRIB|BY|CALL|CONTINUE|DATA|DELETE|DESCRIBE|DISPLAY|DO\\s+UNTIL|DO\\s+WHILE|DO|DROP|END|ERROR|EXECUTE|FILE|FORMAT|GO\\s+TO|GOTO|ELSE|INFILE|INFORMAT|INPUT|KEEP|LABEL|LEAVE|LENGTH|LINK|LIST|LOCKDOWN|LOSTCARD|MERGE|MODIFY|OUTPUT|PUT|PUTLOG|REDIRECT|REMOVE|RENAME|REPLACE|RETAIN|RETURN|SELECT|SET|STOP|UPDATE|WHERE|WINDOW)\\b(?!\\s*=)"
 				},
 				{
 					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(CARDS|DATALINES)\\s*;",
@@ -1722,7 +1722,7 @@
 			]
 		},
 		"sql_data_set_option": {
-			"begin": "(?i)(?<=(FROM\\s+|,\\s*|LIKE\\s+)[A-Z_][\\d\\w_.]*\\s*)\\(",
+			"begin": "(?i)(?<=(CREATE\\s+TABLE\\s+|FROM\\s+|,\\s*|LIKE\\s+)[A-Z_][\\d\\w_.]*\\s*)\\(",
 			"end": "\\)",
 			"patterns": [
 				{
