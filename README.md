@@ -24,6 +24,8 @@ Syntax highlighting for SAS in Visual Studio Code
 - Base SAS procedures
 - SAS ODS Graphics: procedures
 - SAS/GRAPH procedures
+- Output Delivery System: Procedures
+- SAS/STAT procedures
 
 ### Theme
 
