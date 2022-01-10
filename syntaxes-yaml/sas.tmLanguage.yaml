@@ -834,25 +834,28 @@ repository:
   ## for data step
   data_set_option:
     begin: (?i)(?<=(DATA|SET))\b
-    end: \b(?=\s*;)
+    end: (\B|\b)(?=\s*;)
     patterns:
-      - begin: (?i)(?<=\s+[A-Z_][\d\w_.]*\s*)\(
+      - include: '#subglobal'
+      - begin: (?i)(?<=\s+[A-Z&_][\d\w&_.]*\s*)\(
         end: \)
         patterns:
           - include: '#data_set_option_rules'
 
   ## for sql procedure
   sql_data_set_option:
-    begin: (?i)(?<=(CREATE\s+TABLE\s+|FROM\s+|,\s*|LIKE\s+)[A-Z_][\d\w_.]*\s*)\(
+    begin: (?i)(?<=(CREATE\s+TABLE\s+|FROM\s+|,\s*|LIKE\s+)[A-Z&_][\d\w&_.]*\s*)\(
     end: \)
     patterns:
+      - include: '#subglobal'
       - include: '#data_set_option_rules'
 
   ## for procedure
   proc_data_set_option:
-    begin: (?i)(?<==\s*[A-Z_][\d\w_.]*\s*)\(
+    begin: (?i)(?<==\s*[A-Z&_][\d\w&_.]*\s*)\(
     end: \)
     patterns:
+      - include: '#subglobal'
       - include: '#data_set_option_rules'
 
   ### data set option rules
