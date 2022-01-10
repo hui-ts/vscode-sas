@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.0.4] - 2022-01-10
+### Fixed
+- Some bugfixes
+
 ## [0.0.3] - 2021-12-22
 ### Added
 - Output Delivery System: Procedures
