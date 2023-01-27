@@ -827,6 +827,170 @@ repository:
       # other
       - name: keyword.other.sas
         match: (?i)(?<=(^|;|\w+:)\s*)(ABORT|ARRAY|ATTRIB|BY|CALL|CONTINUE|DELETE|DESCRIBE|DISPLAY|DO\s+UNTIL|DO\s+WHILE|DO|DROP|END|ERROR|EXECUTE|FILE|FORMAT|GO\s+TO|GOTO|ELSE|INFILE|INFORMAT|INPUT|KEEP|LABEL|LEAVE|LENGTH|LINK|LIST|LOCKDOWN|LOSTCARD|MERGE|MODIFY|OUTPUT|PUT|PUTLOG|REDIRECT|REMOVE|RENAME|REPLACE|RETAIN|RETURN|SELECT|SET|STOP|UPDATE|WHERE|WINDOW)\b(?!\s*=)
+      # other inside keywords
+      - begin: (?i)(?<=(^|;|\w+:)\s*ABORT)\b(?!\s*=)
+        end: ;
+        patterns:
+          - include: '#comment'
+          - include: '#constant'
+          - include: '#macro'
+          - include: '#string'
+          - name: keyword.other.ods.abort.sas
+            match: (?i)\b(ABEND|CANCEL|FILE|RETURN|NOLIST)\b
+      - begin: (?i)(?<=(^|;|\w+:)\s*ARRAY)\b(?!\s*=)
+        end: ;
+        patterns:
+          - include: '#comment'
+          - include: '#constant'
+          - include: '#macro'
+          - include: '#string'
+          - name: keyword.other.ods.array.sas
+            match: (?i)\b(VARCHAR)\b
+      - begin: (?i)(?<=(^|;|\w+:)\s*BY)\b(?!\s*=)
+        end: ;
+        patterns:
+          - include: '#comment'
+          - include: '#constant'
+          - include: '#macro'
+          - include: '#string'
+          - name: keyword.other.ods.by.sas
+            match: (?i)\b(DESCENDING|GROUPFORMAT|NOTSORTED)\b
+      - begin: (?i)(?<=(^|;|\w+:)\s*DISPLAY)\b(?!\s*=)
+        end: ;
+        patterns:
+          - include: '#comment'
+          - include: '#constant'
+          - include: '#macro'
+          - include: '#string'
+          - name: keyword.other.ods.display.sas
+            match: (?i)\b(NOINPUT|BLANK|BELL|DELETE)\b
+      - begin: (?i)(?<=(^|;|\w+:)\s*FILE)\b(?!\s*=)
+        end: ;
+        patterns:
+          - include: '#comment'
+          - include: '#constant'
+          - include: '#macro'
+          - include: '#string'
+          - name: keyword.other.ods.file.sas
+            match: (?i)\b(BLKSIZE|COLUMN|DELIMITER|DLMSOPT|DLMSTR|ENCODING|FILENAME|FILEVAR|HEADER|LINE|LINESIZE|LINESLEFT|LRECL|MEMVAR|N|PAGESIZE|RECFM|_FILE_)\s*(?==)
+          - name: keyword.other.ods.file.sas
+            match: (?i)\b(DROPOVER|DSD|FLOWOVER|FOOTNOTES|NOFOOTNOTES|MOD|ODS|OLD|PAD|NOPAD|PRINT|NOPRINT|STOPOVER|TITLES|NOTITLES)\b
+      - begin: (?i)(?<=(^|;|\w+:)\s*FORMAT)\b(?!\s*=)
+        end: ;
+        patterns:
+          - include: '#comment'
+          - include: '#constant'
+          - include: '#macro'
+          - include: '#string'
+          - name: keyword.other.ods.format.sas
+            match: (?i)\b(DEFAULT)\s*(?==)
+      - begin: (?i)(?<=(^|;|\w+:)\s*INFILE)\b(?!\s*=)
+        end: ;
+        patterns:
+          - include: '#comment'
+          - include: '#constant'
+          - include: '#macro'
+          - include: '#string'
+          - name: keyword.other.ods.infile.sas
+            match: (?i)\b(BLKSIZE|COLUMN|DELIMITER|DLMSTR|DLMSOPT|ENCODING|END|EOF|EOV|FILENAME|FILEVAR|FIRSTOBS|LENGTH|LINE|LINESIZE|LRECL|MEMVAR|N|NBYTE|OBS|RECFM|RESET|START|STATUS|_INFILE_)\s*(?==)
+          - name: keyword.other.ods.infile.sas
+            match: (?i)\b(DSD|EXPANDTABS|NOEXPANDTABS|FLOWOVER|MISSOVER|PAD|NOPAD|PRINT|NOPRINT|SCANOVER|SHAREBUFFERS|STOPOVER|TRUNCOVER|UNBUFFERED|DBMS)\b
+      - begin: (?i)(?<=(^|;|\w+:)\s*INFORMAT)\b(?!\s*=)
+        end: ;
+        patterns:
+          - include: '#comment'
+          - include: '#constant'
+          - include: '#macro'
+          - include: '#string'
+          - name: keyword.other.ods.informat.sas
+            match: (?i)\b(DEFAULT)\s*(?==)
+      - begin: (?i)(?<=(^|;|\w+:)\s*LENGTH)\b(?!\s*=)
+        end: ;
+        patterns:
+          - include: '#comment'
+          - include: '#constant'
+          - include: '#macro'
+          - include: '#string'
+          - name: keyword.other.ods.length.sas
+            match: (?i)\b(DEFAULT)\s*(?==)
+      - begin: (?i)(?<=(^|;|\w+:)\s*MERGE)\b(?!\s*=)
+        end: ;
+        patterns:
+          - include: '#comment'
+          - include: '#constant'
+          - include: '#macro'
+          - include: '#string'
+          - name: keyword.other.ods.merge.sas
+            match: (?i)\b(END)\s*(?==)
+          - name: keyword.other.ods.merge.sas
+            match: (?i)\b(SAS)\b
+      - begin: (?i)(?<=(^|;|\w+:)\s*MODIFY)\b(?!\s*=)
+        end: ;
+        patterns:
+          - include: '#comment'
+          - include: '#constant'
+          - include: '#macro'
+          - include: '#string'
+          - name: keyword.other.ods.modify.sas
+            match: (?i)\b(CUROBS|END|KEY|KEYRESET|NOBS|POINT|UPDATEMODE)\s*(?==)
+          - name: keyword.other.ods.modify.sas
+            match: (?i)\b(UNIQUE)\b
+      - begin: (?i)(?<=(^|;|\w+:)\s*PUT)\b(?!\s*=)
+        end: ;
+        patterns:
+          - include: '#comment'
+          - include: '#constant'
+          - include: '#macro'
+          - include: '#string'
+          - name: keyword.other.ods.put.sas
+            match: (?i)\b(_ODS_|OVERPRINT|_BLANKPAGE_|_PAGE_|ERROR|NOTE|WARNING)\b
+      - begin: (?i)(?<=(^|;|\w+:)\s*PUTLOG)\b(?!\s*=)
+        end: ;
+        patterns:
+          - include: '#comment'
+          - include: '#constant'
+          - include: '#macro'
+          - include: '#string'
+          - name: keyword.other.ods.putlog.sas
+            match: (?i)\b(ERROR|NOTE|WARNING)\b
+      - begin: (?i)(?<=(^|;|\w+:)\s*REDIRECT)\b(?!\s*=)
+        end: ;
+        patterns:
+          - include: '#comment'
+          - include: '#constant'
+          - include: '#macro'
+          - include: '#string'
+          - name: keyword.other.ods.redirect.sas
+            match: (?i)\b(INPUT|OUTPUT)\b
+      - begin: (?i)(?<=(^|;|\w+:)\s*SET)\b(?!\s*=)
+        end: ;
+        patterns:
+          - include: '#comment'
+          - include: '#constant'
+          - include: '#macro'
+          - include: '#string'
+          - name: keyword.other.ods.set.sas
+            match: (?i)\b(CUROBS|END|INDSNAME|KEY|KEYRESET|NOBS|OPEN|POINT)\s*(?==)
+          - name: keyword.other.ods.set.sas
+            match: (?i)\b(SAS|UNIQUE)\b
+      - begin: (?i)(?<=(^|;|\w+:)\s*UPDATE)\b(?!\s*=)
+        end: ;
+        patterns:
+          - include: '#comment'
+          - include: '#constant'
+          - include: '#macro'
+          - include: '#string'
+          - name: keyword.other.ods.update.sas
+            match: (?i)\b(END|UPDATEMODE)\s*(?==)
+      - begin: (?i)(?<=(^|;|\w+:)\s*WINDOW)\b(?!\s*=)
+        end: ;
+        patterns:
+          - include: '#comment'
+          - include: '#constant'
+          - include: '#macro'
+          - include: '#string'
+          - name: keyword.other.ods.window.sas
+            match: (?i)\b(_CMD_|_MSG_)\b
 
   ## Data Set Otions
   ## ref: Dictionary of Data Set Options
