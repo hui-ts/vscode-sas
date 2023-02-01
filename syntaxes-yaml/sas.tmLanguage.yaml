@@ -137,7 +137,7 @@ repository:
         match: (?i)(?<=\s)(MIN|MAX)(?=\b)
       - name: keyword.operator.logical.sas
         match: (=|^=|~=|>|<|>=|<=|&|\||!|~)
-      - name: keyword.operator.logical.sas
+      - name: keyword.operator.logical.literal.sas
         match: (?i)(?<=\s)(EQ|NE|GT|LT|GE|LE|IN|AND|OR|NOT)(?=\b)
 
   # System options
@@ -1249,7 +1249,9 @@ repository:
       - name: keyword.other.proc.sql.modifier.sas
         match: (?i)\b(INFORMAT|FORMAT|LABEL|LENGTH|TRANSCODE)(?=\s*=)
       - name: keyword.other.proc.sql.operator.sas
-        match: (?i)\b((NOT\s+)*BETWEEN|(NOT\s+)*CONTAINS|(NOT\s+)*EXISTS|(NOT\s+)*EXISTS|(NOT\s+)*IN|IS(\s+NOT)*|(NOT\s+)*LIKE|NOT|AND|OR|CALCULATED|CASE|WHEN|THEN|ELSE|END|ON|(NATURAL\s+)*(INNER\s+)*JOIN|(NATURAL\s+)*(LEFT|RIGHT|FULL)(\s+OUTER)*\s+JOIN|(CROSS|UNION)\s+JOIN|AS|INTERSECT|(OUTER\s+)*UNION|EXCEPT|CORR(ESPONDING)*|ALL|DISTINCT)\b
+        match: (?i)\b((NOT\s+)*EXISTS|CALCULATED|CASE|WHEN|THEN|ELSE|END|ON|(NATURAL\s+)*(INNER\s+)*JOIN|(NATURAL\s+)*(LEFT|RIGHT|FULL)(\s+OUTER)*\s+JOIN|(CROSS|UNION)\s+JOIN|AS|INTERSECT|(OUTER\s+)*UNION|EXCEPT|CORR(ESPONDING)*|ALL|DISTINCT)\b
+      - name: keyword.other.proc.sql.operator.logical.sas
+        match: (?i)\b((NOT\s+)*BETWEEN|(NOT\s+)*CONTAINS|(NOT\s+)*IN|IS(\s+NOT)*|(NOT\s+)*LIKE|NOT|AND|OR)\b
       - name: support.function.sql
         match: (?i)(?<=\b)(BTRIM|COALESCE|LOWER|UPPER|SUBSTRING|AVG|MEAN|COUNT|FREQ|N|CSS|CV|MAX|MEDIAN|MIN|NMISS|PRT|RANGE|STD|STDERR|SUM|SUMWGT|T|USS|VAR)(?=\s*\()
       - include: '#sql_data_set_option'
