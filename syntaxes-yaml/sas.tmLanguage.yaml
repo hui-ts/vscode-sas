@@ -3622,6 +3622,25 @@ repository:
                 match: (?i)\b(COLOR|CONTENTS)\s*(?==)
               - name: keyword.other.proc.report.rbreak.sas
                 match: (?i)\b(DOL|DUL|OL|PAGE|SKIP|STYLE|SUMMARIZE|UL)\b
+          # if-then in REPORT Procedure
+          - begin: (?i)(?<=(^|;|\w+:|ELSE)\s*)(IF)(?=\b)
+            end: (?i)(?:;|\b(THEN)\b)
+            beginCaptures:
+              0:
+                name: keyword.other.sas
+            endCaptures:
+              1:
+                name: keyword.other.sas
+            patterns:
+              - include: '#subglobal'
+          # then/else in REPORT Procedure
+          - name: keyword.run.sas
+            match: (?i)(?<=(\bTHEN|\bELSE)\b\s*)(RUN)\b(?!\s*=)
+          - name: keyword.other.proc.report.ifthen.sas
+            match: (?i)(?<=(\bTHEN|\bELSE)\b\s*)(ATTRIB|BY|CALL|DO|END|FORMAT|ELSE|INFORMAT|LABEL|STOP|WHERE)\b(?!\s*=)
+          # other keywords in REPORT Procedure
+          - name: keyword.other.sas
+            match: (?i)(?<=(^|;|\w+:)\s*)(ATTRIB|BY|CALL|DO|END|FORMAT|ELSE|INFORMAT|LABEL|STOP|WHERE)\b(?!\s*=)
       # S3 Procedure
       - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+S3)\b
         end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)

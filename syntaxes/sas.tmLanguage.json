@@ -7823,6 +7823,37 @@
 									"match": "(?i)\\b(DOL|DUL|OL|PAGE|SKIP|STYLE|SUMMARIZE|UL)\\b"
 								}
 							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:|ELSE)\\s*)(IF)(?=\\b)",
+							"end": "(?i)(?:;|\\b(THEN)\\b)",
+							"beginCaptures": {
+								"0": {
+									"name": "keyword.other.sas"
+								}
+							},
+							"endCaptures": {
+								"1": {
+									"name": "keyword.other.sas"
+								}
+							},
+							"patterns": [
+								{
+									"include": "#subglobal"
+								}
+							]
+						},
+						{
+							"name": "keyword.run.sas",
+							"match": "(?i)(?<=(\\bTHEN|\\bELSE)\\b\\s*)(RUN)\\b(?!\\s*=)"
+						},
+						{
+							"name": "keyword.other.proc.report.ifthen.sas",
+							"match": "(?i)(?<=(\\bTHEN|\\bELSE)\\b\\s*)(ATTRIB|BY|CALL|DO|END|FORMAT|ELSE|INFORMAT|LABEL|STOP|WHERE)\\b(?!\\s*=)"
+						},
+						{
+							"name": "keyword.other.sas",
+							"match": "(?i)(?<=(^|;|\\w+:)\\s*)(ATTRIB|BY|CALL|DO|END|FORMAT|ELSE|INFORMAT|LABEL|STOP|WHERE)\\b(?!\\s*=)"
 						}
 					]
 				},
