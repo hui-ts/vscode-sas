@@ -3196,10 +3196,13 @@ repository:
                 match: (?i)\b(BOX|CONTOUR|HEXPAND|HREVERSE|HZERO|LIST|OVERLAY|PENALTIES|STATES|VEXPAND|VREVERSE|VZERO)\b
       # PMENU Procedure
       - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+PMENU)\b
-        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)((QUIT\b)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
         beginCaptures:
           0:
             name: keyword.proc.sas
+        endCaptures:
+          3:
+            name: keyword.quit.sas
         patterns:
           - include: '#global'
           - include: '#format_informat'
@@ -6974,10 +6977,13 @@ repository:
                 match: (?i)\b(PREDICTED|PRED|P|RESIDUAL|RESID|R)\b
       # ANOVA Procedure
       - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+ANOVA)\b
-        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)((QUIT\b)|ENDSAS\b|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
         beginCaptures:
           0:
             name: keyword.proc.sas
+        endCaptures:
+          3:
+            name: keyword.quit.sas
         patterns:
           - include: '#global'
           - include: '#format_informat'
@@ -7324,7 +7330,7 @@ repository:
             match: (?i)\b(BY|CLASS|FREQ|VAR|WEIGHT)\b(?!\s*=)
       # CATMOD Procedure
       - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+CATMOD)\b
-        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)((QUIT\b)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)((QUIT\b)|ENDSAS\b|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
         beginCaptures:
           0:
             name: keyword.proc.sas
@@ -8210,10 +8216,13 @@ repository:
                 match: (?i)\b(CL|G|GC|GCI|GCORR|GI|KNOTINFO|NEAREST|TREEINFO|NOFULLZ|RESIDUAL|RSIDE|SOLUTION|S|ANTE|AR|ARH|ARMA|CHOL|CS|CSH|FA|FA0|HF|LIN|PSPLINE|RSMOOTH|NOLOG|SIMPLE|SP|EXP|GAU|LEAR|MAT|POW|POWA|SPH|TOEP|TOEPH|UN|UNR|VC|V|VCI|VCORR|VI|WEIGHT|WT)\b
       # GLM Procedure
       - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+GLM)\b
-        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)((QUIT\b)|ENDSAS\b|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
         beginCaptures:
           0:
             name: keyword.proc.sas
+        endCaptures:
+          3:
+            name: keyword.quit.sas
         patterns:
           - include: '#global'
           - include: '#format_informat'
@@ -10888,10 +10897,13 @@ repository:
                 match: (?i)\b(NORMALIZE|NORM)\b
       # PLAN Procedure
       - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+PLAN)\b
-        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)((QUIT\b)|ENDSAS\b|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
         beginCaptures:
           0:
             name: keyword.proc.sas
+        endCaptures:
+          3:
+            name: keyword.quit.sas
         patterns:
           - include: '#global'
           - include: '#format_informat'
@@ -11645,10 +11657,13 @@ repository:
                 match: (?i)\b(FRACTION)\b
       # REG Procedure
       - begin: (?i)(?<=(^|;|\w+:)\s*)(PROC\s+REG)\b
-        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)(RUN(?=.*;)|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
+        end: (?i)\b(?=(?<=(^|;|\w+:)\s*)((QUIT\b)|ENDSAS\b|DATA\b|PROC(?=\s+\w+.*;))(?!\s*=))|\B(?=(?<=(^|;|\w+:)\s*)%MEND)
         beginCaptures:
           0:
             name: keyword.proc.sas
+        endCaptures:
+          3:
+            name: keyword.quit.sas
         patterns:
           - include: '#global'
           - include: '#format_informat'

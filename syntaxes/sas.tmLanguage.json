@@ -6855,10 +6855,15 @@
 				},
 				{
 					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+PMENU)\\b",
-					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)(RUN(?=.*;)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)((QUIT\\b)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
 					"beginCaptures": {
 						"0": {
 							"name": "keyword.proc.sas"
+						}
+					},
+					"endCaptures": {
+						"3": {
+							"name": "keyword.quit.sas"
 						}
 					},
 					"patterns": [
@@ -15442,10 +15447,15 @@
 				},
 				{
 					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+ANOVA)\\b",
-					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)(RUN(?=.*;)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)((QUIT\\b)|ENDSAS\\b|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
 					"beginCaptures": {
 						"0": {
 							"name": "keyword.proc.sas"
+						}
+					},
+					"endCaptures": {
+						"3": {
+							"name": "keyword.quit.sas"
 						}
 					},
 					"patterns": [
@@ -16235,7 +16245,7 @@
 				},
 				{
 					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+CATMOD)\\b",
-					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)((QUIT\\b)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)((QUIT\\b)|ENDSAS\\b|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
 					"beginCaptures": {
 						"0": {
 							"name": "keyword.proc.sas"
@@ -18234,10 +18244,15 @@
 				},
 				{
 					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+GLM)\\b",
-					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)(RUN(?=.*;)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)((QUIT\\b)|ENDSAS\\b|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
 					"beginCaptures": {
 						"0": {
 							"name": "keyword.proc.sas"
+						}
+					},
+					"endCaptures": {
+						"3": {
+							"name": "keyword.quit.sas"
 						}
 					},
 					"patterns": [
@@ -24311,10 +24326,15 @@
 				},
 				{
 					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+PLAN)\\b",
-					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)(RUN(?=.*;)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)((QUIT\\b)|ENDSAS\\b|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
 					"beginCaptures": {
 						"0": {
 							"name": "keyword.proc.sas"
+						}
+					},
+					"endCaptures": {
+						"3": {
+							"name": "keyword.quit.sas"
 						}
 					},
 					"patterns": [
@@ -26028,10 +26048,15 @@
 				},
 				{
 					"begin": "(?i)(?<=(^|;|\\w+:)\\s*)(PROC\\s+REG)\\b",
-					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)(RUN(?=.*;)|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
+					"end": "(?i)\\b(?=(?<=(^|;|\\w+:)\\s*)((QUIT\\b)|ENDSAS\\b|DATA\\b|PROC(?=\\s+\\w+.*;))(?!\\s*=))|\\B(?=(?<=(^|;|\\w+:)\\s*)%MEND)",
 					"beginCaptures": {
 						"0": {
 							"name": "keyword.proc.sas"
+						}
+					},
+					"endCaptures": {
+						"3": {
+							"name": "keyword.quit.sas"
 						}
 					},
 					"patterns": [
