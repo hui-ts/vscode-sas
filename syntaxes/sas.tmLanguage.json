@@ -1731,6 +1731,9 @@
 					"patterns": [
 						{
 							"include": "#subglobal"
+						},
+						{
+							"include": "#format_informat"
 						}
 					]
 				},

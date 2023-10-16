@@ -837,6 +837,7 @@ repository:
             name: keyword.other.sas
         patterns:
           - include: '#subglobal'
+          - include: '#format_informat'
       # then/else
       - name: keyword.run.sas
         match: (?i)(?<=(\bTHEN|\bELSE)\b\s*)(RUN)\b(?!\s*=)
