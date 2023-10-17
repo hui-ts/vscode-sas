@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+## [0.0.5] - 2023-10-17
+### Added
+- Add keywords in DATA step
+- Add keywords in REPORT procedure
+- Highlight ODS Table Names for Base statistical procedures and SAS/STAT procedures
+### Fixed
+- Some bugfixes
+
 ## [0.0.4] - 2022-01-10
 ### Fixed
 - Some bugfixes

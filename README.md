@@ -1,7 +1,7 @@
 # Visual Studio Code SAS Syntax
 
-[![VS Marketplace Version](https://vsmarketplacebadge.apphb.com/version-short/hui-ts.vscode-sas.svg?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=hui-ts.vscode-sas)
-[![Total Install](https://vsmarketplacebadge.apphb.com/installs/hui-ts.vscode-sas.svg?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=hui-ts.vscode-sas)
+[![VS Marketplace Version](https://vsmarketplacebadges.dev/version-short/hui-ts.vscode-sas.svg?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=hui-ts.vscode-sas)
+[![Total Install](https://vsmarketplacebadges.dev/installs/hui-ts.vscode-sas.svg?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=hui-ts.vscode-sas)
 
 Syntax highlighting for SAS in Visual Studio Code
 
