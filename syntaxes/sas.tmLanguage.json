@@ -208,6 +208,19 @@
 					"name": "string.quoted.single.sas",
 					"begin": "(')",
 					"end": "\\1"
+				},
+				{
+					"name": "macro.literal.sas",
+					"begin": "(?i)(?<=%LET\\s+\\w+.*=)(\\b|\\B)",
+					"end": "(\\b(?=;)|\\B(?=;))",
+					"patterns": [
+						{
+							"include": "#macro"
+						},
+						{
+							"include": "#function"
+						}
+					]
 				}
 			]
 		},
@@ -414,6 +427,15 @@
 								{
 									"name": "keyword.other.ods.epub3.sas",
 									"match": "(?i)\\b(CLOSE|EXCLUDE|ALL|NONE|SELECT|SHOW|DOM|GFOOTNOTE|NOGFOOTNOTE|GTITLE|NOGTITLE|IMAGE_DPI|OPTIONS)\\b"
+								}
+							]
+						},
+						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+ESCAPECHAR)\\b(?=\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#string"
 								}
 							]
 						},
@@ -1150,6 +1172,15 @@
 							]
 						},
 						{
+							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+TEXT)\\b(?=\\s*=)",
+							"end": "(\\b(?=;)|\\B(?=;))",
+							"patterns": [
+								{
+									"include": "#string"
+								}
+							]
+						},
+						{
 							"begin": "(?i)(?<=(^|;|\\w+:)\\s*ODS\\s+TRACE)\\b(?!\\s*=)",
 							"end": "(\\b(?=;)|\\B(?=;))",
 							"patterns": [
@@ -1687,29 +1718,13 @@
 					"include": "#global"
 				},
 				{
-					"include": "#data_step_statment_keyword"
-				},
-				{
 					"include": "#data_set_option"
 				},
 				{
 					"include": "#format_informat"
 				},
 				{
-					"begin": "(?i)(?<=(^|;|\\w+:)\\s*DATA)\\b",
-					"end": ";",
-					"patterns": [
-						{
-							"include": "#subglobal"
-						},
-						{
-							"include": "#data_set_option"
-						},
-						{
-							"name": "keyword.other.sas",
-							"match": "(?i)(?<=(^|;|\\w+:)\\s*DATA\\s+)(_(NULL|DATA|LAST)_)"
-						}
-					]
+					"include": "#data_step_statment_keyword"
 				}
 			]
 		},
@@ -1826,6 +1841,9 @@
 							"include": "#string"
 						},
 						{
+							"include": "#format_informat"
+						},
+						{
 							"name": "keyword.other.ods.array.sas",
 							"match": "(?i)\\b(VARCHAR)\\b"
 						}
@@ -1892,6 +1910,9 @@
 							"include": "#string"
 						},
 						{
+							"include": "#format_informat"
+						},
+						{
 							"name": "keyword.other.ods.file.sas",
 							"match": "(?i)\\b(BLKSIZE|COLUMN|DELIMITER|DLMSOPT|DLMSTR|ENCODING|FILENAME|FILEVAR|HEADER|LINE|LINESIZE|LINESLEFT|LRECL|MEMVAR|N|PAGESIZE|RECFM|_FILE_)\\s*(?==)"
 						},
@@ -1918,6 +1939,9 @@
 							"include": "#string"
 						},
 						{
+							"include": "#format_informat"
+						},
+						{
 							"name": "keyword.other.ods.format.sas",
 							"match": "(?i)\\b(DEFAULT)\\s*(?==)"
 						}
@@ -1938,6 +1962,9 @@
 						},
 						{
 							"include": "#string"
+						},
+						{
+							"include": "#format_informat"
 						},
 						{
 							"name": "keyword.other.ods.infile.sas",
@@ -1966,6 +1993,9 @@
 							"include": "#string"
 						},
 						{
+							"include": "#format_informat"
+						},
+						{
 							"name": "keyword.other.ods.informat.sas",
 							"match": "(?i)\\b(DEFAULT)\\s*(?==)"
 						}
@@ -1988,6 +2018,9 @@
 							"include": "#string"
 						},
 						{
+							"include": "#format_informat"
+						},
+						{
 							"name": "keyword.other.ods.length.sas",
 							"match": "(?i)\\b(DEFAULT)\\s*(?==)"
 						}
@@ -2008,6 +2041,9 @@
 						},
 						{
 							"include": "#string"
+						},
+						{
+							"include": "#data_set_option"
 						},
 						{
 							"name": "keyword.other.ods.merge.sas",
@@ -2036,6 +2072,9 @@
 							"include": "#string"
 						},
 						{
+							"include": "#data_set_option"
+						},
+						{
 							"name": "keyword.other.ods.modify.sas",
 							"match": "(?i)\\b(CUROBS|END|KEY|KEYRESET|NOBS|POINT|UPDATEMODE)\\s*(?==)"
 						},
@@ -2062,6 +2101,9 @@
 							"include": "#string"
 						},
 						{
+							"include": "#format_informat"
+						},
+						{
 							"name": "keyword.other.ods.put.sas",
 							"match": "(?i)\\b(_ODS_|OVERPRINT|_BLANKPAGE_|_PAGE_|ERROR|NOTE|WARNING)\\b"
 						}
@@ -2082,6 +2124,9 @@
 						},
 						{
 							"include": "#string"
+						},
+						{
+							"include": "#format_informat"
 						},
 						{
 							"name": "keyword.other.ods.putlog.sas",
@@ -2128,6 +2173,9 @@
 							"include": "#string"
 						},
 						{
+							"include": "#data_set_option"
+						},
+						{
 							"name": "keyword.other.ods.set.sas",
 							"match": "(?i)\\b(CUROBS|END|INDSNAME|KEY|KEYRESET|NOBS|OPEN|POINT)\\s*(?==)"
 						},
@@ -2152,6 +2200,9 @@
 						},
 						{
 							"include": "#string"
+						},
+						{
+							"include": "#data_set_option"
 						},
 						{
 							"name": "keyword.other.ods.update.sas",
@@ -2184,11 +2235,15 @@
 			]
 		},
 		"data_set_option": {
-			"begin": "(?i)(?<=(DATA|SET))\\b",
+			"begin": "(?i)(?<=(DATA|MERGE|MODIFY|SET|UPDATE))\\b",
 			"end": "(\\B|\\b)(?=\\s*;)",
 			"patterns": [
 				{
 					"include": "#subglobal"
+				},
+				{
+					"name": "keyword.other.sas",
+					"match": "(?i)(?<=DATA.*\\b)(_(NULL|DATA|LAST)_)"
 				},
 				{
 					"begin": "(?i)(?<=\\s+[A-Z&_][\\d\\w&_.]*\\s*)\\(",

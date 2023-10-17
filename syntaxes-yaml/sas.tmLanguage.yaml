@@ -123,6 +123,12 @@ repository:
       - name: string.quoted.single.sas
         begin: (')
         end: \1
+      - name: macro.literal.sas
+        begin: (?i)(?<=%LET\s+\w+.*=)(\b|\B)
+        end: (\b(?=;)|\B(?=;))
+        patterns:
+          - include: '#macro'
+          - include: '#function'
 
   # operator
   # ref: SAS Operators
@@ -243,6 +249,10 @@ repository:
                 match: (?i)\b(ANCHOR|BOX_SIZING|CSSSTYLE|DEVICE|EVENT|FILE|ID|NEWCHAPTER|STYLE|STYLESHEET|TITLE|WORK)\s*(?==)
               - name: keyword.other.ods.epub3.sas
                 match: (?i)\b(CLOSE|EXCLUDE|ALL|NONE|SELECT|SHOW|DOM|GFOOTNOTE|NOGFOOTNOTE|GTITLE|NOGTITLE|IMAGE_DPI|OPTIONS)\b
+          - begin: (?i)(?<=(^|;|\w+:)\s*ODS\s+ESCAPECHAR)\b(?=\s*=)
+            end: (\b(?=;)|\B(?=;))
+            patterns:
+              - include: '#string'
           - begin: (?i)(?<=(^|;|\w+:)\s*ODS\s+EXCEL)\b(?!\s*=)
             end: (\b(?=;)|\B(?=;))
             patterns:
@@ -557,6 +567,10 @@ repository:
                 match: (?i)\b(ANCHOR|AUTHOR|BASE|BOX_SIZING|COLUMNS|DEVICE|ENCODING|FILE|ID|NEWFILE|OPERATOR|CONTENTS|PAGEPANELS|PATH|PREPAGE|RECORD_SEPARATOR|STARTPAGE|STYLE|TABLEROWS|TEXT|TRANTAB)\s*(?==)
               - name: keyword.other.ods.tagsets.rtf.sas
                 match: (?i)\b(CLOSE|EXCLUDE|ALL|NONE|SELECT|SHOW|GFOOTNOTE|NOGFOOTNOTE|GTITLE|NOGTITLE|IMAGE_DPI|OPTIONS|PACKAGE|UNIFORM|MEAS_EVENT_MAP|MEAS_SHORT_MAP|MEAS_TEXT_MAP)\b
+          - begin: (?i)(?<=(^|;|\w+:)\s*ODS\s+TEXT)\b(?=\s*=)
+            end: (\b(?=;)|\B(?=;))
+            patterns:
+              - include: '#string'
           - begin: (?i)(?<=(^|;|\w+:)\s*ODS\s+TRACE)\b(?!\s*=)
             end: (\b(?=;)|\B(?=;))
             patterns:
@@ -809,17 +823,9 @@ repository:
         name: keyword.data.sas
     patterns:
       - include: '#global'
-      - include: '#data_step_statment_keyword'
       - include: '#data_set_option'
       - include: '#format_informat'
-      - begin: (?i)(?<=(^|;|\w+:)\s*DATA)\b
-        end: ;
-        patterns:
-          - include: '#subglobal'
-          - include: '#data_set_option'
-          # special dataset
-          - name: keyword.other.sas
-            match: (?i)(?<=(^|;|\w+:)\s*DATA\s+)(_(NULL|DATA|LAST)_)
+      - include: '#data_step_statment_keyword'
 
   ## Data step statment keyword
   ## ref: Dictionary of SAS DATA Step Statements
@@ -885,6 +891,7 @@ repository:
           - include: '#constant'
           - include: '#macro'
           - include: '#string'
+          - include: '#format_informat'
           - name: keyword.other.ods.array.sas
             match: (?i)\b(VARCHAR)\b
       - begin: (?i)(?<=(^|;|\w+:)\s*BY)\b(?!\s*=)
@@ -912,6 +919,7 @@ repository:
           - include: '#constant'
           - include: '#macro'
           - include: '#string'
+          - include: '#format_informat'
           - name: keyword.other.ods.file.sas
             match: (?i)\b(BLKSIZE|COLUMN|DELIMITER|DLMSOPT|DLMSTR|ENCODING|FILENAME|FILEVAR|HEADER|LINE|LINESIZE|LINESLEFT|LRECL|MEMVAR|N|PAGESIZE|RECFM|_FILE_)\s*(?==)
           - name: keyword.other.ods.file.sas
@@ -923,6 +931,7 @@ repository:
           - include: '#constant'
           - include: '#macro'
           - include: '#string'
+          - include: '#format_informat'
           - name: keyword.other.ods.format.sas
             match: (?i)\b(DEFAULT)\s*(?==)
       - begin: (?i)(?<=(^|;|\w+:)\s*INFILE)\b(?!\s*=)
@@ -932,6 +941,7 @@ repository:
           - include: '#constant'
           - include: '#macro'
           - include: '#string'
+          - include: '#format_informat'
           - name: keyword.other.ods.infile.sas
             match: (?i)\b(BLKSIZE|COLUMN|DELIMITER|DLMSTR|DLMSOPT|ENCODING|END|EOF|EOV|FILENAME|FILEVAR|FIRSTOBS|LENGTH|LINE|LINESIZE|LRECL|MEMVAR|N|NBYTE|OBS|RECFM|RESET|START|STATUS|_INFILE_)\s*(?==)
           - name: keyword.other.ods.infile.sas
@@ -943,6 +953,7 @@ repository:
           - include: '#constant'
           - include: '#macro'
           - include: '#string'
+          - include: '#format_informat'
           - name: keyword.other.ods.informat.sas
             match: (?i)\b(DEFAULT)\s*(?==)
       - begin: (?i)(?<=(^|;|\w+:)\s*LENGTH)\b(?!\s*=)
@@ -952,6 +963,7 @@ repository:
           - include: '#constant'
           - include: '#macro'
           - include: '#string'
+          - include: '#format_informat'
           - name: keyword.other.ods.length.sas
             match: (?i)\b(DEFAULT)\s*(?==)
       - begin: (?i)(?<=(^|;|\w+:)\s*MERGE)\b(?!\s*=)
@@ -961,6 +973,7 @@ repository:
           - include: '#constant'
           - include: '#macro'
           - include: '#string'
+          - include: '#data_set_option'
           - name: keyword.other.ods.merge.sas
             match: (?i)\b(END)\s*(?==)
           - name: keyword.other.ods.merge.sas
@@ -972,6 +985,7 @@ repository:
           - include: '#constant'
           - include: '#macro'
           - include: '#string'
+          - include: '#data_set_option'
           - name: keyword.other.ods.modify.sas
             match: (?i)\b(CUROBS|END|KEY|KEYRESET|NOBS|POINT|UPDATEMODE)\s*(?==)
           - name: keyword.other.ods.modify.sas
@@ -983,6 +997,7 @@ repository:
           - include: '#constant'
           - include: '#macro'
           - include: '#string'
+          - include: '#format_informat'
           - name: keyword.other.ods.put.sas
             match: (?i)\b(_ODS_|OVERPRINT|_BLANKPAGE_|_PAGE_|ERROR|NOTE|WARNING)\b
       - begin: (?i)(?<=(^|;|\w+:)\s*PUTLOG)\b(?!\s*=)
@@ -992,6 +1007,7 @@ repository:
           - include: '#constant'
           - include: '#macro'
           - include: '#string'
+          - include: '#format_informat'
           - name: keyword.other.ods.putlog.sas
             match: (?i)\b(ERROR|NOTE|WARNING)\b
       - begin: (?i)(?<=(^|;|\w+:)\s*REDIRECT)\b(?!\s*=)
@@ -1010,6 +1026,7 @@ repository:
           - include: '#constant'
           - include: '#macro'
           - include: '#string'
+          - include: '#data_set_option'
           - name: keyword.other.ods.set.sas
             match: (?i)\b(CUROBS|END|INDSNAME|KEY|KEYRESET|NOBS|OPEN|POINT)\s*(?==)
           - name: keyword.other.ods.set.sas
@@ -1021,6 +1038,7 @@ repository:
           - include: '#constant'
           - include: '#macro'
           - include: '#string'
+          - include: '#data_set_option'
           - name: keyword.other.ods.update.sas
             match: (?i)\b(END|UPDATEMODE)\s*(?==)
       - begin: (?i)(?<=(^|;|\w+:)\s*WINDOW)\b(?!\s*=)
@@ -1038,10 +1056,13 @@ repository:
   ## ref: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/ledsoptsref/p1pczmnhbq4axpn1l15s9mk6mobp.htm
   ## for data step
   data_set_option:
-    begin: (?i)(?<=(DATA|SET))\b
+    begin: (?i)(?<=(DATA|MERGE|MODIFY|SET|UPDATE))\b
     end: (\B|\b)(?=\s*;)
     patterns:
       - include: '#subglobal'
+      # special dataset
+      - name: keyword.other.sas
+        match: (?i)(?<=DATA.*\b)(_(NULL|DATA|LAST)_)
       - begin: (?i)(?<=\s+[A-Z&_][\d\w&_.]*\s*)\(
         end: \)
         patterns:
