@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.0.6] - 2025-10-31
+### Changed
+- Change extension name and icon
+### Fixed
+- Some bugfixes
+
 ## [0.0.5] - 2023-10-17
 ### Added
 - Add keywords in DATA step

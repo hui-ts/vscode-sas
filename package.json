@@ -2,7 +2,7 @@
     "name": "vscode-sas",
     "displayName": "SAS Syntax Highlight",
     "description": "Visual Studio Code SAS Syntax",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "icon": "resources/image/icon/icon.png",
     "publisher": "hui-ts",
     "author": {
