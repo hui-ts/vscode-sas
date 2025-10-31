@@ -1,7 +1,7 @@
 # Visual Studio Code SAS Syntax
 
-[![VS Marketplace Version](https://vsmarketplacebadges.dev/version-short/hui-ts.vscode-sas.svg?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=hui-ts.vscode-sas)
-[![Total Install](https://vsmarketplacebadges.dev/installs/hui-ts.vscode-sas.svg?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=hui-ts.vscode-sas)
+[![VS Marketplace Version](https://vsmarketplacebadges.dev/version-short/hui-ts.vscode-sas.png?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=hui-ts.vscode-sas)
+[![Total Install](https://vsmarketplacebadges.dev/installs/hui-ts.vscode-sas.png?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=hui-ts.vscode-sas)
 
 Syntax highlighting for SAS in Visual Studio Code
 
@@ -81,6 +81,6 @@ Read [changelog](CHANGELOG.md).
 ## More
 
  - I develop this project because I need a SAS syntax highlighter to facilitate my work, but the existing SAS syntax highlighters have some bugs in my SAS code. Thus, I focus only on the syntax I need but do not exclude the possibility of implementing more syntax highlighting.
- - Not until developing the TextMate grammar for SAS did I realise it was pretty tough. The reason is SAS syntax has no simple but universal rules.
+ - Not until developing the TextMate grammar for SAS did I realise it was pretty tough. The reason is SAS syntax has no simple or universal rules.
  - If you like this extension, you may [buy me a coffee](https://ko-fi.com/huits). <a href='https://ko-fi.com/huits' target='_blank'><img height='28px' src='https://cdn.ko-fi.com/cdn/kofi1.png?v=3' alt='Buy Me a Coffee at ko-fi.com'/></a>
  - **Enjoy!**
