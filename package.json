@@ -1,6 +1,6 @@
 {
     "name": "vscode-sas",
-    "displayName": "SAS",
+    "displayName": "SAS Syntax Highlight",
     "description": "Visual Studio Code SAS Syntax",
     "version": "0.0.5",
     "icon": "resources/image/icon/icon.png",
