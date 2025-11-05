@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.0.7] - 2025-11-05
+### Changed
+- Change extension name and icon
+
 ## [0.0.6] - 2025-10-31
 ### Changed
 - Change extension name and icon
